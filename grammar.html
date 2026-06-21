@@ -1,0 +1,410 @@
+<!doctype html>
+<html lang="ro">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Gramatică · English Zero→Hero</title>
+<meta name="theme-color" content="#050818">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#050818;--green:#00e676;--blue:#00b4ff;--frost:rgba(255,255,255,.92);--frost2:rgba(255,255,255,.55);--frost3:rgba(255,255,255,.18);--glass:rgba(255,255,255,.06);--border:rgba(255,255,255,.09);}
+html,body{min-height:100%;background:var(--bg);color:var(--frost);font-family:'Inter',-apple-system,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+.bg{position:fixed;inset:0;background:radial-gradient(ellipse 65% 50% at 20% 15%,rgba(0,230,118,.14),transparent 65%),radial-gradient(ellipse 55% 45% at 80% 80%,rgba(0,180,255,.12),transparent 60%),#050818}
+.hdr{position:fixed;top:0;left:0;right:0;z-index:100;padding:13px 20px;display:flex;align-items:center;gap:12px;background:rgba(5,8,24,.88);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
+.back{width:36px;height:36px;border-radius:11px;border:1px solid var(--border);background:var(--glass);display:flex;align-items:center;justify-content:center;font-size:16px;text-decoration:none;color:var(--frost);flex-shrink:0}
+.back:hover{border-color:rgba(0,230,118,.4);background:rgba(0,230,118,.1)}
+.hdr-t{font-size:14px;font-weight:700;flex:1}
+.main{padding:78px 20px 48px;position:relative;z-index:10;display:flex;flex-direction:column;align-items:center;gap:14px}
+.page-title{width:100%;max-width:480px;text-align:center;padding:24px 0 8px}
+.page-title h1{font-size:clamp(22px,6vw,34px);font-weight:900;letter-spacing:-.02em;background:linear-gradient(130deg,var(--green),var(--blue));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+
+/* Section cards */
+.gcard{width:100%;max-width:480px;background:var(--glass);border:1px solid var(--border);border-radius:24px;overflow:hidden;backdrop-filter:blur(20px);transition:border-color .25s}
+.gcard:hover{border-color:rgba(0,230,118,.2)}
+.gcard-head{padding:20px 22px 16px;display:flex;align-items:center;gap:14px;cursor:pointer;user-select:none}
+.g-badge{font-size:22px;min-width:52px;height:52px;border-radius:14px;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,rgba(0,230,118,.22),rgba(0,230,118,.06));border:1px solid rgba(0,230,118,.28);flex-shrink:0}
+.ginfo{flex:1}
+.gtitle{font-size:16px;font-weight:700;margin-bottom:3px;text-transform:uppercase}
+.gsub{font-size:12.5px;color:var(--frost2);text-transform:uppercase}
+.toggle{font-size:20px;transition:transform .3s;color:var(--frost3)}
+.gcard.open .toggle{transform:rotate(180deg)}
+.gbody{display:none;padding:0 22px 22px}
+.gcard.open .gbody{display:block}
+.sec-lbl{font-size:10px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--green);opacity:.75;margin-bottom:10px}
+
+/* To Be */
+.be-table{width:100%;border-collapse:collapse;margin-bottom:16px}
+.be-table td{padding:10px 12px;font-size:13px;border-bottom:1px solid var(--border);vertical-align:middle}
+.be-table tr:last-child td{border-bottom:none}
+.be-table tr{cursor:pointer;transition:background .2s}
+.be-table tr:hover{background:rgba(0,230,118,.07)}
+.be-pro{color:var(--frost2);font-weight:600;font-size:12px;text-transform:uppercase;width:32%}
+.be-form{font-weight:900;font-size:16px;color:var(--green)}
+.be-ph{font-size:10px;font-weight:700;color:rgba(0,230,118,.6);letter-spacing:.04em;text-transform:uppercase}
+.be-ro{font-size:12px;color:var(--frost2);text-transform:uppercase;text-align:right}
+.shorts{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}
+.short-pill{background:rgba(0,230,118,.1);border:1px solid rgba(0,230,118,.25);border-radius:20px;padding:6px 14px;font-size:13px;font-weight:700;cursor:pointer;transition:all .2s}
+.short-pill:hover{background:rgba(0,230,118,.22);transform:scale(1.05)}
+
+/* Questions & example rows */
+.row-list{display:flex;flex-direction:column;gap:8px;margin-bottom:14px}
+.qrow{background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:14px;padding:12px 14px;cursor:pointer;transition:all .2s}
+.qrow:hover{background:rgba(0,230,118,.07);border-color:rgba(0,230,118,.25)}
+.qrow-en{font-size:15px;font-weight:700;margin-bottom:4px;display:flex;align-items:center;gap:8px}
+.qrow-ph{font-size:11px;font-weight:700;color:var(--green);letter-spacing:.04em;text-transform:uppercase;margin-bottom:3px}
+.qrow-ro{font-size:12px;color:var(--frost2);text-transform:uppercase}
+.play{font-size:16px;opacity:.6;flex-shrink:0}
+
+/* Rule box */
+.rule-box{background:rgba(0,230,118,.07);border:1px solid rgba(0,230,118,.2);border-radius:14px;padding:14px 16px;margin-bottom:14px;font-size:13px;line-height:1.7;text-transform:uppercase}
+.rule-box strong{color:var(--green)}
+
+/* Verb accordion */
+.vacc{display:flex;flex-direction:column;gap:6px;margin-bottom:14px}
+.vitem{border:1px solid var(--border);border-radius:14px;overflow:hidden;background:rgba(255,255,255,.03);transition:border-color .2s}
+.vitem.open{border-color:rgba(0,230,118,.3)}
+.vitem-head{display:flex;align-items:center;gap:10px;padding:13px 14px;cursor:pointer;user-select:none}
+.vitem.open .vitem-head{border-bottom:1px solid var(--border)}
+.vi-emo{font-size:18px;flex-shrink:0}
+.vi-name{font-size:15px;font-weight:900;letter-spacing:.04em}
+.vi-ro{font-size:11px;color:var(--frost2);margin-left:auto;text-transform:uppercase;padding-left:8px}
+.vi-arr{font-size:15px;color:var(--frost3);transition:transform .3s;flex-shrink:0;margin-left:6px}
+.vitem.open .vi-arr{transform:rotate(180deg)}
+.vitem-body{display:none}
+.vitem.open .vitem-body{display:grid;grid-template-columns:1fr 1fr}
+.vcol{padding:12px 10px}
+.vpos{border-right:1px solid var(--border);background:rgba(0,230,118,.04)}
+.vneg{background:rgba(255,80,60,.04)}
+.vcol-lbl{font-size:9px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;margin-bottom:10px}
+.vpos .vcol-lbl{color:rgba(0,230,118,.9)}
+.vneg .vcol-lbl{color:rgba(255,110,90,.9)}
+.vform{padding:7px 8px;border-radius:10px;cursor:pointer;transition:background .2s;margin-bottom:4px}
+.vpos .vform:hover{background:rgba(0,230,118,.14)}
+.vneg .vform:hover{background:rgba(255,80,60,.1)}
+.vf-en{font-size:13px;font-weight:700;margin-bottom:2px;text-transform:uppercase}
+.vf-ph{font-size:10px;font-weight:700;letter-spacing:.04em;margin-bottom:2px;text-transform:uppercase}
+.vpos .vf-ph{color:rgba(0,230,118,.85)}
+.vneg .vf-ph{color:rgba(255,120,100,.85)}
+.vf-ro{font-size:10.5px;color:var(--frost2);text-transform:uppercase}
+
+/* Numbers */
+.num-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:14px}
+.tens-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-bottom:14px}
+.ncell{background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:12px;padding:10px 6px;text-align:center;cursor:pointer;transition:all .2s}
+.ncell:hover{background:rgba(0,230,118,.08);border-color:rgba(0,230,118,.25)}
+.ncell-n{font-size:16px;font-weight:900;color:var(--green)}
+.ncell-w{font-size:11px;font-weight:700;text-transform:uppercase;margin-top:2px}
+.ncell-ph{font-size:9px;color:var(--frost2);text-transform:uppercase;margin-top:1px}
+
+/* Colors */
+.col-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.ccell{border-radius:14px;padding:14px 8px;text-align:center;cursor:pointer;transition:all .2s;border:1px solid rgba(255,255,255,.1)}
+.ccell:hover{transform:scale(1.05)}
+.cdot{width:34px;height:34px;border-radius:50%;margin:0 auto 8px}
+.ccell-en{font-size:13px;font-weight:700;text-transform:uppercase;margin-bottom:2px}
+.ccell-ph{font-size:9.5px;font-weight:700;color:var(--green);letter-spacing:.04em;text-transform:uppercase;margin-bottom:2px}
+.ccell-ro{font-size:11px;color:var(--frost2);text-transform:uppercase}
+
+/* Tip */
+.tip-box{background:rgba(0,230,118,.07);border:1px solid rgba(0,230,118,.18);border-radius:14px;padding:12px 14px;margin-top:4px;font-size:12px;color:rgba(160,255,200,.85);line-height:1.55;text-transform:uppercase}
+</style>
+</head>
+<body>
+<div class="bg"></div>
+<header class="hdr">
+  <a class="back" href="index.html">←</a>
+  <div class="hdr-t">Gramatică de Bază</div>
+</header>
+<main class="main">
+  <div class="page-title"><h1>Gramatică de Bază</h1></div>
+  <div id="cards-wrap"></div>
+</main>
+<script>
+const SECTIONS=[
+  {badge:'📌',title:'Verbul TO BE',sub:'Sunt · Ești · Este',build:buildTobe},
+  {badge:'❓',title:'Întrebări de Bază',sub:'Cum? Unde? Câți ani?',build:buildQuestions},
+  {badge:'⚡',title:'Prezentul Simplu',sub:'Verbe uzuale · Pozitiv & Negativ',build:buildPresent},
+  {badge:'🔢',title:'Numere',sub:'1 – 100',build:buildNumbers},
+  {badge:'🎨',title:'Culori',sub:'Red · Blue · Green...',build:buildColors},
+];
+
+const TOBE=[
+  {pro:'I',form:'AM',ph:'AM',ro:'Eu sunt'},
+  {pro:'You',form:'ARE',ph:'AR',ro:'Tu ești'},
+  {pro:'He / She / It',form:'IS',ph:'IZ',ro:'El / Ea este'},
+  {pro:'We',form:'ARE',ph:'AR',ro:'Noi suntem'},
+  {pro:'You',form:'ARE',ph:'AR',ro:'Voi sunteți'},
+  {pro:'They',form:'ARE',ph:'AR',ro:'Ei sunt'},
+];
+const SHORTS=["I'm","You're","He's","She's","It's","We're","They're"];
+
+const QUESTIONS=[
+  {en:'What is your name?',ph:'UOT IZ IOR NEIM?',ro:'Cum te numești?'},
+  {en:'How are you?',ph:'HAU AR IU?',ro:'Ce mai faci?'},
+  {en:'Where are you from?',ph:'UER AR IU FROM?',ro:'De unde ești?'},
+  {en:'How old are you?',ph:'HAU OLD AR IU?',ro:'Câți ani ai?'},
+  {en:'What do you do?',ph:'UOT DU IU DU?',ro:'Ce lucrezi?'},
+  {en:'Do you speak English?',ph:'DU IU SPIIK INGLIȘ?',ro:'Vorbești engleză?'},
+  {en:'Where do you live?',ph:'UER DU IU LIV?',ro:'Unde locuiești?'},
+  {en:'What time is it?',ph:'UOT TAIM IZ IT?',ro:'Cât e ceasul?'},
+];
+
+const VERBS=[
+  {v:'have',ph:'HAV',he:'has',phe:'HAZ',ro:'a avea',e:'🤝',
+   i_ro:'Eu am',she_ro:'Ea are',i_neg:'Eu nu am',she_neg:'Ea nu are'},
+  {v:'want',ph:'UONT',he:'wants',phe:'UONTS',ro:'a vrea',e:'✨',
+   i_ro:'Eu vreau',she_ro:'Ea vrea',i_neg:'Eu nu vreau',she_neg:'Ea nu vrea'},
+  {v:'need',ph:'NIID',he:'needs',phe:'NIIDZ',ro:'a avea nevoie',e:'💡',
+   i_ro:'Am nevoie',she_ro:'Are nevoie',i_neg:'Nu am nevoie',she_neg:'Nu are nevoie'},
+  {v:'like',ph:'LAIK',he:'likes',phe:'LAIKS',ro:'a-i plăcea',e:'❤️',
+   i_ro:'Îmi place',she_ro:'Îi place',i_neg:'Nu îmi place',she_neg:'Nu îi place'},
+  {v:'love',ph:'LAV',he:'loves',phe:'LAVZ',ro:'a iubi',e:'💕',
+   i_ro:'Eu iubesc',she_ro:'Ea iubește',i_neg:'Eu nu iubesc',she_neg:'Ea nu iubește'},
+  {v:'know',ph:'NOU',he:'knows',phe:'NOUZ',ro:'a ști',e:'🧠',
+   i_ro:'Eu știu',she_ro:'Ea știe',i_neg:'Eu nu știu',she_neg:'Ea nu știe'},
+  {v:'think',ph:'ΘINK',he:'thinks',phe:'ΘINKS',ro:'a gândi',e:'🤔',
+   i_ro:'Eu cred',she_ro:'Ea crede',i_neg:'Eu nu cred',she_neg:'Ea nu crede'},
+  {v:'see',ph:'SII',he:'sees',phe:'SIIZ',ro:'a vedea',e:'👁️',
+   i_ro:'Eu văd',she_ro:'Ea vede',i_neg:'Eu nu văd',she_neg:'Ea nu vede'},
+  {v:'look',ph:'LUK',he:'looks',phe:'LUKS',ro:'a privi',e:'👀',
+   i_ro:'Eu privesc',she_ro:'Ea privește',i_neg:'Eu nu privesc',she_neg:'Ea nu privește'},
+  {v:'go',ph:'GOU',he:'goes',phe:'GOUZ',ro:'a merge',e:'🚶',
+   i_ro:'Eu merg',she_ro:'Ea merge',i_neg:'Eu nu merg',she_neg:'Ea nu merge'},
+  {v:'come',ph:'KAM',he:'comes',phe:'KAMZ',ro:'a veni',e:'🔄',
+   i_ro:'Eu vin',she_ro:'Ea vine',i_neg:'Eu nu vin',she_neg:'Ea nu vine'},
+  {v:'get',ph:'GET',he:'gets',phe:'GETS',ro:'a obține',e:'📦',
+   i_ro:'Eu obțin',she_ro:'Ea obține',i_neg:'Eu nu obțin',she_neg:'Ea nu obține'},
+  {v:'make',ph:'MEIK',he:'makes',phe:'MEIKS',ro:'a face',e:'🔨',
+   i_ro:'Eu fac',she_ro:'Ea face',i_neg:'Eu nu fac',she_neg:'Ea nu face'},
+  {v:'give',ph:'GIV',he:'gives',phe:'GIVZ',ro:'a da',e:'🎁',
+   i_ro:'Eu dau',she_ro:'Ea dă',i_neg:'Eu nu dau',she_neg:'Ea nu dă'},
+  {v:'take',ph:'TEIK',he:'takes',phe:'TEIKS',ro:'a lua',e:'🖐️',
+   i_ro:'Eu iau',she_ro:'Ea ia',i_neg:'Eu nu iau',she_neg:'Ea nu ia'},
+  {v:'eat',ph:'IIT',he:'eats',phe:'IITS',ro:'a mânca',e:'🍽️',
+   i_ro:'Eu mănânc',she_ro:'Ea mănâncă',i_neg:'Eu nu mănânc',she_neg:'Ea nu mănâncă'},
+  {v:'drink',ph:'DRINK',he:'drinks',phe:'DRINKS',ro:'a bea',e:'🥤',
+   i_ro:'Eu beau',she_ro:'Ea bea',i_neg:'Eu nu beau',she_neg:'Ea nu bea'},
+  {v:'sleep',ph:'SLIIP',he:'sleeps',phe:'SLIIPS',ro:'a dormi',e:'😴',
+   i_ro:'Eu dorm',she_ro:'Ea doarme',i_neg:'Eu nu dorm',she_neg:'Ea nu doarme'},
+  {v:'work',ph:'UORK',he:'works',phe:'UORKS',ro:'a lucra',e:'💼',
+   i_ro:'Eu lucrez',she_ro:'Ea lucrează',i_neg:'Eu nu lucrez',she_neg:'Ea nu lucrează'},
+  {v:'live',ph:'LIV',he:'lives',phe:'LIVZ',ro:'a locui',e:'🏠',
+   i_ro:'Eu locuiesc',she_ro:'Ea locuiește',i_neg:'Eu nu locuiesc',she_neg:'Ea nu locuiește'},
+  {v:'speak',ph:'SPIIK',he:'speaks',phe:'SPIIKS',ro:'a vorbi',e:'🗣️',
+   i_ro:'Eu vorbesc',she_ro:'Ea vorbește',i_neg:'Eu nu vorbesc',she_neg:'Ea nu vorbește'},
+  {v:'listen',ph:'LISN',he:'listens',phe:'LISNZ',ro:'a asculta',e:'👂',
+   i_ro:'Eu ascult',she_ro:'Ea ascultă',i_neg:'Eu nu ascult',she_neg:'Ea nu ascultă'},
+  {v:'read',ph:'RIID',he:'reads',phe:'RIIDZ',ro:'a citi',e:'📖',
+   i_ro:'Eu citesc',she_ro:'Ea citește',i_neg:'Eu nu citesc',she_neg:'Ea nu citește'},
+  {v:'write',ph:'RAIT',he:'writes',phe:'RAITS',ro:'a scrie',e:'✏️',
+   i_ro:'Eu scriu',she_ro:'Ea scrie',i_neg:'Eu nu scriu',she_neg:'Ea nu scrie'},
+  {v:'buy',ph:'BAI',he:'buys',phe:'BAIZ',ro:'a cumpăra',e:'🛍️',
+   i_ro:'Eu cumpăr',she_ro:'Ea cumpără',i_neg:'Eu nu cumpăr',she_neg:'Ea nu cumpără'},
+  {v:'pay',ph:'PEI',he:'pays',phe:'PEIZ',ro:'a plăti',e:'💳',
+   i_ro:'Eu plătesc',she_ro:'Ea plătește',i_neg:'Eu nu plătesc',she_neg:'Ea nu plătește'},
+  {v:'play',ph:'PLEI',he:'plays',phe:'PLEIZ',ro:'a se juca',e:'🎮',
+   i_ro:'Eu mă joc',she_ro:'Ea se joacă',i_neg:'Eu nu mă joc',she_neg:'Ea nu se joacă'},
+  {v:'help',ph:'HELP',he:'helps',phe:'HELPS',ro:'a ajuta',e:'🤗',
+   i_ro:'Eu ajut',she_ro:'Ea ajută',i_neg:'Eu nu ajut',she_neg:'Ea nu ajută'},
+  {v:'try',ph:'TRAI',he:'tries',phe:'TRAIZ',ro:'a încerca',e:'💪',
+   i_ro:'Eu încerc',she_ro:'Ea încearcă',i_neg:'Eu nu încerc',she_neg:'Ea nu încearcă'},
+  {v:'ask',ph:'ASK',he:'asks',phe:'ASKS',ro:'a întreba',e:'❓',
+   i_ro:'Eu întreb',she_ro:'Ea întreabă',i_neg:'Eu nu întreb',she_neg:'Ea nu întreabă'},
+];
+
+const NUMS=[
+  {n:1,w:'One',ph:'UAN'},{n:2,w:'Two',ph:'TUU'},{n:3,w:'Three',ph:'ΘRII'},{n:4,w:'Four',ph:'FOR'},
+  {n:5,w:'Five',ph:'FAIV'},{n:6,w:'Six',ph:'SIKS'},{n:7,w:'Seven',ph:'SEVN'},{n:8,w:'Eight',ph:'EIT'},
+  {n:9,w:'Nine',ph:'NAIN'},{n:10,w:'Ten',ph:'TEN'},{n:11,w:'Eleven',ph:'ILEVN'},{n:12,w:'Twelve',ph:'TUELV'},
+  {n:13,w:'Thirteen',ph:'ΘERTIIN'},{n:14,w:'Fourteen',ph:'FORTIIN'},{n:15,w:'Fifteen',ph:'FIFTIIN'},{n:16,w:'Sixteen',ph:'SIKSTIIN'},
+  {n:17,w:'Seventeen',ph:'SEVNTIIN'},{n:18,w:'Eighteen',ph:'EITTIIN'},{n:19,w:'Nineteen',ph:'NAINTIIN'},{n:20,w:'Twenty',ph:'TUENTI'},
+];
+const TENS=[
+  {n:30,w:'Thirty',ph:'ΘERTI'},{n:40,w:'Forty',ph:'FORTI'},
+  {n:50,w:'Fifty',ph:'FIFTI'},{n:60,w:'Sixty',ph:'SIKSTI'},
+  {n:70,w:'Seventy',ph:'SEVNTI'},{n:80,w:'Eighty',ph:'EITI'},
+  {n:90,w:'Ninety',ph:'NAINTI'},{n:100,w:'One hundred',ph:'UAN HANDRED'},
+];
+const COLORS=[
+  {en:'Red',ph:'RED',ro:'Roșu',hex:'#e53935'},
+  {en:'Blue',ph:'BLUU',ro:'Albastru',hex:'#1e88e5'},
+  {en:'Green',ph:'GRIIN',ro:'Verde',hex:'#43a047'},
+  {en:'Yellow',ph:'IELOU',ro:'Galben',hex:'#fdd835'},
+  {en:'Orange',ph:'ORINJ',ro:'Portocaliu',hex:'#fb8c00'},
+  {en:'Purple',ph:'PERPL',ro:'Mov',hex:'#8e24aa'},
+  {en:'Pink',ph:'PINK',ro:'Roz',hex:'#e91e8c'},
+  {en:'Black',ph:'BLAK',ro:'Negru',hex:'#1a1a1a',border:'1px solid rgba(255,255,255,.25)'},
+  {en:'White',ph:'UAIT',ro:'Alb',hex:'#eeeeee',border:'1px solid rgba(255,255,255,.25)'},
+  {en:'Brown',ph:'BRAUN',ro:'Maro',hex:'#6d4c41'},
+  {en:'Grey',ph:'GREI',ro:'Gri',hex:'#757575'},
+  {en:'Gold',ph:'GOLD',ro:'Auriu',hex:'#ffc107'},
+];
+
+function buildTobe(){
+  return `
+    <div class="sec-lbl">Conjugare — apasă un rând pentru a auzi</div>
+    <table class="be-table">
+      ${TOBE.map(r=>`<tr onclick="swD(this)" data-w="${r.pro.split('/')[0].trim()} ${r.form}">
+        <td class="be-pro">${r.pro}</td>
+        <td><div class="be-form">${r.form}</div><div class="be-ph">${r.ph}</div></td>
+        <td class="be-ro">${r.ro}</td>
+      </tr>`).join('')}
+    </table>
+    <div class="sec-lbl">Scurtări</div>
+    <div class="shorts">
+      ${SHORTS.map(s=>`<span class="short-pill" onclick="swD(this)" data-w="${s}">${s}</span>`).join('')}
+    </div>
+    <div class="sec-lbl">Exemple</div>
+    <div class="row-list">
+      ${[
+        {en:"I am Ana.",ph:"AI AM ANA",ro:"Eu sunt Ana."},
+        {en:"She is a teacher.",ph:"ȘI IZ Ă TIICER",ro:"Ea este profesoară."},
+        {en:"We are friends.",ph:"UII AR FRENZ",ro:"Noi suntem prieteni."},
+        {en:"They are not here.",ph:"ĐEI AR NOT HIR",ro:"Ei nu sunt aici."},
+      ].map(e=>`<div class="qrow" onclick="swD(this)" data-w="${e.en}">
+        <div class="qrow-en"><span class="play">🔊</span>${e.en}</div>
+        <div class="qrow-ph">${e.ph}</div>
+        <div class="qrow-ro">${e.ro}</div>
+      </div>`).join('')}
+    </div>
+    <div class="tip-box">✅ Negativ: I AM NOT / I'M NOT · SHE IS NOT / SHE ISN'T</div>`;
+}
+
+function buildQuestions(){
+  return `
+    <div class="sec-lbl">Apasă pe întrebare pentru a auzi pronunția</div>
+    <div class="row-list">
+      ${QUESTIONS.map(q=>`<div class="qrow" onclick="swD(this)" data-w="${q.en}">
+        <div class="qrow-en"><span class="play">🔊</span>${q.en}</div>
+        <div class="qrow-ph">${q.ph}</div>
+        <div class="qrow-ro">${q.ro}</div>
+      </div>`).join('')}
+    </div>
+    <div class="tip-box">💡 Exersează zilnic! Spune fiecare întrebare cu voce tare.</div>`;
+}
+
+function buildPresent(){
+  return `
+    <div class="sec-lbl">Regula</div>
+    <div class="rule-box">
+      <strong>I / YOU / WE / THEY</strong> → verb simplu · Negativ: <strong>DON'T</strong> + verb<br>
+      <strong>HE / SHE / IT</strong> → verb + <strong style="color:var(--green)">S</strong> · Negativ: <strong>DOESN'T</strong> + verb
+    </div>
+    <div class="sec-lbl">Apasă pe verb pentru a deschide · Apasă pe formă pentru a auzi</div>
+    <div class="vacc">
+      ${VERBS.map((v,i)=>`<div class="vitem" id="vi-${i}">
+        <div class="vitem-head" onclick="vtoggle(${i})">
+          <span class="vi-emo">${v.e}</span>
+          <span class="vi-name">${v.v.toUpperCase()}</span>
+          <span class="vi-ro">${v.ro}</span>
+          <span class="vi-arr">▾</span>
+        </div>
+        <div class="vitem-body">
+          <div class="vcol vpos">
+            <div class="vcol-lbl">✅ Pozitiv</div>
+            <div class="vform" onclick="swD(this)" data-w="I ${v.v}">
+              <div class="vf-en">🔊 I ${v.v}</div>
+              <div class="vf-ph">AI ${v.ph}</div>
+              <div class="vf-ro">${v.i_ro}</div>
+            </div>
+            <div class="vform" onclick="swD(this)" data-w="She ${v.he}">
+              <div class="vf-en">🔊 She ${v.he}</div>
+              <div class="vf-ph">ȘI ${v.phe}</div>
+              <div class="vf-ro">${v.she_ro}</div>
+            </div>
+          </div>
+          <div class="vcol vneg">
+            <div class="vcol-lbl">❌ Negativ</div>
+            <div class="vform" onclick="swD(this)" data-w="I don't ${v.v}">
+              <div class="vf-en">🔊 I don't ${v.v}</div>
+              <div class="vf-ph">AI DONT ${v.ph}</div>
+              <div class="vf-ro">${v.i_neg}</div>
+            </div>
+            <div class="vform" onclick="swD(this)" data-w="She doesn't ${v.v}">
+              <div class="vf-en">🔊 She doesn't ${v.v}</div>
+              <div class="vf-ph">ȘI DAZNT ${v.ph}</div>
+              <div class="vf-ro">${v.she_neg}</div>
+            </div>
+          </div>
+        </div>
+      </div>`).join('')}
+    </div>
+    <div class="tip-box">⚠️ Nu uita S-ul la HE / SHE / IT! Este cea mai comună greșeală a românilor.</div>`;
+}
+
+function buildNumbers(){
+  return `
+    <div class="sec-lbl">1 — 20</div>
+    <div class="num-grid">
+      ${NUMS.map(n=>`<div class="ncell" onclick="swD(this)" data-w="${n.w}">
+        <div class="ncell-n">${n.n}</div>
+        <div class="ncell-w">${n.w}</div>
+        <div class="ncell-ph">${n.ph}</div>
+      </div>`).join('')}
+    </div>
+    <div class="sec-lbl">Zecile</div>
+    <div class="tens-grid">
+      ${TENS.map(n=>`<div class="ncell" onclick="swD(this)" data-w="${n.w}">
+        <div class="ncell-n">${n.n}</div>
+        <div class="ncell-w">${n.w}</div>
+        <div class="ncell-ph">${n.ph}</div>
+      </div>`).join('')}
+    </div>
+    <div class="tip-box">💡 Combini zecile cu 1-9: TWENTY-ONE (21), THIRTY-FIVE (35), NINETY-NINE (99)</div>`;
+}
+
+function buildColors(){
+  return `
+    <div class="sec-lbl">Apasă pe culoare pentru a auzi</div>
+    <div class="col-grid">
+      ${COLORS.map(c=>`<div class="ccell" onclick="swD(this)" data-w="${c.en}" style="background:${c.hex}22;border-color:${c.hex}55">
+        <div class="cdot" style="background:${c.hex};${c.border?'border:'+c.border:''}"></div>
+        <div class="ccell-en">${c.en}</div>
+        <div class="ccell-ph">${c.ph}</div>
+        <div class="ccell-ro">${c.ro}</div>
+      </div>`).join('')}
+    </div>
+    <div class="tip-box">💡 My favorite color is... = Culoarea mea preferată este...</div>`;
+}
+
+function build(){
+  const wrap=document.getElementById('cards-wrap');
+  wrap.style.cssText='width:100%;max-width:480px;display:flex;flex-direction:column;gap:14px';
+  SECTIONS.forEach((s,i)=>{
+    const card=document.createElement('div');
+    card.className='gcard';
+    card.id='gc-'+i;
+    card.innerHTML=`
+      <div class="gcard-head" onclick="toggle(${i})">
+        <div class="g-badge">${s.badge}</div>
+        <div class="ginfo">
+          <div class="gtitle">${s.title}</div>
+          <div class="gsub">${s.sub}</div>
+        </div>
+        <div class="toggle">▾</div>
+      </div>
+      <div class="gbody">${s.build()}</div>`;
+    wrap.appendChild(card);
+  });
+}
+
+window.toggle=function(i){document.getElementById('gc-'+i).classList.toggle('open');};
+window.vtoggle=function(i){document.getElementById('vi-'+i).classList.toggle('open');};
+window.swD=function(el){sw(el.dataset.w);};
+
+let _v=null;
+function _gv(){
+  if(_v)return _v;
+  const vv=speechSynthesis.getVoices();
+  const pref=['Google US English','Microsoft Aria Online (Natural) - English (United States)','Microsoft Zira - English (United States)','Samantha','Karen'];
+  for(const n of pref){const v=vv.find(x=>x.name===n);if(v){_v=v;return v;}}
+  _v=vv.find(x=>x.lang==='en-US')||vv.find(x=>x.lang.startsWith('en'))||null;
+  return _v;
+}
+speechSynthesis.onvoiceschanged=()=>{_v=null;};
+function sw(w){const u=new SpeechSynthesisUtterance(w);u.lang='en-US';u.rate=.68;u.pitch=1;const v=_gv();if(v)u.voice=v;speechSynthesis.cancel();speechSynthesis.speak(u);}
+build();
+</script>
+</body>
+</html>
