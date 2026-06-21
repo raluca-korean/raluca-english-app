@@ -24,17 +24,15 @@ html,body{min-height:100%;background:var(--bg);color:var(--frost);font-family:'I
 .lcard{width:100%;max-width:420px;background:var(--glass);border:1px solid var(--border);border-radius:32px;padding:36px 28px;backdrop-filter:blur(24px);display:flex;flex-direction:column;align-items:center;position:relative;overflow:hidden;animation:cin .4s cubic-bezier(.34,1.56,.64,1) both}
 @keyframes cin{from{opacity:0;transform:scale(.94) translateY(12px)}to{opacity:1;transform:none}}
 .lcard::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,.06),transparent 50%);pointer-events:none}
-.lbig{font-size:clamp(96px,22vw,144px);font-weight:900;line-height:1;letter-spacing:-.03em;background:linear-gradient(130deg,var(--blue),var(--teal));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;filter:drop-shadow(0 0 40px rgba(0,180,255,.45));margin-bottom:4px;user-select:none}
+.lbig{font-size:clamp(96px,22vw,144px);font-weight:900;line-height:1;letter-spacing:-.03em;background:linear-gradient(130deg,var(--blue),var(--teal));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;filter:drop-shadow(0 0 40px rgba(0,180,255,.45));margin-bottom:4px;user-select:none;cursor:pointer;transition:filter .2s}
+.lbig:active{filter:drop-shadow(0 0 70px rgba(0,180,255,.95))}
+.lbig.playing{animation:lbp 1s ease-in-out infinite}
+@keyframes lbp{0%,100%{filter:drop-shadow(0 0 40px rgba(0,180,255,.45))}50%{filter:drop-shadow(0 0 80px rgba(0,180,255,.95)) drop-shadow(0 0 40px rgba(0,229,204,.6))}}
 .lname{font-size:12px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--frost3);margin-bottom:22px}
 .phbox{width:100%;background:rgba(0,180,255,.07);border:1px solid rgba(0,180,255,.18);border-radius:18px;padding:16px 20px;margin-bottom:22px}
 .phlbl{font-size:10px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--blue);opacity:.7;margin-bottom:6px}
-.phtext{font-size:26px;font-weight:800;letter-spacing:.08em;color:var(--blue);text-shadow:0 0 20px rgba(0,180,255,.35)}
+.phtext{font-size:clamp(52px,14vw,80px);font-weight:900;letter-spacing:.06em;color:var(--blue);text-shadow:0 0 30px rgba(0,180,255,.5);line-height:1.1}
 .phtip{font-size:12px;color:var(--frost2);margin-top:7px;line-height:1.55}
-.abtn{width:62px;height:62px;border-radius:50%;border:none;cursor:pointer;background:linear-gradient(135deg,var(--blue),var(--teal));display:flex;align-items:center;justify-content:center;font-size:24px;box-shadow:0 0 28px rgba(0,180,255,.4);transition:transform .2s cubic-bezier(.34,1.56,.64,1),box-shadow .2s;margin-bottom:24px}
-.abtn:hover{transform:scale(1.12);box-shadow:0 0 50px rgba(0,180,255,.6)}
-.abtn:active{transform:scale(.95)}
-.abtn.playing{animation:abp 1s ease-in-out infinite}
-@keyframes abp{0%,100%{box-shadow:0 0 28px rgba(0,180,255,.4)}50%{box-shadow:0 0 60px rgba(0,180,255,.85),0 0 80px rgba(0,229,204,.4)}}
 .exlbl{font-size:10px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--frost3);margin-bottom:12px;align-self:flex-start}
 .exs{display:flex;gap:10px;width:100%}
 .exc{flex:1;background:rgba(255,255,255,.05);border:1px solid var(--border);border-radius:16px;padding:14px 12px;cursor:pointer;transition:all .25s;text-align:center}
@@ -69,14 +67,13 @@ html,body{min-height:100%;background:var(--bg);color:var(--frost);font-family:'I
 <div class="pbar"><div class="pfill" id="pfill" style="width:3.8%"></div></div>
 <main class="main">
   <div class="lcard" id="card">
-    <div class="lbig" id="lbig">A</div>
+    <div class="lbig" id="lbig" onclick="speak()">A</div>
     <div class="lname" id="lname">Litera A</div>
     <div class="phbox">
       <div class="phlbl" id="phlbl">Pronunță în română</div>
       <div class="phtext" id="phtext"></div>
       <div class="phtip" id="phtip"></div>
     </div>
-    <button class="abtn" id="abtn" onclick="speak()">🔊</button>
     <div class="exlbl" id="exlbl">Exemple</div>
     <div class="exs" id="exs"></div>
   </div>
@@ -153,7 +150,7 @@ function _gv(){
 }
 speechSynthesis.onvoiceschanged=()=>{_v=null;};
 const LN={A:'ay',B:'bee',C:'see',D:'dee',E:'ee',F:'ef',G:'jee',H:'aych',I:'eye',J:'jay',K:'kay',L:'el',M:'em',N:'en',O:'oh',P:'pee',Q:'cue',R:'ar',S:'es',T:'tee',U:'you',V:'vee',W:'double you',X:'ex',Y:'why',Z:'zee'};
-function speak(){const d=A[cur];const btn=document.getElementById('abtn');const u=new SpeechSynthesisUtterance(LN[d.l]||d.l);u.lang='en-US';u.rate=.72;u.pitch=1;const v=_gv();if(v)u.voice=v;btn.classList.add('playing');u.onend=()=>btn.classList.remove('playing');speechSynthesis.cancel();speechSynthesis.speak(u);}
+function speak(){const d=A[cur];const lbig=document.getElementById('lbig');const u=new SpeechSynthesisUtterance(LN[d.l]||d.l);u.lang='en-US';u.rate=.72;u.pitch=1;const v=_gv();if(v)u.voice=v;lbig.classList.add('playing');u.onend=()=>lbig.classList.remove('playing');speechSynthesis.cancel();speechSynthesis.speak(u);}
 window.speak=speak;
 function sw(w){const u=new SpeechSynthesisUtterance(w);u.lang='en-US';u.rate=.72;u.pitch=1;const v=_gv();if(v)u.voice=v;speechSynthesis.cancel();speechSynthesis.speak(u);}
 function setLang(l){lang=l;localStorage.setItem('EZH_LANG',l);document.getElementById('btn-ro').className='lb'+(l==='ro'?' on':'');document.getElementById('btn-en').className='lb'+(l==='en'?' on':'');render();}
