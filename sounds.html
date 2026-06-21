@@ -137,7 +137,17 @@ window.toggle=function(i){
   const c=document.getElementById('sc-'+i);
   c.classList.toggle('open');
 };
-function sw(w){const u=new SpeechSynthesisUtterance(w);u.lang='en-US';u.rate=.75;speechSynthesis.cancel();speechSynthesis.speak(u);}
+let _v=null;
+function _gv(){
+  if(_v)return _v;
+  const vv=speechSynthesis.getVoices();
+  const pref=['Google US English','Microsoft Aria Online (Natural) - English (United States)','Microsoft Guy Online (Natural) - English (United States)','Microsoft Zira - English (United States)','Microsoft David - English (United States)','Samantha','Karen','Daniel'];
+  for(const n of pref){const v=vv.find(x=>x.name===n);if(v){_v=v;return v;}}
+  _v=vv.find(x=>x.lang==='en-US')||vv.find(x=>x.lang.startsWith('en'))||null;
+  return _v;
+}
+speechSynthesis.onvoiceschanged=()=>{_v=null;};
+function sw(w){const u=new SpeechSynthesisUtterance(w);u.lang='en-US';u.rate=.68;u.pitch=1;const v=_gv();if(v)u.voice=v;speechSynthesis.cancel();speechSynthesis.speak(u);}
 function setLang(l){lang=l;localStorage.setItem('EZH_LANG',l);document.getElementById('btn-ro').className='lb'+(l==='ro'?' on':'');document.getElementById('btn-en').className='lb'+(l==='en'?' on':'');const L=l==='ro';document.getElementById('hdr-t').textContent=L?'Sunete Dificile':'Difficult Sounds';document.getElementById('pg-h1').textContent=L?'Sunete Dificile':'Difficult Sounds';document.getElementById('pg-sub').textContent=L?'Sunetele care îi blochează pe români. Învață-le o dată și pentru totdeauna.':'Sounds that block Romanian speakers. Learn them once and for all.';build();}
 window.setLang=setLang;
 setLang(lang);
