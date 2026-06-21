@@ -66,6 +66,7 @@ html,body{min-height:100%;background:var(--bg);color:var(--frost);font-family:'I
 .sent-en{font-size:clamp(17px,4.8vw,24px);font-weight:900;display:flex;flex-wrap:wrap;gap:7px;align-items:baseline;line-height:1.3;flex:1}
 .ws{color:var(--blue)}.wn{color:var(--red);text-shadow:0 0 10px rgba(255,64,96,.5)}.wv{color:var(--green)}.wo{color:var(--purple)}.wd{color:var(--frost3)}
 .sent-ro{font-size:13px;font-weight:700;color:var(--frost2);text-transform:uppercase;letter-spacing:.06em;padding-left:48px}
+.sent-ph{font-size:12px;font-weight:700;letter-spacing:.07em;display:flex;flex-wrap:wrap;gap:5px;padding-left:48px;opacity:.9}
 .sent-rule{font-size:9.5px;color:var(--frost3);text-transform:uppercase;letter-spacing:.14em;padding-left:48px}
 
 /* ── LEGEND ── */
@@ -127,6 +128,7 @@ html,body{min-height:100%;background:var(--bg);color:var(--frost);font-family:'I
         <span class="ws">I</span><span class="wv">eat</span><span class="wo">apples</span><span class="wd">.</span>
       </div>
     </div>
+    <div class="sent-ph" id="sent-ph"><span class="ws">AI</span><span class="wv">IIT</span><span class="wo">APLZ</span><span class="wd">.</span></div>
     <div class="sent-ro" id="sent-ro">EU MĂNÂNC MERE.</div>
     <div class="sent-rule" id="sent-rule">SUBIECT + VERB + OBIECT</div>
   </div>
@@ -142,44 +144,44 @@ html,body{min-height:100%;background:var(--bg);color:var(--frost);font-family:'I
 </main>
 <script>
 const SUBS=[
-  {w:'I',    ro:'Eu',      e:'🙋', fi:0, is3:false},
-  {w:'You',  ro:'Tu',      e:'👤', fi:1, is3:false},
-  {w:'We',   ro:'Noi',     e:'👥', fi:3, is3:false},
-  {w:'They', ro:'Ei/Ele',  e:'👫', fi:5, is3:false},
-  {w:'He',   ro:'El',      e:'👨', fi:2, is3:true},
-  {w:'She',  ro:'Ea',      e:'👩', fi:2, is3:true},
-  {w:'It',   ro:'El/Ea',   e:'🤖', fi:2, is3:true},
+  {w:'I',    ro:'Eu',      e:'🙋', fi:0, is3:false, ph:'AI'},
+  {w:'You',  ro:'Tu',      e:'👤', fi:1, is3:false, ph:'IU'},
+  {w:'We',   ro:'Noi',     e:'👥', fi:3, is3:false, ph:'UII'},
+  {w:'They', ro:'Ei/Ele',  e:'👫', fi:5, is3:false, ph:'ĐEI'},
+  {w:'He',   ro:'El',      e:'👨', fi:2, is3:true,  ph:'HI'},
+  {w:'She',  ro:'Ea',      e:'👩', fi:2, is3:true,  ph:'ȘI'},
+  {w:'It',   ro:'El/Ea',   e:'🤖', fi:2, is3:true,  ph:'IT'},
 ];
 const VERBS=[
-  {w:'eat',    v3:'eats',    e:'🍽️', ro:'a mânca',   rf:['mănânc','mănânci','mănâncă','mâncăm','mâncați','mănâncă']},
-  {w:'drink',  v3:'drinks',  e:'🥤', ro:'a bea',      rf:['beau','bei','bea','bem','beți','beau']},
-  {w:'like',   v3:'likes',   e:'❤️', ro:'a-i plăcea', rf:['îmi place','îți place','îi place','ne place','vă place','le place']},
-  {w:'love',   v3:'loves',   e:'💕', ro:'a iubi',     rf:['iubesc','iubești','iubește','iubim','iubiți','iubesc']},
-  {w:'study',  v3:'studies', e:'📚', ro:'a studia',   rf:['studiez','studiezi','studiază','studiem','studiați','studiază']},
-  {w:'read',   v3:'reads',   e:'📖', ro:'a citi',     rf:['citesc','citești','citește','citim','citiți','citesc']},
-  {w:'watch',  v3:'watches', e:'📺', ro:'a urmări',   rf:['urmăresc','urmărești','urmărește','urmărim','urmăriți','urmăresc']},
-  {w:'play',   v3:'plays',   e:'🎮', ro:'a se juca',  rf:['mă joc','te joci','se joacă','ne jucăm','vă jucați','se joacă']},
-  {w:'buy',    v3:'buys',    e:'🛍️', ro:'a cumpăra',  rf:['cumpăr','cumperi','cumpără','cumpărăm','cumpărați','cumpără']},
-  {w:'want',   v3:'wants',   e:'✨', ro:'a vrea',     rf:['vreau','vrei','vrea','vrem','vreți','vor']},
-  {w:'go',     v3:'goes',    e:'🚶', ro:'a merge',    rf:['merg','mergi','merge','mergem','mergeți','merg']},
-  {w:'visit',  v3:'visits',  e:'🗺️', ro:'a vizita',   rf:['vizitez','vizitezi','vizitează','vizităm','vizitați','vizitează']},
-  {w:'learn',  v3:'learns',  e:'🧠', ro:'a învăța',   rf:['învăț','înveți','învață','învățăm','învățați','învață']},
-  {w:'speak',  v3:'speaks',  e:'🗣️', ro:'a vorbi',    rf:['vorbesc','vorbești','vorbește','vorbim','vorbiți','vorbesc']},
-  {w:'cook',   v3:'cooks',   e:'👨‍🍳', ro:'a găti',    rf:['gătesc','gătești','gătește','gătim','gătiți','gătesc']},
+  {w:'eat',    v3:'eats',    e:'🍽️', ro:'a mânca',   ph:'IIT',   ph3:'IITS',   rf:['mănânc','mănânci','mănâncă','mâncăm','mâncați','mănâncă']},
+  {w:'drink',  v3:'drinks',  e:'🥤', ro:'a bea',      ph:'DRINK', ph3:'DRINKS', rf:['beau','bei','bea','bem','beți','beau']},
+  {w:'like',   v3:'likes',   e:'❤️', ro:'a-i plăcea', ph:'LAIK',  ph3:'LAIKS',  rf:['îmi place','îți place','îi place','ne place','vă place','le place']},
+  {w:'love',   v3:'loves',   e:'💕', ro:'a iubi',     ph:'LAV',   ph3:'LAVZ',   rf:['iubesc','iubești','iubește','iubim','iubiți','iubesc']},
+  {w:'study',  v3:'studies', e:'📚', ro:'a studia',   ph:'STADI', ph3:'STADIZ', rf:['studiez','studiezi','studiază','studiem','studiați','studiază']},
+  {w:'read',   v3:'reads',   e:'📖', ro:'a citi',     ph:'RIID',  ph3:'RIIDZ',  rf:['citesc','citești','citește','citim','citiți','citesc']},
+  {w:'watch',  v3:'watches', e:'📺', ro:'a urmări',   ph:'UOCI',  ph3:'UOCIZ',  rf:['urmăresc','urmărești','urmărește','urmărim','urmăriți','urmăresc']},
+  {w:'play',   v3:'plays',   e:'🎮', ro:'a se juca',  ph:'PLEI',  ph3:'PLEIZ',  rf:['mă joc','te joci','se joacă','ne jucăm','vă jucați','se joacă']},
+  {w:'buy',    v3:'buys',    e:'🛍️', ro:'a cumpăra',  ph:'BAI',   ph3:'BAIZ',   rf:['cumpăr','cumperi','cumpără','cumpărăm','cumpărați','cumpără']},
+  {w:'want',   v3:'wants',   e:'✨', ro:'a vrea',     ph:'UONT',  ph3:'UONTS',  rf:['vreau','vrei','vrea','vrem','vreți','vor']},
+  {w:'go',     v3:'goes',    e:'🚶', ro:'a merge',    ph:'GOU',   ph3:'GOUZ',   rf:['merg','mergi','merge','mergem','mergeți','merg']},
+  {w:'visit',  v3:'visits',  e:'🗺️', ro:'a vizita',   ph:'VIZIT', ph3:'VIZITS', rf:['vizitez','vizitezi','vizitează','vizităm','vizitați','vizitează']},
+  {w:'learn',  v3:'learns',  e:'🧠', ro:'a învăța',   ph:'LERN',  ph3:'LERNZ',  rf:['învăț','înveți','învață','învățăm','învățați','învață']},
+  {w:'speak',  v3:'speaks',  e:'🗣️', ro:'a vorbi',    ph:'SPIIK', ph3:'SPIIKS', rf:['vorbesc','vorbești','vorbește','vorbim','vorbiți','vorbesc']},
+  {w:'cook',   v3:'cooks',   e:'👨‍🍳', ro:'a găti',    ph:'KUK',   ph3:'KUKS',   rf:['gătesc','gătești','gătește','gătim','gătiți','gătesc']},
 ];
 const OBJS=[
-  {w:'apples',  ro:'mere',    e:'🍎'},
-  {w:'water',   ro:'apă',     e:'💧'},
-  {w:'coffee',  ro:'cafea',   e:'☕'},
-  {w:'English', ro:'engleza', e:'🇺🇸'},
-  {w:'books',   ro:'cărți',   e:'📚'},
-  {w:'movies',  ro:'filme',   e:'🎬'},
-  {w:'football',ro:'fotbal',  e:'⚽'},
-  {w:'pizza',   ro:'pizza',   e:'🍕'},
-  {w:'Korea',   ro:'Coreea',  e:'🇰🇷'},
-  {w:'music',   ro:'muzică',  e:'🎵'},
-  {w:'tea',     ro:'ceai',    e:'🍵'},
-  {w:'cars',    ro:'mașini',  e:'🚗'},
+  {w:'apples',  ro:'mere',    e:'🍎', ph:'APLZ'},
+  {w:'water',   ro:'apă',     e:'💧', ph:'UOTER'},
+  {w:'coffee',  ro:'cafea',   e:'☕', ph:'COFI'},
+  {w:'English', ro:'engleza', e:'🇺🇸', ph:'INGLIȘ'},
+  {w:'books',   ro:'cărți',   e:'📚', ph:'BUKS'},
+  {w:'movies',  ro:'filme',   e:'🎬', ph:'MUUVIIZ'},
+  {w:'football',ro:'fotbal',  e:'⚽', ph:'FUTBOL'},
+  {w:'pizza',   ro:'pizza',   e:'🍕', ph:'PIȚA'},
+  {w:'Korea',   ro:'Coreea',  e:'🇰🇷', ph:'COREEA'},
+  {w:'music',   ro:'muzică',  e:'🎵', ph:'MIUZIK'},
+  {w:'tea',     ro:'ceai',    e:'🍵', ph:'TII'},
+  {w:'cars',    ro:'mașini',  e:'🚗', ph:'CARZ'},
 ];
 
 let idx=[0,0,0]; // [sub, verb, obj]
@@ -218,6 +220,15 @@ function updateSent(){
   const parts=[{c:'ws',t:s.w},neg?{c:'wn',t:negW}:null,{c:'wv',t:verbW},{c:'wo',t:o.w}].filter(Boolean);
   parts.forEach(p=>{const sp=document.createElement('span');sp.className=p.c;sp.textContent=p.t;en.appendChild(sp);});
   const dt=document.createElement('span');dt.className='wd';dt.textContent='.';en.appendChild(dt);
+  // Phonetics
+  const negPh=neg?(s.is3?'DAZNT':'DONT'):'';
+  const verbPh=neg?v.ph:(s.is3?v.ph3:v.ph);
+  const ph=$('sent-ph');
+  ph.innerHTML='';
+  const phParts=[{c:'ws',t:s.ph},neg?{c:'wn',t:negPh}:null,{c:'wv',t:verbPh},{c:'wo',t:o.ph}].filter(Boolean);
+  phParts.forEach(p=>{const sp=document.createElement('span');sp.className=p.c;sp.textContent=p.t;ph.appendChild(sp);});
+  const pd=document.createElement('span');pd.className='wd';pd.textContent='.';ph.appendChild(pd);
+  // Romanian
   const vRo=v.rf[s.fi];
   const negRo=neg?'nu ':'';
   $('sent-ro').textContent=(s.ro+' '+negRo+vRo+' '+o.ro+'.').toUpperCase();
