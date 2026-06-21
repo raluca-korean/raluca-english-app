@@ -122,7 +122,6 @@ html,body{min-height:100%;background:var(--bg);color:var(--frost);font-family:'I
 </main>
 <script>
 const SECTIONS=[
-  {badge:'📌',title:'Verbul TO BE',sub:'Sunt · Ești · Este',build:buildTobe},
   {badge:'❓',title:'Întrebări de Bază',sub:'Cum? Unde? Câți ani?',build:buildQuestions},
   {badge:'⚡',title:'Prezentul Simplu',sub:'Verbe uzuale · Pozitiv & Negativ',build:buildPresent},
   {badge:'🔢',title:'Numere',sub:'1 – 100',build:buildNumbers},
@@ -151,6 +150,11 @@ const QUESTIONS=[
 ];
 
 const VERBS=[
+  {v:'be',ph:'BII',he:'is',phe:'IZ',ro:'a fi',e:'📌',
+   i_form:'am',i_form_ph:'AM',
+   i_neg_form:'am not',i_neg_form_ph:'AM NOT',
+   she_neg_form:"isn't",she_neg_form_ph:'IZNT',
+   i_ro:'Eu sunt',she_ro:'Ea este',i_neg:'Eu nu sunt',she_neg:'Ea nu este'},
   {v:'have',ph:'HAV',he:'has',phe:'HAZ',ro:'a avea',e:'🤝',
    i_ro:'Eu am',she_ro:'Ea are',i_neg:'Eu nu am',she_neg:'Ea nu are'},
   {v:'want',ph:'UONT',he:'wants',phe:'UONTS',ro:'a vrea',e:'✨',
@@ -293,19 +297,27 @@ function buildPresent(){
     </div>
     <div class="sec-lbl">Apasă pe verb pentru a deschide · Apasă pe formă pentru a auzi</div>
     <div class="vacc">
-      ${VERBS.map((v,i)=>`<div class="vitem" id="vi-${i}">
+      ${VERBS.map((v,i)=>{
+        const iPos=v.i_form?`I ${v.i_form}`:`I ${v.v}`;
+        const iPh=v.i_form_ph?`AI ${v.i_form_ph}`:`AI ${v.ph}`;
+        const iNeg=v.i_neg_form?`I ${v.i_neg_form}`:`I don't ${v.v}`;
+        const iNegPh=v.i_neg_form_ph?`AI ${v.i_neg_form_ph}`:`AI DONT ${v.ph}`;
+        const sheNeg=v.she_neg_form?`She ${v.she_neg_form}`:`She doesn't ${v.v}`;
+        const sheNegPh=v.she_neg_form_ph?`ȘI ${v.she_neg_form_ph}`:`ȘI DAZNT ${v.ph}`;
+        const vname=v.v==='be'?'TO BE':v.v.toUpperCase();
+        return `<div class="vitem" id="vi-${i}">
         <div class="vitem-head" onclick="vtoggle(${i})">
           <span class="vi-emo">${v.e}</span>
-          <span class="vi-name">${v.v.toUpperCase()}</span>
+          <span class="vi-name">${vname}</span>
           <span class="vi-ro">${v.ro}</span>
           <span class="vi-arr">▾</span>
         </div>
         <div class="vitem-body">
           <div class="vcol vpos">
             <div class="vcol-lbl">✅ Pozitiv</div>
-            <div class="vform" onclick="swD(this)" data-w="I ${v.v}">
-              <div class="vf-en">🔊 I ${v.v}</div>
-              <div class="vf-ph">AI ${v.ph}</div>
+            <div class="vform" onclick="swD(this)" data-w="${iPos}">
+              <div class="vf-en">🔊 ${iPos}</div>
+              <div class="vf-ph">${iPh}</div>
               <div class="vf-ro">${v.i_ro}</div>
             </div>
             <div class="vform" onclick="swD(this)" data-w="She ${v.he}">
@@ -316,19 +328,19 @@ function buildPresent(){
           </div>
           <div class="vcol vneg">
             <div class="vcol-lbl">❌ Negativ</div>
-            <div class="vform" onclick="swD(this)" data-w="I don't ${v.v}">
-              <div class="vf-en">🔊 I don't ${v.v}</div>
-              <div class="vf-ph">AI DONT ${v.ph}</div>
+            <div class="vform" onclick="swD(this)" data-w="${iNeg}">
+              <div class="vf-en">🔊 ${iNeg}</div>
+              <div class="vf-ph">${iNegPh}</div>
               <div class="vf-ro">${v.i_neg}</div>
             </div>
-            <div class="vform" onclick="swD(this)" data-w="She doesn't ${v.v}">
-              <div class="vf-en">🔊 She doesn't ${v.v}</div>
-              <div class="vf-ph">ȘI DAZNT ${v.ph}</div>
+            <div class="vform" onclick="swD(this)" data-w="${sheNeg}">
+              <div class="vf-en">🔊 ${sheNeg}</div>
+              <div class="vf-ph">${sheNegPh}</div>
               <div class="vf-ro">${v.she_neg}</div>
             </div>
           </div>
         </div>
-      </div>`).join('')}
+      </div>`;}).join('')}
     </div>
     <div class="tip-box">⚠️ Nu uita S-ul la HE / SHE / IT! Este cea mai comună greșeală a românilor.</div>`;
 }
