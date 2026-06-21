@@ -62,14 +62,21 @@ html,body{min-height:100%;background:var(--bg);color:var(--frost);font-family:'I
 .rule-box{background:rgba(0,230,118,.07);border:1px solid rgba(0,230,118,.2);border-radius:14px;padding:14px 16px;margin-bottom:14px;font-size:13px;line-height:1.7;text-transform:uppercase}
 .rule-box strong{color:var(--green)}
 
-/* Pairs */
-.pair-grid{display:flex;flex-direction:column;gap:8px;margin-bottom:14px}
-.pair-row{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.pcell{background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:12px;padding:11px 10px;cursor:pointer;transition:all .2s;text-align:center}
-.pcell:hover{background:rgba(0,230,118,.08);border-color:rgba(0,230,118,.25)}
-.pcell-en{font-size:15px;font-weight:700;margin-bottom:3px}
-.pcell-ph{font-size:10px;font-weight:700;color:var(--green);letter-spacing:.04em;text-transform:uppercase;margin-bottom:2px}
-.pcell-ro{font-size:11px;color:var(--frost2);text-transform:uppercase}
+/* Verb cards */
+.vcard{background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:16px;overflow:hidden;margin-bottom:10px}
+.vhdr{display:flex;align-items:center;gap:8px;padding:10px 14px;border-bottom:1px solid var(--border);background:rgba(255,255,255,.03)}
+.vemo{font-size:18px}
+.vname{font-size:14px;font-weight:900;letter-spacing:.06em}
+.vro{font-size:11px;color:var(--frost2);margin-left:auto;text-transform:uppercase}
+.vforms{display:grid;grid-template-columns:1fr 1fr}
+.vpos{padding:10px 12px;border-right:1px solid var(--border)}
+.vneg{padding:10px 12px}
+.vlbl{font-size:9px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;margin-bottom:8px}
+.vpos .vlbl{color:rgba(0,230,118,.85)}
+.vneg .vlbl{color:rgba(255,100,80,.85)}
+.vrow{font-size:13px;font-weight:600;padding:5px 8px;border-radius:8px;cursor:pointer;transition:background .2s;text-transform:uppercase;line-height:1.4;margin-bottom:2px}
+.vpos .vrow:hover{background:rgba(0,230,118,.14)}
+.vneg .vrow:hover{background:rgba(255,100,80,.10)}
 
 /* Numbers */
 .num-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:14px}
@@ -133,13 +140,37 @@ const QUESTIONS=[
   {en:'What time is it?',ph:'UOT TAIM IZ IT?',ro:'Cât e ceasul?'},
 ];
 
-const PAIRS=[
-  {a:'I eat',b:'She eats',pa:'AI IIT',pb:'ȘI IITS',ra:'Eu mănânc',rb:'Ea mănâncă'},
-  {a:'I work',b:'He works',pa:'AI UORK',pb:'HI UORKS',ra:'Eu lucrez',rb:'El lucrează'},
-  {a:'I live',b:'She lives',pa:'AI LIV',pb:'ȘI LIVZ',ra:'Eu locuiesc',rb:'Ea locuiește'},
-  {a:'I like',b:'He likes',pa:'AI LAIK',pb:'HI LAIKS',ra:'Îmi place',rb:'Îi place'},
-  {a:'I have',b:'She has',pa:'AI HAV',pb:'ȘI HAZ',ra:'Eu am',rb:'Ea are'},
-  {a:'I want',b:'He wants',pa:'AI UONT',pb:'HI UONTS',ra:'Eu vreau',rb:'El vrea'},
+const VERBS=[
+  {v:'have',he:'has',ro:'a avea',e:'🤝'},
+  {v:'want',he:'wants',ro:'a vrea',e:'✨'},
+  {v:'need',he:'needs',ro:'a avea nevoie',e:'💡'},
+  {v:'like',he:'likes',ro:'a-i plăcea',e:'❤️'},
+  {v:'love',he:'loves',ro:'a iubi',e:'💕'},
+  {v:'know',he:'knows',ro:'a ști',e:'🧠'},
+  {v:'think',he:'thinks',ro:'a gândi',e:'🤔'},
+  {v:'see',he:'sees',ro:'a vedea',e:'👁️'},
+  {v:'look',he:'looks',ro:'a privi',e:'👀'},
+  {v:'go',he:'goes',ro:'a merge',e:'🚶'},
+  {v:'come',he:'comes',ro:'a veni',e:'🔄'},
+  {v:'get',he:'gets',ro:'a obține',e:'📦'},
+  {v:'make',he:'makes',ro:'a face / a crea',e:'🔨'},
+  {v:'give',he:'gives',ro:'a da',e:'🎁'},
+  {v:'take',he:'takes',ro:'a lua',e:'🖐️'},
+  {v:'eat',he:'eats',ro:'a mânca',e:'🍽️'},
+  {v:'drink',he:'drinks',ro:'a bea',e:'🥤'},
+  {v:'sleep',he:'sleeps',ro:'a dormi',e:'😴'},
+  {v:'work',he:'works',ro:'a lucra',e:'💼'},
+  {v:'live',he:'lives',ro:'a locui',e:'🏠'},
+  {v:'speak',he:'speaks',ro:'a vorbi',e:'🗣️'},
+  {v:'listen',he:'listens',ro:'a asculta',e:'👂'},
+  {v:'read',he:'reads',ro:'a citi',e:'📖'},
+  {v:'write',he:'writes',ro:'a scrie',e:'✏️'},
+  {v:'buy',he:'buys',ro:'a cumpăra',e:'🛍️'},
+  {v:'pay',he:'pays',ro:'a plăti',e:'💳'},
+  {v:'play',he:'plays',ro:'a se juca',e:'🎮'},
+  {v:'help',he:'helps',ro:'a ajuta',e:'🤗'},
+  {v:'try',he:'tries',ro:'a încerca',e:'💪'},
+  {v:'ask',he:'asks',ro:'a întreba',e:'❓'},
 ];
 
 const NUMS=[
@@ -220,33 +251,25 @@ function buildPresent(){
   return `
     <div class="sec-lbl">Regula de bază</div>
     <div class="rule-box">
-      <strong>I / YOU / WE / THEY</strong> → verb simplu<br>
-      Exemplu: I EAT, YOU WORK, WE LIVE<br><br>
-      <strong>HE / SHE / IT</strong> → verb + <strong style="color:var(--green)">S</strong><br>
-      Exemplu: HE EATS, SHE WORKS, IT LIVES
+      <strong>I / YOU / WE / THEY</strong> → verb simplu &nbsp;·&nbsp; <strong>HE / SHE / IT</strong> → verb + <strong style="color:var(--green)">S</strong><br>
+      Negativ: <strong>DON'T</strong> + verb &nbsp;·&nbsp; <strong>DOESN'T</strong> + verb (he/she/it)
     </div>
-    <div class="sec-lbl">Exemple — apasă pentru a auzi</div>
-    <div class="pair-grid">
-      ${PAIRS.map(p=>`<div class="pair-row">
-        <div class="pcell" onclick="swD(this)" data-w="${p.a}">
-          <div class="pcell-en">${p.a}</div>
-          <div class="pcell-ph">${p.pa}</div>
-          <div class="pcell-ro">${p.ra}</div>
+    <div class="sec-lbl">Verbe frecvente — apasă pentru a auzi</div>
+    ${VERBS.map(v=>`<div class="vcard">
+      <div class="vhdr"><span class="vemo">${v.e}</span><span class="vname">${v.v.toUpperCase()}</span><span class="vro">${v.ro}</span></div>
+      <div class="vforms">
+        <div class="vpos">
+          <div class="vlbl">✅ Pozitiv</div>
+          <div class="vrow" onclick="swD(this)" data-w="I ${v.v}">I ${v.v}</div>
+          <div class="vrow" onclick="swD(this)" data-w="She ${v.he}">She ${v.he}</div>
         </div>
-        <div class="pcell" onclick="swD(this)" data-w="${p.b}">
-          <div class="pcell-en">${p.b}</div>
-          <div class="pcell-ph">${p.pb}</div>
-          <div class="pcell-ro">${p.rb}</div>
+        <div class="vneg">
+          <div class="vlbl">❌ Negativ</div>
+          <div class="vrow" onclick="swD(this)" data-w="I don't ${v.v}">I don't ${v.v}</div>
+          <div class="vrow" onclick="swD(this)" data-w="She doesn't ${v.v}">She doesn't ${v.v}</div>
         </div>
-      </div>`).join('')}
-    </div>
-    <div class="sec-lbl">Forma negativă</div>
-    <div class="rule-box">
-      <strong>I / YOU / WE / THEY</strong> → DON'T + verb<br>
-      "I don't eat meat." = Nu mănânc carne.<br><br>
-      <strong>HE / SHE / IT</strong> → DOESN'T + verb<br>
-      "She doesn't work." = Ea nu lucrează.
-    </div>
+      </div>
+    </div>`).join('')}
     <div class="tip-box">⚠️ Nu uita S-ul la HE / SHE / IT! Este cea mai comună greșeală a românilor.</div>
   `;
 }
