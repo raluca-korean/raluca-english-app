@@ -152,7 +152,8 @@ function _gv(){
   return _v;
 }
 speechSynthesis.onvoiceschanged=()=>{_v=null;};
-function speak(){const d=A[cur];const btn=document.getElementById('abtn');const u=new SpeechSynthesisUtterance(d.l);u.lang='en-US';u.rate=.72;u.pitch=1;const v=_gv();if(v)u.voice=v;btn.classList.add('playing');u.onend=()=>btn.classList.remove('playing');speechSynthesis.cancel();speechSynthesis.speak(u);}
+const LN={A:'ay',B:'bee',C:'see',D:'dee',E:'ee',F:'ef',G:'jee',H:'aych',I:'eye',J:'jay',K:'kay',L:'el',M:'em',N:'en',O:'oh',P:'pee',Q:'cue',R:'ar',S:'es',T:'tee',U:'you',V:'vee',W:'double you',X:'ex',Y:'why',Z:'zee'};
+function speak(){const d=A[cur];const btn=document.getElementById('abtn');const u=new SpeechSynthesisUtterance(LN[d.l]||d.l);u.lang='en-US';u.rate=.72;u.pitch=1;const v=_gv();if(v)u.voice=v;btn.classList.add('playing');u.onend=()=>btn.classList.remove('playing');speechSynthesis.cancel();speechSynthesis.speak(u);}
 window.speak=speak;
 function sw(w){const u=new SpeechSynthesisUtterance(w);u.lang='en-US';u.rate=.72;u.pitch=1;const v=_gv();if(v)u.voice=v;speechSynthesis.cancel();speechSynthesis.speak(u);}
 function setLang(l){lang=l;localStorage.setItem('EZH_LANG',l);document.getElementById('btn-ro').className='lb'+(l==='ro'?' on':'');document.getElementById('btn-en').className='lb'+(l==='en'?' on':'');render();}
