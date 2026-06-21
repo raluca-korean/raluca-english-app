@@ -44,10 +44,35 @@ html,body{min-height:100%;background:var(--bg);color:var(--frost);font-family:'I
 .play-ico{font-size:18px;flex-shrink:0;opacity:.6}
 .ex-row:hover .play-ico{opacity:1}
 .warn-box{background:rgba(255,160,0,.07);border:1px solid rgba(255,160,0,.22);border-radius:14px;padding:12px 14px;margin-top:12px;font-size:12px;color:rgba(255,200,100,.85);line-height:1.55;text-transform:uppercase}
+.tip-box,.warn-box{cursor:pointer;position:relative}
+.tip-box::after,.warn-box::after{content:'🔍';position:absolute;top:10px;right:12px;font-size:14px;opacity:.45;pointer-events:none}
+/* modal */
+.zmodal{display:none;position:fixed;inset:0;z-index:500;align-items:center;justify-content:center;padding:24px}
+.zmodal.show{display:flex}
+.zoverlay{position:absolute;inset:0;background:rgba(5,8,24,.88);backdrop-filter:blur(12px)}
+.zbox{position:relative;z-index:1;width:100%;max-width:480px;border-radius:26px;padding:30px 26px 26px;border:1px solid var(--border);background:rgba(20,22,48,.97)}
+.zbox.tip{border-color:rgba(139,92,246,.35)}
+.zbox.warn{border-color:rgba(255,160,0,.35)}
+.zlbl{font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;margin-bottom:14px}
+.zbox.tip .zlbl{color:var(--purple)}
+.zbox.warn .zlbl{color:rgba(255,200,100,.85)}
+.zmain{font-size:20px;font-weight:600;line-height:1.55;color:var(--frost);text-transform:uppercase;margin-bottom:14px}
+.zsub{font-size:16px;color:var(--frost2);line-height:1.55;font-style:italic;text-transform:uppercase}
+.zbox.warn .zmain{color:rgba(255,200,100,.95);font-size:20px}
+.zclose{display:block;width:100%;margin-top:22px;padding:14px;border-radius:14px;border:1px solid var(--border);background:var(--glass);color:var(--frost2);font-size:14px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;text-align:center}
 </style>
 </head>
 <body>
 <div class="bg"></div>
+<div class="zmodal" id="zmodal" onclick="closePopup(event)">
+  <div class="zoverlay"></div>
+  <div class="zbox" id="zbox">
+    <div class="zlbl" id="zlbl"></div>
+    <div class="zmain" id="zmain"></div>
+    <div class="zsub" id="zsub"></div>
+    <button class="zclose" onclick="closePopup()">Închide</button>
+  </div>
+</div>
 <header class="hdr">
   <a class="back" href="index.html">←</a>
   <div class="hdr-t" id="hdr-t">Sunete Dificile</div>
@@ -109,7 +134,7 @@ function build(){
         <div class="toggle">▾</div>
       </div>
       <div class="sbody">
-        <div class="tip-box">
+        <div class="tip-box" onclick="event.stopPropagation();showPopup(${i},'tip')">
           <div class="tip-lbl">Cum pronunți</div>
           <div class="tip-text">${s.tip_ro}</div>
           <div class="mouth-tip">${s.mouth_ro}</div>
@@ -118,7 +143,7 @@ function build(){
         <div class="ex-list">
           ${s.ex.map(x=>`<div class="ex-row" onclick="sw('${x.w}')"><span class="play-ico">🔊</span><span class="ex-word">${x.w}</span><span class="ex-ph">${x.ph}</span><span class="ex-ro">${x.ro}</span></div>`).join('')}
         </div>
-        <div class="warn-box">${s.warn_ro}</div>
+        <div class="warn-box" onclick="event.stopPropagation();showPopup(${i},'warn')">${s.warn_ro}</div>
       </div>`;
     card.id='sc-'+i;
     wrap.appendChild(card);
@@ -127,6 +152,23 @@ function build(){
 window.toggle=function(i){
   const c=document.getElementById('sc-'+i);
   c.classList.toggle('open');
+};
+window.showPopup=function(i,type){
+  const s=SOUNDS[i];
+  const isWarn=type==='warn';
+  document.getElementById('zlbl').textContent=isWarn?'Atenție':'Cum pronunți';
+  document.getElementById('zmain').textContent=isWarn?s.warn_ro:s.tip_ro;
+  const zs=document.getElementById('zsub');
+  if(!isWarn&&s.mouth_ro){zs.textContent=s.mouth_ro;zs.style.display='block';}
+  else{zs.style.display='none';}
+  document.getElementById('zbox').className='zbox '+type;
+  document.getElementById('zmodal').classList.add('show');
+  document.body.style.overflow='hidden';
+};
+window.closePopup=function(e){
+  if(e&&!e.target.closest('.zoverlay')&&e.target.id!=='zmodal')return;
+  document.getElementById('zmodal').classList.remove('show');
+  document.body.style.overflow='';
 };
 let _v=null;
 function _gv(){
