@@ -15,9 +15,6 @@ html,body{min-height:100%;background:var(--bg);color:var(--frost);font-family:'I
 .back{width:36px;height:36px;border-radius:11px;border:1px solid var(--border);background:var(--glass);display:flex;align-items:center;justify-content:center;font-size:16px;text-decoration:none;color:var(--frost);transition:all .2s;flex-shrink:0}
 .back:hover{border-color:rgba(0,180,255,.4);background:rgba(0,180,255,.1)}
 .hdr-t{font-size:14px;font-weight:700;flex:1}
-.lang-sw{display:flex;gap:3px;background:rgba(255,255,255,.05);border:1px solid var(--border);border-radius:20px;padding:3px}
-.lb{font-size:10px;font-weight:700;padding:4px 10px;border-radius:16px;border:none;background:none;color:var(--frost2);cursor:pointer;transition:all .2s;letter-spacing:.08em}
-.lb.on{background:var(--blue);color:#fff}
 .pbar{height:3px;background:rgba(255,255,255,.07);position:fixed;top:62px;left:0;right:0;z-index:99}
 .pfill{height:100%;background:linear-gradient(90deg,var(--purple),var(--blue),var(--teal));transition:width .4s ease}
 .main{padding:82px 20px 100px;min-height:100dvh;display:flex;flex-direction:column;align-items:center;position:relative;z-index:10;gap:16px}
@@ -59,10 +56,6 @@ html,body{min-height:100%;background:var(--bg);color:var(--frost);font-family:'I
 <header class="hdr">
   <a class="back" href="index.html">←</a>
   <div class="hdr-t" id="hdr-t">Alfabetul Englez</div>
-  <div class="lang-sw">
-    <button class="lb on" id="btn-ro" onclick="setLang('ro')">RO</button>
-    <button class="lb" id="btn-en" onclick="setLang('en')">EN</button>
-  </div>
 </header>
 <div class="pbar"><div class="pfill" id="pfill" style="width:3.8%"></div></div>
 <main class="main">
@@ -112,22 +105,19 @@ const A=[
   {l:'Y',ph:'UUAI',ro:'La început de cuvânt sună ca "i" moale.',en:'Like "y" in "yes" or "you".',ex:[{w:'Yellow',t:'Galben',e:'🟡',p:'IELOU'},{w:'Year',t:'An',e:'📅',p:'IIR'}]},
   {l:'Z',ph:'ZI',ro:'Ca "z" în română. Americanii zic "zi", britanicii "zed".',en:'Americans say "zee", British say "zed".',ex:[{w:'Zero',t:'Zero',e:'0️⃣',p:'ZIROU'},{w:'Zoo',t:'Grădina zoologică',e:'🦁',p:'ZU'}]}
 ];
-let cur=0,lang=localStorage.getItem('EZH_LANG')||'ro';
+let cur=0;
 const done=new Set(JSON.parse(localStorage.getItem('EZH_ALPHA_DONE')||'[]'));
-const TL={ro:{hdr:'Alfabetul Englez',ph:'Pronunță în română',ex:'Exemple',prev:'Anterior',next:'Următor',letter:'Litera'},en:{hdr:'The English Alphabet',ph:'Romanian pronunciation',ex:'Examples',prev:'Previous',next:'Next',letter:'Letter'}};
 function render(){
-  const d=A[cur],L=TL[lang];
+  const d=A[cur];
   const card=document.getElementById('card');
   card.style.animation='none';requestAnimationFrame(()=>{card.style.animation='cin .4s cubic-bezier(.34,1.56,.64,1) both';});
   document.getElementById('lbig').textContent=d.l;
-  document.getElementById('lname').textContent=L.letter+' '+d.l;
+  document.getElementById('lname').textContent='Litera '+d.l;
   document.getElementById('phtext').textContent=d.ph;
-  document.getElementById('phtip').textContent=lang==='ro'?d.ro:d.en;
-  document.getElementById('phlbl').textContent=L.ph;
-  document.getElementById('exlbl').textContent=L.ex;
-  document.getElementById('hdr-t').textContent=L.hdr;
-  document.getElementById('tprev').textContent=L.prev;
-  document.getElementById('tnext').textContent=cur===A.length-1?'🎉 Final!':L.next;
+  document.getElementById('phtip').textContent=d.ro;
+  document.getElementById('exlbl').textContent='Exemple';
+  document.getElementById('tprev').textContent='Anterior';
+  document.getElementById('tnext').textContent=cur===A.length-1?'🎉 Final!':'Următor';
   const exs=document.getElementById('exs');exs.innerHTML='';
   d.ex.forEach(x=>{const div=document.createElement('div');div.className='exc';div.onclick=()=>sw(x.w);div.innerHTML=`<div class="exem">${x.e}</div><div class="exw">${x.w}</div><div class="exph">${x.p}</div><div class="exro">${x.t}</div>`;exs.appendChild(div);});
   document.getElementById('bprev').disabled=cur===0;
@@ -153,8 +143,6 @@ const LN={A:'ay',B:'bee',C:'see',D:'dee',E:'ee',F:'ef',G:'jee',H:'aych',I:'eye',
 function speak(){const d=A[cur];const lbig=document.getElementById('lbig');const u=new SpeechSynthesisUtterance(LN[d.l]||d.l);u.lang='en-US';u.rate=.72;u.pitch=1;const v=_gv();if(v)u.voice=v;lbig.classList.add('playing');u.onend=()=>lbig.classList.remove('playing');speechSynthesis.cancel();speechSynthesis.speak(u);}
 window.speak=speak;
 function sw(w){const u=new SpeechSynthesisUtterance(w);u.lang='en-US';u.rate=.72;u.pitch=1;const v=_gv();if(v)u.voice=v;speechSynthesis.cancel();speechSynthesis.speak(u);}
-function setLang(l){lang=l;localStorage.setItem('EZH_LANG',l);document.getElementById('btn-ro').className='lb'+(l==='ro'?' on':'');document.getElementById('btn-en').className='lb'+(l==='en'?' on':'');render();}
-window.setLang=setLang;
 render();
 </script>
 </body>

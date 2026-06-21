@@ -15,9 +15,6 @@ html,body{min-height:100%;background:var(--bg);color:var(--frost);font-family:'I
 .back{width:36px;height:36px;border-radius:11px;border:1px solid var(--border);background:var(--glass);display:flex;align-items:center;justify-content:center;font-size:16px;text-decoration:none;color:var(--frost);transition:all .2s;flex-shrink:0}
 .back:hover{border-color:rgba(0,229,204,.4);background:rgba(0,229,204,.1)}
 .hdr-t{font-size:14px;font-weight:700;flex:1}
-.lang-sw{display:flex;gap:3px;background:rgba(255,255,255,.05);border:1px solid var(--border);border-radius:20px;padding:3px}
-.lb{font-size:10px;font-weight:700;padding:4px 10px;border-radius:16px;border:none;background:none;color:var(--frost2);cursor:pointer;transition:all .2s}
-.lb.on{background:var(--teal);color:#050818}
 .main{padding:78px 20px 48px;position:relative;z-index:10;display:flex;flex-direction:column;align-items:center;gap:16px}
 
 /* Category view */
@@ -60,10 +57,6 @@ html,body{min-height:100%;background:var(--bg);color:var(--frost);font-family:'I
 <header class="hdr">
   <a class="back" href="index.html">←</a>
   <div class="hdr-t" id="hdr-t">Primele 100 Cuvinte</div>
-  <div class="lang-sw">
-    <button class="lb on" id="btn-ro" onclick="setLang('ro')">RO</button>
-    <button class="lb" id="btn-en" onclick="setLang('en')">EN</button>
-  </div>
 </header>
 <main class="main">
   <div class="view" id="cat-view">
@@ -103,7 +96,6 @@ const CATS=[
     {w:'Hotel',ro:'Hotel',ph:'HOUTEL',e:'🏨'},{w:'Room',ro:'Cameră',ph:'RUUM',e:'🛏️'},{w:'Passport',ro:'Pașaport',ph:'PASSPORT',e:'📘'},{w:'Luggage',ro:'Bagaj',ph:'LAGIDJ',e:'🧳'},{w:'Beach',ro:'Plajă',ph:'BIICI',e:'🏖️'},{w:'Mountain',ro:'Munte',ph:'MAUNTIN',e:'⛰️'},{w:'City',ro:'Oraș',ph:'SITI',e:'🏙️'},{w:'Restaurant',ro:'Restaurant',ph:'RESTORANT',e:'🍽️'},{w:'Museum',ro:'Muzeu',ph:'MIUZIIM',e:'🏛️'},{w:'Camera',ro:'Aparat foto',ph:'KAMERA',e:'📷'},{w:'Souvenir',ro:'Suvenir',ph:'SUVENIR',e:'🎁'},{w:'Check in',ro:'Check in',ph:'CEK IN',e:'✅'},{w:'Check out',ro:'Check out',ph:'CEK AUT',e:'🚪'},{w:'Tour',ro:'Tur',ph:'TUR',e:'🗺️'},{w:'Guide',ro:'Ghid',ph:'GAID',e:'🧑‍🏫'},{w:'Visa',ro:'Viză',ph:'VIIZA',e:'🪪'},{w:'Currency',ro:'Monedă',ph:'KARENSI',e:'💱'}
   ]}
 ];
-let lang=localStorage.getItem('EZH_LANG')||'ro';
 const wordDone=new Set(JSON.parse(localStorage.getItem('EZH_VOCAB_DONE')||'[]'));
 function buildCats(){
   const g=document.getElementById('cat-grid');g.innerHTML='';
@@ -111,7 +103,7 @@ function buildCats(){
     const doneCount=c.words.filter((_,wi)=>wordDone.has(c.id+'_'+wi)).length;
     const pct=Math.round(doneCount/c.words.length*100);
     const div=document.createElement('div');div.className='ccat';
-    div.innerHTML=`<div class="cat-emo">${c.emo}</div><div class="cat-name">${lang==='ro'?c.ro:c.en}</div><div class="cat-count">${doneCount}/${c.words.length} ${lang==='ro'?'cuvinte':'words'}</div><div class="cat-prog"><div class="cat-pf" style="width:${pct}%"></div></div>`;
+    div.innerHTML=`<div class="cat-emo">${c.emo}</div><div class="cat-name">${c.ro}</div><div class="cat-count">${doneCount}/${c.words.length} cuvinte</div><div class="cat-prog"><div class="cat-pf" style="width:${pct}%"></div></div>`;
     div.onclick=()=>showWords(ci);
     g.appendChild(div);
   });
@@ -124,8 +116,8 @@ function showWords(ci){
   const c=CATS[ci];
   document.getElementById('cat-view').style.display='none';
   const wv=document.getElementById('word-view');wv.style.display='';
-  document.getElementById('wv-title').textContent=(lang==='ro'?c.ro:c.en)+' '+c.emo;
-  document.getElementById('wv-count').textContent=c.words.length+(lang==='ro'?' cuvinte':' words');
+  document.getElementById('wv-title').textContent=c.ro+' '+c.emo;
+  document.getElementById('wv-count').textContent=c.words.length+' cuvinte';
   const wl=document.getElementById('word-list');wl.innerHTML='';
   c.words.forEach((w,wi)=>{
     const key=c.id+'_'+wi;
@@ -137,9 +129,8 @@ function showWords(ci){
   });
 }
 function sw(w){const u=new SpeechSynthesisUtterance(w);u.lang='en-US';u.rate=.78;speechSynthesis.cancel();speechSynthesis.speak(u);}
-function setLang(l){lang=l;localStorage.setItem('EZH_LANG',l);document.getElementById('btn-ro').className='lb'+(l==='ro'?' on':'');document.getElementById('btn-en').className='lb'+(l==='en'?' on':'');const L=l==='ro';document.getElementById('hdr-t').textContent=L?'Primele 100 Cuvinte':'First 100 Words';document.getElementById('pg-h1').textContent=L?'Primele 100 Cuvinte':'First 100 Words';document.getElementById('pg-sub').textContent=L?'Alege o categorie și începe să înveți. Apasă pe un cuvânt pentru a auzi pronunția.':'Choose a category and start learning. Tap a word to hear the pronunciation.';document.getElementById('t-back').textContent=L?'Categorii':'Categories';buildCats();}
-window.setLang=setLang;window.showCats=showCats;
-setLang(lang);
+window.showCats=showCats;
+buildCats();
 </script>
 </body>
 </html>

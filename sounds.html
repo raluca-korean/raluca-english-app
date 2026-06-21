@@ -15,9 +15,6 @@ html,body{min-height:100%;background:var(--bg);color:var(--frost);font-family:'I
 .back{width:36px;height:36px;border-radius:11px;border:1px solid var(--border);background:var(--glass);display:flex;align-items:center;justify-content:center;font-size:16px;text-decoration:none;color:var(--frost);transition:all .2s;flex-shrink:0}
 .back:hover{border-color:rgba(139,92,246,.4);background:rgba(139,92,246,.1)}
 .hdr-t{font-size:14px;font-weight:700;flex:1}
-.lang-sw{display:flex;gap:3px;background:rgba(255,255,255,.05);border:1px solid var(--border);border-radius:20px;padding:3px}
-.lb{font-size:10px;font-weight:700;padding:4px 10px;border-radius:16px;border:none;background:none;color:var(--frost2);cursor:pointer;transition:all .2s}
-.lb.on{background:var(--purple);color:#fff}
 .main{padding:78px 20px 48px;position:relative;z-index:10;display:flex;flex-direction:column;align-items:center;gap:14px}
 .page-title{width:100%;max-width:480px;text-align:center;padding:24px 0 8px}
 .page-title h1{font-size:clamp(22px,6vw,34px);font-weight:900;letter-spacing:-.02em;background:linear-gradient(130deg,var(--purple),#ff6ad5);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:8px}
@@ -54,10 +51,6 @@ html,body{min-height:100%;background:var(--bg);color:var(--frost);font-family:'I
 <header class="hdr">
   <a class="back" href="index.html">←</a>
   <div class="hdr-t" id="hdr-t">Sunete Dificile</div>
-  <div class="lang-sw">
-    <button class="lb on" id="btn-ro" onclick="setLang('ro')">RO</button>
-    <button class="lb" id="btn-en" onclick="setLang('en')">EN</button>
-  </div>
 </header>
 <main class="main">
   <div class="page-title">
@@ -99,35 +92,33 @@ const SOUNDS=[
    warn_ro:'⚠️ "W" ≠ "V"! "Wine" (vin de struguri) ≠ "vine" (el vine). Sunt sunete diferite!',warn_en:'⚠️ "W" ≠ "V"! "Wine" (grape wine) ≠ "vine" (a vine). They are different sounds!',
    ex:[{w:'Water',ph:'UOTER',ro:'Apă'},{w:'World',ph:'UORLD',ro:'Lume'},{w:'Want',ph:'UONT',ro:'A vrea'},{w:'Window',ph:'UINDOU',ro:'Fereastră'},{w:'Wow',ph:'UAU',ro:'Uau!'}]}
 ];
-let lang=localStorage.getItem('EZH_LANG')||'ro';
 function build(){
   const wrap=document.getElementById('cards-wrap');
   wrap.style.cssText='width:100%;max-width:480px;display:flex;flex-direction:column;gap:14px';
   wrap.innerHTML='';
   SOUNDS.forEach((s,i)=>{
-    const L=lang==='ro';
     const card=document.createElement('div');
     card.className='scard';
     card.innerHTML=`
       <div class="scard-head" onclick="toggle(${i})">
         <div class="sound-badge">${s.badge}</div>
         <div class="sinfo">
-          <div class="stitle">${L?s.title_ro:s.title_en}</div>
-          <div class="ssub">${L?s.sub_ro:s.sub_en}</div>
+          <div class="stitle">${s.title_ro}</div>
+          <div class="ssub">${s.sub_ro}</div>
         </div>
         <div class="toggle">▾</div>
       </div>
       <div class="sbody">
         <div class="tip-box">
-          <div class="tip-lbl">${L?'Cum pronunți':'How to pronounce'}</div>
-          <div class="tip-text">${L?s.tip_ro:s.tip_en}</div>
-          <div class="mouth-tip">${L?s.mouth_ro:s.mouth_en}</div>
+          <div class="tip-lbl">Cum pronunți</div>
+          <div class="tip-text">${s.tip_ro}</div>
+          <div class="mouth-tip">${s.mouth_ro}</div>
         </div>
-        <div class="ex-lbl">${L?'Exemple':'Examples'}</div>
+        <div class="ex-lbl">Exemple</div>
         <div class="ex-list">
           ${s.ex.map(x=>`<div class="ex-row" onclick="sw('${x.w}')"><span class="play-ico">🔊</span><span class="ex-word">${x.w}</span><span class="ex-ph">${x.ph}</span><span class="ex-ro">${x.ro}</span></div>`).join('')}
         </div>
-        <div class="warn-box">${L?s.warn_ro:s.warn_en}</div>
+        <div class="warn-box">${s.warn_ro}</div>
       </div>`;
     card.id='sc-'+i;
     wrap.appendChild(card);
@@ -148,9 +139,7 @@ function _gv(){
 }
 speechSynthesis.onvoiceschanged=()=>{_v=null;};
 function sw(w){const u=new SpeechSynthesisUtterance(w);u.lang='en-US';u.rate=.68;u.pitch=1;const v=_gv();if(v)u.voice=v;speechSynthesis.cancel();speechSynthesis.speak(u);}
-function setLang(l){lang=l;localStorage.setItem('EZH_LANG',l);document.getElementById('btn-ro').className='lb'+(l==='ro'?' on':'');document.getElementById('btn-en').className='lb'+(l==='en'?' on':'');const L=l==='ro';document.getElementById('hdr-t').textContent=L?'Sunete Dificile':'Difficult Sounds';document.getElementById('pg-h1').textContent=L?'Sunete Dificile':'Difficult Sounds';document.getElementById('pg-sub').textContent=L?'Sunetele care îi blochează pe români. Învață-le o dată și pentru totdeauna.':'Sounds that block Romanian speakers. Learn them once and for all.';build();}
-window.setLang=setLang;
-setLang(lang);
+build();
 </script>
 </body>
 </html>

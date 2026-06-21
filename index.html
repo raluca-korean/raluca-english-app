@@ -26,9 +26,6 @@ html,body{width:100%;min-height:100%;background:var(--bg);color:var(--frost);fon
 .hdr{width:100%;max-width:480px;display:flex;justify-content:space-between;align-items:center;padding:28px 0 0}
 .logo{font-size:13px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--frost2)}
 .logo em{color:var(--blue);font-style:normal}
-.lang-sw{display:flex;gap:3px;background:rgba(255,255,255,.05);border:1px solid var(--border);border-radius:22px;padding:3px}
-.lang-btn{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:5px 13px;border-radius:18px;border:none;background:none;color:var(--frost2);cursor:pointer;transition:all .25s}
-.lang-btn.on{background:var(--blue);color:#fff;box-shadow:0 0 14px rgba(0,180,255,.5)}
 .hero{text-align:center;padding:44px 0 8px}
 .eyebrow{font-size:11px;font-weight:600;letter-spacing:.25em;text-transform:uppercase;color:var(--teal);margin-bottom:18px;opacity:.9}
 .h1{font-size:clamp(30px,9vw,58px);font-weight:900;line-height:1.04;letter-spacing:-.025em;margin-bottom:18px}
@@ -75,10 +72,6 @@ html,body{width:100%;min-height:100%;background:var(--bg);color:var(--frost);fon
 <div class="app">
   <header class="hdr">
     <div class="logo">English <em>Zero→Hero</em></div>
-    <div class="lang-sw">
-      <button class="lang-btn on" id="btn-ro" onclick="setLang('ro')">RO</button>
-      <button class="lang-btn" id="btn-en" onclick="setLang('en')">EN</button>
-    </div>
   </header>
   <section class="hero">
     <p class="eyebrow" id="t-ey">Începe de la zero absolut</p>
@@ -154,23 +147,8 @@ html,body{width:100%;min-height:100%;background:var(--bg);color:var(--frost);fon
   }
   draw();
 })();
-const T={ro:{ey:'Începe de la zero absolut',sub:'Învață engleza chiar dacă nu ai auzit niciodată un cuvânt în engleză.',mis:'Modulele tale',m1t:'Alfabetul Englez',m1s:'26 litere · sunete · pronunție',m1b:'START',m2t:'Sunete Dificile',m2s:'TH · SH · CH · R · W · V',m2b:'6 sunete',m3t:'Primele 100 Cuvinte',m3s:'Casă · Familie · Mâncare · Transport',m3b:'🔒',m4t:'Povești Simple',m4s:'"I am Ana. I have a cat."',m4b:'🔒',pl:'Progres total',pr:'lecții completate',sl:'zile la rând'},en:{ey:'Start from absolute zero',sub:'Learn English even if you have never heard a single word.',mis:'Your Modules',m1t:'The English Alphabet',m1s:'26 letters · sounds · pronunciation',m1b:'START',m2t:'Difficult Sounds',m2s:'TH · SH · CH · R · W · V',m2b:'6 sounds',m3t:'First 100 Words',m3s:'Home · Family · Food · Transport',m3b:'🔒',m4t:'Simple Stories',m4s:'"I am Ana. I have a cat."',m4b:'🔒',pl:'Total progress',pr:'lessons done',sl:'day streak'}};
-let lang=localStorage.getItem('EZH_LANG')||'ro';
-function setLang(l){
-  lang=l;localStorage.setItem('EZH_LANG',l);
-  document.getElementById('btn-ro').className='lang-btn'+(l==='ro'?' on':'');
-  document.getElementById('btn-en').className='lang-btn'+(l==='en'?' on':'');
-  const L=T[l];
-  document.getElementById('t-ey').textContent=L.ey;
-  document.getElementById('t-sub').textContent=L.sub;
-  document.getElementById('t-mis').textContent=L.mis;
-  ['m1t','m1s','m1b','m2t','m2s','m2b','m3t','m3s','m3b','m4t','m4s','m4b'].forEach(k=>{const e=document.getElementById(k);if(e)e.textContent=L[k];});
-  document.getElementById('t-pl').textContent=L.pl;
-  document.getElementById('t-sl').textContent=L.sl;
-}
-window.setLang=setLang;
 function loadStats(){let s;try{s=JSON.parse(localStorage.getItem('EZH_STATS')||'null');}catch(e){}if(!s)return;const pct=Math.min(100,Math.round((s.done||0)/100*100));document.getElementById('pf').style.width=pct+'%';document.getElementById('pct').textContent=pct+'%';document.getElementById('sn').textContent=s.streak||0;document.getElementById('sv').textContent=s.streak||0;}
-setLang(lang);loadStats();
+loadStats();
 </script>
 </body>
 </html>

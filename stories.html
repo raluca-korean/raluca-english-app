@@ -15,9 +15,6 @@ html,body{min-height:100%;background:var(--bg);color:var(--frost);font-family:'I
 .back{width:36px;height:36px;border-radius:11px;border:1px solid var(--border);background:var(--glass);display:flex;align-items:center;justify-content:center;font-size:16px;text-decoration:none;color:var(--frost);transition:all .2s;flex-shrink:0}
 .back:hover{border-color:rgba(255,196,0,.4);background:rgba(255,196,0,.08)}
 .hdr-t{font-size:14px;font-weight:700;flex:1}
-.lang-sw{display:flex;gap:3px;background:rgba(255,255,255,.05);border:1px solid var(--border);border-radius:20px;padding:3px}
-.lb{font-size:10px;font-weight:700;padding:4px 10px;border-radius:16px;border:none;background:none;color:var(--frost2);cursor:pointer;transition:all .2s}
-.lb.on{background:var(--gold);color:#050818}
 .main{padding:78px 20px 48px;position:relative;z-index:10;display:flex;flex-direction:column;align-items:center;gap:16px}
 .page-title{width:100%;max-width:480px;text-align:center;padding:20px 0 8px}
 .page-title h1{font-size:clamp(22px,6vw,32px);font-weight:900;letter-spacing:-.02em;background:linear-gradient(130deg,var(--gold),#ff9a3c);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:8px}
@@ -50,10 +47,6 @@ html,body{min-height:100%;background:var(--bg);color:var(--frost);font-family:'I
 <header class="hdr">
   <a class="back" href="index.html">←</a>
   <div class="hdr-t" id="hdr-t">Povești Simple</div>
-  <div class="lang-sw">
-    <button class="lb on" id="btn-ro" onclick="setLang('ro')">RO</button>
-    <button class="lb" id="btn-en" onclick="setLang('en')">EN</button>
-  </div>
 </header>
 <main class="main">
   <div class="page-title">
@@ -105,27 +98,25 @@ const STORIES=[
     {en:'Good night!',ph:'GUD NAIT!',ro:'Noapte bună!'}
   ]}
 ];
-let lang=localStorage.getItem('EZH_LANG')||'ro';
 function build(){
   const sl=document.getElementById('story-list');sl.innerHTML='';
   STORIES.forEach((s,si)=>{
-    const L=lang==='ro';
     const card=document.createElement('div');card.className='st-card';card.id='sc-'+si;
     card.innerHTML=`
       <div class="st-head" onclick="tog(${si})">
         <div class="st-emo">${s.emo}</div>
         <div class="st-info">
           <div class="st-level">${s.level}</div>
-          <div class="st-title">${L?s.title_ro:s.title_en}</div>
-          <div class="st-sub">${L?s.sub_ro:s.sub_en}</div>
+          <div class="st-title">${s.title_ro}</div>
+          <div class="st-sub">${s.sub_ro}</div>
         </div>
         <div class="st-arrow">▶</div>
       </div>
       <div class="st-body">
         <div class="sentences">
-          ${s.sents.map((sn,sni)=>`<div class="sent" onclick="sw('${sn.en.replace(/'/g,"\\'")}')"><div class="sent-en">${sn.en}</div><div class="sent-ph">${sn.ph}</div><div class="sent-ro">${sn.ro}</div></div>`).join('')}
+          ${s.sents.map((sn)=>`<div class="sent" onclick="sw('${sn.en.replace(/'/g,"\\'")}')"><div class="sent-en">${sn.en}</div><div class="sent-ph">${sn.ph}</div><div class="sent-ro">${sn.ro}</div></div>`).join('')}
         </div>
-        <button class="st-play-all" onclick="playAll(${si})">▶ ${L?'Ascultă toată povestea':'Listen to the whole story'}</button>
+        <button class="st-play-all" onclick="playAll(${si})">▶ Ascultă toată povestea</button>
       </div>`;
     sl.appendChild(card);
   });
@@ -139,9 +130,7 @@ window.playAll=function(si){
   function next(){if(idx>=sents.length)return;const u=new SpeechSynthesisUtterance(sents[idx].en);u.lang='en-US';u.rate=.75;u.onend=()=>{idx++;setTimeout(next,600);};speechSynthesis.speak(u);}
   next();
 };
-function setLang(l){lang=l;localStorage.setItem('EZH_LANG',l);document.getElementById('btn-ro').className='lb'+(l==='ro'?' on':'');document.getElementById('btn-en').className='lb'+(l==='en'?' on':'');const L=l==='ro';document.getElementById('hdr-t').textContent=L?'Povești Simple':'Simple Stories';document.getElementById('pg-h1').textContent=L?'Povești Simple':'Simple Stories';document.getElementById('pg-sub').textContent=L?'Propoziții scurte, nivel A0. Apasă pe o propoziție pentru a o auzi.':'Short sentences, level A0. Tap a sentence to hear it.';build();}
-window.setLang=setLang;
-setLang(lang);
+build();
 </script>
 </body>
 </html>
