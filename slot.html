@@ -23,6 +23,10 @@ html,body{min-height:100%;background:var(--bg);color:var(--frost);font-family:'I
 .back:hover{border-color:rgba(139,92,246,.5);background:rgba(139,92,246,.12)}
 .hdr-t{font-size:14px;font-weight:700;flex:1}
 .hdr-hint{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--purple);background:rgba(139,92,246,.12);border:1px solid rgba(139,92,246,.28);padding:4px 9px;border-radius:9px}
+.slot-nav{display:flex;gap:4px}
+.snav{width:28px;height:28px;border-radius:9px;border:1px solid var(--border);background:var(--glass);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;text-decoration:none;color:var(--frost2);transition:all .2s}
+.snav.active{background:rgba(0,180,255,.18);border-color:rgba(0,180,255,.5);color:var(--blue)}
+.snav:hover{background:rgba(139,92,246,.15);border-color:rgba(139,92,246,.4);color:var(--purple)}
 .app{position:relative;z-index:10;min-height:100dvh;padding:72px 8px 52px;display:flex;flex-direction:column;align-items:center;gap:14px}
 .pg-title{text-align:center;width:100%;max-width:620px;padding:6px 0 2px}
 .pg-title h1{font-size:clamp(20px,5.5vw,30px);font-weight:900;letter-spacing:-.025em;background:linear-gradient(130deg,var(--blue),var(--purple),var(--red));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:5px}
@@ -107,7 +111,11 @@ html,body{min-height:100%;background:var(--bg);color:var(--frost);font-family:'I
 <header class="hdr">
   <a class="back" href="index.html">←</a>
   <div class="hdr-t">🎰 Slot Machine Grammar</div>
-  <div class="hdr-hint">Joacă + Înva&​ță</div>
+  <nav class="slot-nav">
+    <a class="snav active" href="slot.html">4</a>
+    <a class="snav" href="slot5.html">5</a>
+    <a class="snav" href="slot6.html">6</a>
+  </nav>
 </header>
 <main class="app">
   <div class="pg-title">
