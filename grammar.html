@@ -30,41 +30,6 @@ html,body{min-height:100%;background:var(--bg);color:var(--frost);font-family:'I
 .gbody{display:none;padding:0 22px 22px}
 .gcard.open .gbody{display:block}
 .sec-lbl{font-size:10px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--green);opacity:.75;margin-bottom:10px}
-.row-list{display:flex;flex-direction:column;gap:8px;margin-bottom:14px}
-.qrow{background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:14px;padding:12px 14px;cursor:pointer;transition:all .2s}
-.qrow:hover{background:rgba(0,230,118,.07);border-color:rgba(0,230,118,.25)}
-.qrow-en{font-size:15px;font-weight:700;margin-bottom:4px;display:flex;align-items:center;gap:8px}
-.qrow-ph{font-size:11px;font-weight:700;color:var(--green);letter-spacing:.04em;text-transform:uppercase;margin-bottom:3px}
-.qrow-ro{font-size:12px;color:var(--frost2);text-transform:uppercase}
-.play{font-size:16px;opacity:.6;flex-shrink:0}
-.rule-box{background:rgba(0,230,118,.07);border:1px solid rgba(0,230,118,.2);border-radius:14px;padding:14px 16px;margin-bottom:14px;font-size:13px;line-height:1.7;text-transform:uppercase}
-.rule-box strong{color:var(--green)}
-.vacc{display:flex;flex-direction:column;gap:6px;margin-bottom:14px}
-.vitem{border:1px solid var(--border);border-radius:14px;overflow:hidden;background:rgba(255,255,255,.03);transition:border-color .2s}
-.vitem.open{border-color:rgba(0,230,118,.3)}
-.vitem-head{display:flex;align-items:center;gap:10px;padding:13px 14px;cursor:pointer;user-select:none}
-.vitem.open .vitem-head{border-bottom:1px solid var(--border)}
-.vi-emo{font-size:18px;flex-shrink:0}
-.vi-name{font-size:15px;font-weight:900;letter-spacing:.04em}
-.vi-ro{font-size:11px;color:var(--frost2);margin-left:auto;text-transform:uppercase;padding-left:8px}
-.vi-arr{font-size:15px;color:var(--frost3);transition:transform .3s;flex-shrink:0;margin-left:6px}
-.vitem.open .vi-arr{transform:rotate(180deg)}
-.vitem-body{display:none}
-.vitem.open .vitem-body{display:grid;grid-template-columns:1fr 1fr}
-.vcol{padding:10px 8px}
-.vpos{border-right:1px solid var(--border);background:rgba(0,230,118,.04)}
-.vneg{background:rgba(255,80,60,.04)}
-.vcol-lbl{font-size:9px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;margin-bottom:8px}
-.vpos .vcol-lbl{color:rgba(0,230,118,.9)}
-.vneg .vcol-lbl{color:rgba(255,110,90,.9)}
-.vform{padding:5px 6px;border-radius:8px;cursor:pointer;transition:background .2s;margin-bottom:3px}
-.vpos .vform:hover{background:rgba(0,230,118,.14)}
-.vneg .vform:hover{background:rgba(255,80,60,.1)}
-.vf-en{font-size:11.5px;font-weight:700;margin-bottom:1px;text-transform:uppercase}
-.vf-ph{font-size:9px;font-weight:700;letter-spacing:.04em;margin-bottom:1px;text-transform:uppercase}
-.vpos .vf-ph{color:rgba(0,230,118,.85)}
-.vneg .vf-ph{color:rgba(255,120,100,.85)}
-.vf-ro{font-size:9.5px;color:var(--frost2);text-transform:uppercase}
 .num-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:14px}
 .tens-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-bottom:14px}
 .ncell{background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:12px;padding:10px 6px;text-align:center;cursor:pointer;transition:all .2s}
@@ -94,131 +59,8 @@ html,body{min-height:100%;background:var(--bg);color:var(--frost);font-family:'I
 </main>
 <script>
 const SECTIONS=[
-  {badge:'⚡',title:'Prezentul Simplu',sub:'Verbe uzuale · Pozitiv & Negativ',build:buildPresent},
   {badge:'🔢',title:'Numere',sub:'1 – 100',build:buildNumbers},
   {badge:'🎨',title:'Culori',sub:'Red · Blue · Green...',build:buildColors},
-];
-
-const PROS=[
-  {pro:'I',     audio:'I',    ph:'AI',    aux:"don't",   aux_ph:'DONT',  is3:false},
-  {pro:'You',   audio:'You',  ph:'IU',    aux:"don't",   aux_ph:'DONT',  is3:false},
-  {pro:'He/She',audio:'She',  ph:'HI/ȘI',aux:"doesn't", aux_ph:'DAZNT', is3:true},
-  {pro:'We',    audio:'We',   ph:'UII',   aux:"don't",   aux_ph:'DONT',  is3:false},
-  {pro:'You',   audio:'You',  ph:'IU',    aux:"don't",   aux_ph:'DONT',  is3:false},
-  {pro:'They',  audio:'They', ph:'ĐEI',  aux:"don't",   aux_ph:'DONT',  is3:false},
-];
-
-const VERBS=[
-  {v:'be',ro:'a fi',e:'📌',
-   forms_pos:[
-     {pro:'I',     verb:'am',  ph:'AI AM',   aud:'I am'},
-     {pro:'You',   verb:'are', ph:'IU AR',   aud:'You are'},
-     {pro:'He/She',verb:'is',  ph:'ȘI IZ',  aud:'She is'},
-     {pro:'We',    verb:'are', ph:'UII AR',  aud:'We are'},
-     {pro:'You',   verb:'are', ph:'IU AR',   aud:'You are'},
-     {pro:'They',  verb:'are', ph:'ĐEI AR', aud:'They are'},
-   ],
-   forms_neg:[
-     {pro:'I',     verb:"am not", ph:'AI AM NOT', aud:"I am not"},
-     {pro:'You',   verb:"aren't", ph:'IU ARNT',   aud:"You aren't"},
-     {pro:'He/She',verb:"isn't",  ph:'ȘI IZNT',  aud:"She isn't"},
-     {pro:'We',    verb:"aren't", ph:'UII ARNT',  aud:"We aren't"},
-     {pro:'You',   verb:"aren't", ph:'IU ARNT',   aud:"You aren't"},
-     {pro:'They',  verb:"aren't", ph:'ĐEI ARNT', aud:"They aren't"},
-   ],
-   ro6:['Eu sunt','Tu ești','El/Ea este','Noi suntem','Voi sunteți','Ei/Ele sunt'],
-   ro6n:['Eu nu sunt','Tu nu ești','El/Ea nu este','Noi nu suntem','Voi nu sunteți','Ei nu sunt'],
-  },
-  {v:'have',ph:'HAV',he:'has',phe:'HAZ',ro:'a avea',e:'🤝',
-   ro6:['Eu am','Tu ai','El/Ea are','Noi avem','Voi aveți','Ei/Ele au'],
-   ro6n:['Eu nu am','Tu nu ai','El/Ea nu are','Noi nu avem','Voi nu aveți','Ei nu au']},
-  {v:'want',ph:'UONT',he:'wants',phe:'UONTS',ro:'a vrea',e:'✨',
-   ro6:['Eu vreau','Tu vrei','El/Ea vrea','Noi vrem','Voi vreți','Ei/Ele vor'],
-   ro6n:['Eu nu vreau','Tu nu vrei','El/Ea nu vrea','Noi nu vrem','Voi nu vreți','Ei nu vor']},
-  {v:'need',ph:'NIID',he:'needs',phe:'NIIDZ',ro:'a avea nevoie',e:'💡',
-   ro6:['Am nevoie','Ai nevoie','Are nevoie','Avem nevoie','Aveți nevoie','Au nevoie'],
-   ro6n:['Nu am nevoie','Nu ai nevoie','Nu are nevoie','Nu avem nevoie','Nu aveți nevoie','Nu au nevoie']},
-  {v:'like',ph:'LAIK',he:'likes',phe:'LAIKS',ro:'a-i plăcea',e:'❤️',
-   ro6:['Îmi place','Îți place','Îi place','Ne place','Vă place','Le place'],
-   ro6n:['Nu îmi place','Nu îți place','Nu îi place','Nu ne place','Nu vă place','Nu le place']},
-  {v:'love',ph:'LAV',he:'loves',phe:'LAVZ',ro:'a iubi',e:'💕',
-   ro6:['Eu iubesc','Tu iubești','El/Ea iubește','Noi iubim','Voi iubiți','Ei/Ele iubesc'],
-   ro6n:['Eu nu iubesc','Tu nu iubești','El/Ea nu iubește','Noi nu iubim','Voi nu iubiți','Ei nu iubesc']},
-  {v:'know',ph:'NOU',he:'knows',phe:'NOUZ',ro:'a ști',e:'🧠',
-   ro6:['Eu știu','Tu știi','El/Ea știe','Noi știm','Voi știți','Ei/Ele știu'],
-   ro6n:['Eu nu știu','Tu nu știi','El/Ea nu știe','Noi nu știm','Voi nu știți','Ei nu știu']},
-  {v:'think',ph:'ΘINK',he:'thinks',phe:'ΘINKS',ro:'a crede',e:'🤔',
-   ro6:['Eu cred','Tu crezi','El/Ea crede','Noi credem','Voi credeți','Ei/Ele cred'],
-   ro6n:['Eu nu cred','Tu nu crezi','El/Ea nu crede','Noi nu credem','Voi nu credeți','Ei nu cred']},
-  {v:'see',ph:'SII',he:'sees',phe:'SIIZ',ro:'a vedea',e:'👁️',
-   ro6:['Eu văd','Tu vezi','El/Ea vede','Noi vedem','Voi vedeți','Ei/Ele văd'],
-   ro6n:['Eu nu văd','Tu nu vezi','El/Ea nu vede','Noi nu vedem','Voi nu vedeți','Ei nu văd']},
-  {v:'look',ph:'LUK',he:'looks',phe:'LUKS',ro:'a privi',e:'👀',
-   ro6:['Mă uit','Te uiți','Se uită','Ne uităm','Vă uitați','Se uită'],
-   ro6n:['Nu mă uit','Nu te uiți','Nu se uită','Nu ne uităm','Nu vă uitați','Nu se uită']},
-  {v:'go',ph:'GOU',he:'goes',phe:'GOUZ',ro:'a merge',e:'🚶',
-   ro6:['Eu merg','Tu mergi','El/Ea merge','Noi mergem','Voi mergeți','Ei/Ele merg'],
-   ro6n:['Eu nu merg','Tu nu mergi','El/Ea nu merge','Noi nu mergem','Voi nu mergeți','Ei nu merg']},
-  {v:'come',ph:'KAM',he:'comes',phe:'KAMZ',ro:'a veni',e:'🔄',
-   ro6:['Eu vin','Tu vii','El/Ea vine','Noi venim','Voi veniți','Ei/Ele vin'],
-   ro6n:['Eu nu vin','Tu nu vii','El/Ea nu vine','Noi nu venim','Voi nu veniți','Ei nu vin']},
-  {v:'get',ph:'GET',he:'gets',phe:'GETS',ro:'a obține',e:'📦',
-   ro6:['Eu obțin','Tu obții','El/Ea obține','Noi obținem','Voi obțineți','Ei/Ele obțin'],
-   ro6n:['Eu nu obțin','Tu nu obții','El/Ea nu obține','Noi nu obținem','Voi nu obțineți','Ei nu obțin']},
-  {v:'make',ph:'MEIK',he:'makes',phe:'MEIKS',ro:'a face',e:'🔨',
-   ro6:['Eu fac','Tu faci','El/Ea face','Noi facem','Voi faceți','Ei/Ele fac'],
-   ro6n:['Eu nu fac','Tu nu faci','El/Ea nu face','Noi nu facem','Voi nu faceți','Ei nu fac']},
-  {v:'give',ph:'GIV',he:'gives',phe:'GIVZ',ro:'a da',e:'🎁',
-   ro6:['Eu dau','Tu dai','El/Ea dă','Noi dăm','Voi dați','Ei/Ele dau'],
-   ro6n:['Eu nu dau','Tu nu dai','El/Ea nu dă','Noi nu dăm','Voi nu dați','Ei nu dau']},
-  {v:'take',ph:'TEIK',he:'takes',phe:'TEIKS',ro:'a lua',e:'🖐️',
-   ro6:['Eu iau','Tu iei','El/Ea ia','Noi luăm','Voi luați','Ei/Ele iau'],
-   ro6n:['Eu nu iau','Tu nu iei','El/Ea nu ia','Noi nu luăm','Voi nu luați','Ei nu iau']},
-  {v:'eat',ph:'IIT',he:'eats',phe:'IITS',ro:'a mânca',e:'🍽️',
-   ro6:['Eu mănânc','Tu mănânci','El/Ea mănâncă','Noi mâncăm','Voi mâncați','Ei/Ele mănâncă'],
-   ro6n:['Eu nu mănânc','Tu nu mănânci','El/Ea nu mănâncă','Noi nu mâncăm','Voi nu mâncați','Ei nu mănâncă']},
-  {v:'drink',ph:'DRINK',he:'drinks',phe:'DRINKS',ro:'a bea',e:'🥤',
-   ro6:['Eu beau','Tu bei','El/Ea bea','Noi bem','Voi beți','Ei/Ele beau'],
-   ro6n:['Eu nu beau','Tu nu bei','El/Ea nu bea','Noi nu bem','Voi nu beți','Ei nu beau']},
-  {v:'sleep',ph:'SLIIP',he:'sleeps',phe:'SLIIPS',ro:'a dormi',e:'😴',
-   ro6:['Eu dorm','Tu dormi','El/Ea doarme','Noi dormim','Voi dormiți','Ei/Ele dorm'],
-   ro6n:['Eu nu dorm','Tu nu dormi','El/Ea nu doarme','Noi nu dormim','Voi nu dormiți','Ei nu dorm']},
-  {v:'work',ph:'UORK',he:'works',phe:'UORKS',ro:'a lucra',e:'💼',
-   ro6:['Eu lucrez','Tu lucrezi','El/Ea lucrează','Noi lucrăm','Voi lucrați','Ei/Ele lucrează'],
-   ro6n:['Eu nu lucrez','Tu nu lucrezi','El/Ea nu lucrează','Noi nu lucrăm','Voi nu lucrați','Ei nu lucrează']},
-  {v:'live',ph:'LIV',he:'lives',phe:'LIVZ',ro:'a locui',e:'🏠',
-   ro6:['Eu locuiesc','Tu locuiești','El/Ea locuiește','Noi locuim','Voi locuiți','Ei/Ele locuiesc'],
-   ro6n:['Eu nu locuiesc','Tu nu locuiești','El/Ea nu locuiește','Noi nu locuim','Voi nu locuiți','Ei nu locuiesc']},
-  {v:'speak',ph:'SPIIK',he:'speaks',phe:'SPIIKS',ro:'a vorbi',e:'🗣️',
-   ro6:['Eu vorbesc','Tu vorbești','El/Ea vorbește','Noi vorbim','Voi vorbiți','Ei/Ele vorbesc'],
-   ro6n:['Eu nu vorbesc','Tu nu vorbești','El/Ea nu vorbește','Noi nu vorbim','Voi nu vorbiți','Ei nu vorbesc']},
-  {v:'listen',ph:'LISN',he:'listens',phe:'LISNZ',ro:'a asculta',e:'👂',
-   ro6:['Eu ascult','Tu asculți','El/Ea ascultă','Noi ascultăm','Voi ascultați','Ei/Ele ascultă'],
-   ro6n:['Eu nu ascult','Tu nu asculți','El/Ea nu ascultă','Noi nu ascultăm','Voi nu ascultați','Ei nu ascultă']},
-  {v:'read',ph:'RIID',he:'reads',phe:'RIIDZ',ro:'a citi',e:'📖',
-   ro6:['Eu citesc','Tu citești','El/Ea citește','Noi citim','Voi citiți','Ei/Ele citesc'],
-   ro6n:['Eu nu citesc','Tu nu citești','El/Ea nu citește','Noi nu citim','Voi nu citiți','Ei nu citesc']},
-  {v:'write',ph:'RAIT',he:'writes',phe:'RAITS',ro:'a scrie',e:'✏️',
-   ro6:['Eu scriu','Tu scrii','El/Ea scrie','Noi scriem','Voi scrieți','Ei/Ele scriu'],
-   ro6n:['Eu nu scriu','Tu nu scrii','El/Ea nu scrie','Noi nu scriem','Voi nu scrieți','Ei nu scriu']},
-  {v:'buy',ph:'BAI',he:'buys',phe:'BAIZ',ro:'a cumpăra',e:'🛍️',
-   ro6:['Eu cumpăr','Tu cumperi','El/Ea cumpără','Noi cumpărăm','Voi cumpărați','Ei/Ele cumpără'],
-   ro6n:['Eu nu cumpăr','Tu nu cumperi','El/Ea nu cumpără','Noi nu cumpărăm','Voi nu cumpărați','Ei nu cumpără']},
-  {v:'pay',ph:'PEI',he:'pays',phe:'PEIZ',ro:'a plăti',e:'💳',
-   ro6:['Eu plătesc','Tu plătești','El/Ea plătește','Noi plătim','Voi plătiți','Ei/Ele plătesc'],
-   ro6n:['Eu nu plătesc','Tu nu plătești','El/Ea nu plătește','Noi nu plătim','Voi nu plătiți','Ei nu plătesc']},
-  {v:'play',ph:'PLEI',he:'plays',phe:'PLEIZ',ro:'a se juca',e:'🎮',
-   ro6:['Mă joc','Te joci','Se joacă','Ne jucăm','Vă jucați','Se joacă'],
-   ro6n:['Nu mă joc','Nu te joci','Nu se joacă','Nu ne jucăm','Nu vă jucați','Nu se joacă']},
-  {v:'help',ph:'HELP',he:'helps',phe:'HELPS',ro:'a ajuta',e:'🤗',
-   ro6:['Eu ajut','Tu ajuți','El/Ea ajută','Noi ajutăm','Voi ajutați','Ei/Ele ajută'],
-   ro6n:['Eu nu ajut','Tu nu ajuți','El/Ea nu ajută','Noi nu ajutăm','Voi nu ajutați','Ei nu ajută']},
-  {v:'try',ph:'TRAI',he:'tries',phe:'TRAIZ',ro:'a încerca',e:'💪',
-   ro6:['Eu încerc','Tu încerci','El/Ea încearcă','Noi încercăm','Voi încercați','Ei/Ele încearcă'],
-   ro6n:['Eu nu încerc','Tu nu încerci','El/Ea nu încearcă','Noi nu încercăm','Voi nu încercați','Ei nu încearcă']},
-  {v:'ask',ph:'ASK',he:'asks',phe:'ASKS',ro:'a întreba',e:'❓',
-   ro6:['Eu întreb','Tu întrebi','El/Ea întreabă','Noi întrebăm','Voi întrebați','Ei/Ele întreabă'],
-   ro6n:['Eu nu întreb','Tu nu întrebi','El/Ea nu întreabă','Noi nu întrebăm','Voi nu întrebați','Ei nu întreabă']},
 ];
 
 const NUMS=[
@@ -248,56 +90,6 @@ const COLORS=[
   {en:'Grey',ph:'GREI',ro:'Gri',hex:'#757575'},
   {en:'Gold',ph:'GOLD',ro:'Auriu',hex:'#ffc107'},
 ];
-
-function buildPresent(){
-  return `
-    <div class="sec-lbl">Regula</div>
-    <div class="rule-box">
-      <strong>I / YOU / WE / THEY</strong> → verb simplu · Negativ: <strong>DON'T</strong> + verb<br>
-      <strong>HE / SHE / IT</strong> → verb + <strong style="color:var(--green)">S</strong> · Negativ: <strong>DOESN'T</strong> + verb
-    </div>
-    <div class="sec-lbl">Apasă pe verb · Apasă pe formă pentru a auzi</div>
-    <div class="vacc">
-      ${VERBS.map((v,i)=>{
-        const vname=v.v==='be'?'TO BE':v.v.toUpperCase();
-        const posForms=v.forms_pos||PROS.map(p=>({
-          pro:p.pro,verb:p.is3?v.he:v.v,ph:p.ph+' '+(p.is3?v.phe:v.ph),aud:p.audio+' '+(p.is3?v.he:v.v)
-        }));
-        const negForms=v.forms_neg||PROS.map(p=>({
-          pro:p.pro,verb:p.aux+' '+v.v,ph:p.ph+' '+p.aux_ph+' '+v.ph,aud:p.audio+' '+p.aux+' '+v.v
-        }));
-        const posRows=posForms.map((f,fi)=>`<div class="vform" onclick="swD(this)" data-w="${f.aud}">
-              <div class="vf-en">🔊 ${f.pro} ${f.verb}</div>
-              <div class="vf-ph">${f.ph}</div>
-              <div class="vf-ro">${v.ro6[fi]}</div>
-            </div>`).join('');
-        const negRows=negForms.map((f,fi)=>`<div class="vform" onclick="swD(this)" data-w="${f.aud}">
-              <div class="vf-en">🔊 ${f.pro} ${f.verb}</div>
-              <div class="vf-ph">${f.ph}</div>
-              <div class="vf-ro">${v.ro6n[fi]}</div>
-            </div>`).join('');
-        return `<div class="vitem" id="vi-${i}">
-          <div class="vitem-head" onclick="vtoggle(${i})">
-            <span class="vi-emo">${v.e}</span>
-            <span class="vi-name">${vname}</span>
-            <span class="vi-ro">${v.ro}</span>
-            <span class="vi-arr">▾</span>
-          </div>
-          <div class="vitem-body">
-            <div class="vcol vpos">
-              <div class="vcol-lbl">✅ Pozitiv</div>
-              ${posRows}
-            </div>
-            <div class="vcol vneg">
-              <div class="vcol-lbl">❌ Negativ</div>
-              ${negRows}
-            </div>
-          </div>
-        </div>`;
-      }).join('')}
-    </div>
-    <div class="tip-box">⚠️ Nu uita S-ul la HE / SHE / IT! Este cea mai comună greșeală a românilor.</div>`;
-}
 
 function buildNumbers(){
   return `
@@ -356,7 +148,6 @@ function build(){
 }
 
 window.toggle=function(i){document.getElementById('gc-'+i).classList.toggle('open');};
-window.vtoggle=function(i){document.getElementById('vi-'+i).classList.toggle('open');};
 window.swD=function(el){sw(el.dataset.w);};
 
 let _v=null;
