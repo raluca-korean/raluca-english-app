@@ -94,21 +94,9 @@ html,body{min-height:100%;background:var(--bg);color:var(--frost);font-family:'I
 </main>
 <script>
 const SECTIONS=[
-  {badge:'❓',title:'Întrebări de Bază',sub:'Cum? Unde? Câți ani?',build:buildQuestions},
   {badge:'⚡',title:'Prezentul Simplu',sub:'Verbe uzuale · Pozitiv & Negativ',build:buildPresent},
   {badge:'🔢',title:'Numere',sub:'1 – 100',build:buildNumbers},
   {badge:'🎨',title:'Culori',sub:'Red · Blue · Green...',build:buildColors},
-];
-
-const QUESTIONS=[
-  {en:'What is your name?',ph:'UOT IZ IOR NEIM?',ro:'Cum te numești?'},
-  {en:'How are you?',ph:'HAU AR IU?',ro:'Ce mai faci?'},
-  {en:'Where are you from?',ph:'UER AR IU FROM?',ro:'De unde ești?'},
-  {en:'How old are you?',ph:'HAU OLD AR IU?',ro:'Câți ani ai?'},
-  {en:'What do you do?',ph:'UOT DU IU DU?',ro:'Ce lucrezi?'},
-  {en:'Do you speak English?',ph:'DU IU SPIIK INGLIȘ?',ro:'Vorbești engleză?'},
-  {en:'Where do you live?',ph:'UER DU IU LIV?',ro:'Unde locuiești?'},
-  {en:'What time is it?',ph:'UOT TAIM IZ IT?',ro:'Cât e ceasul?'},
 ];
 
 const PROS=[
@@ -260,19 +248,6 @@ const COLORS=[
   {en:'Grey',ph:'GREI',ro:'Gri',hex:'#757575'},
   {en:'Gold',ph:'GOLD',ro:'Auriu',hex:'#ffc107'},
 ];
-
-function buildQuestions(){
-  return `
-    <div class="sec-lbl">Apasă pe întrebare pentru a auzi pronunția</div>
-    <div class="row-list">
-      ${QUESTIONS.map(q=>`<div class="qrow" onclick="swD(this)" data-w="${q.en}">
-        <div class="qrow-en"><span class="play">🔊</span>${q.en}</div>
-        <div class="qrow-ph">${q.ph}</div>
-        <div class="qrow-ro">${q.ro}</div>
-      </div>`).join('')}
-    </div>
-    <div class="tip-box">💡 Exersează zilnic! Spune fiecare întrebare cu voce tare.</div>`;
-}
 
 function buildPresent(){
   return `
