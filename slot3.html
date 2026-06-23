@@ -57,7 +57,7 @@ html,body{min-height:100%;background:var(--bg);color:var(--frost);font-family:'I
 .play-btn{width:38px;height:38px;border-radius:12px;border:1px solid var(--border);background:var(--glass);font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .2s;-webkit-tap-highlight-color:transparent}
 .play-btn:hover{background:rgba(139,92,246,.15);border-color:rgba(139,92,246,.4)}
 .sent-en{font-size:clamp(14px,4vw,22px);font-weight:900;display:flex;flex-wrap:wrap;gap:6px;align-items:baseline;line-height:1.3;flex:1}
-.ws{color:var(--blue)}.wa{color:var(--gold)}.wv{color:var(--green)}.wo{color:var(--purple)}.wd{color:var(--frost3)}
+.ws{color:var(--blue)}.wa{color:var(--gold)}.wv{color:var(--green)}.wo{color:var(--purple)}.wd{color:var(--frost3)}.wn{color:#ff4060;text-shadow:0 0 10px rgba(255,64,96,.5)}
 .sent-ro{font-size:13px;font-weight:700;color:var(--frost2);text-transform:uppercase;letter-spacing:.06em;padding-left:48px}
 .sent-ph{font-size:12px;font-weight:700;letter-spacing:.07em;display:flex;flex-wrap:wrap;gap:5px;padding-left:48px;opacity:.9}
 .sent-rule{font-size:9.5px;color:var(--frost3);text-transform:uppercase;letter-spacing:.12em;padding-left:48px}
@@ -67,6 +67,8 @@ html,body{min-height:100%;background:var(--bg);color:var(--frost);font-family:'I
 .spin-btn{width:100%;max-width:560px;padding:19px;border:none;border-radius:22px;cursor:pointer;font-family:'Inter',-apple-system,sans-serif;font-size:clamp(15px,4vw,19px);font-weight:900;letter-spacing:.1em;text-transform:uppercase;color:#fff;background:linear-gradient(135deg,#00b4ff,#8b5cf6 50%,#00e676);background-size:300% 300%;animation:ga 4s ease infinite;box-shadow:0 8px 32px rgba(139,92,246,.4),inset 0 1px 0 rgba(255,255,255,.22);position:relative;overflow:hidden;transition:transform .15s;-webkit-tap-highlight-color:transparent}
 .spin-btn::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,.22),transparent 55%);pointer-events:none}
 .spin-btn:active{transform:scale(.97)}
+.neg-toggle{width:100%;max-width:560px;padding:12px 16px;border-radius:16px;border:1.5px solid var(--border);background:var(--glass);font-family:inherit;font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;color:var(--frost2);transition:all .25s;-webkit-tap-highlight-color:transparent;backdrop-filter:blur(12px)}
+.neg-toggle.on{background:rgba(255,64,96,.12);border-color:rgba(255,64,96,.5);color:#ff4060;box-shadow:0 0 22px rgba(255,64,96,.25)}
 .spin-btn.go{animation:ga .6s ease infinite}
 @keyframes ga{0%{background-position:0 50%}50%{background-position:100% 50%}100%{background-position:0 50%}}
 .flash{position:fixed;inset:0;z-index:300;pointer-events:none;animation:wf .7s ease forwards}
@@ -115,7 +117,9 @@ html,body{min-height:100%;background:var(--bg);color:var(--frost);font-family:'I
     </div>
   </div>
 
-  <div class="hint">▲ Swipe pe rele pentru a schimba ▼</div>
+  <button class="neg-toggle" id="negBtn" onclick="toggleNeg()">✅ POZITIV</button>
+
+  <div class="hint">▲ Swipe pe rele · Tap negație pentru on/off ▼</div>
 
   <div class="sent-card">
     <div class="sent-top">
@@ -183,6 +187,7 @@ const FUT_AUX=['voi','vei','va','vom','veți','vor'];
 
 let idx=[0,0,0];
 let tense='present';
+let neg=false;
 let busy=false;
 const tY={};
 
@@ -196,14 +201,22 @@ function setTense(t){
   render();
 }
 
+function toggleNeg(){
+  neg=!neg;
+  const btn=$('negBtn');
+  btn.classList.toggle('on',neg);
+  btn.textContent=neg?'🚫 NEGATIV':'✅ POZITIV';
+  render();
+}
+
 function render(){
   const s=SUBS[idx[0]],v=VERBS[idx[1]],o=OBJS[idx[2]];
   $('e0').textContent=s.e; $('w0').textContent=s.w.toUpperCase(); $('t0').textContent=s.ro.toUpperCase();
   $('e2').textContent=o.e; $('w2').textContent=o.w.toUpperCase(); $('t2').textContent=o.ro.toUpperCase();
   $('e1').textContent=v.e; $('t1').textContent=v.ro.toUpperCase();
   let verbW,lbl;
-  if(tense==='present'){verbW=s.is3?v.v3:v.w;lbl='VERB';}
-  else if(tense==='past'){verbW=v.past;lbl='TRECUT';}
+  if(tense==='present'){verbW=neg?v.w:(s.is3?v.v3:v.w);lbl='VERB';}
+  else if(tense==='past'){verbW=neg?v.w:v.past;lbl=neg?'VERB':'TRECUT';}
   else{verbW=v.w;lbl='VERB';}
   $('w1').textContent=verbW.toUpperCase(); $('lbl1').textContent=lbl;
   updateSent();
@@ -215,21 +228,23 @@ function updateSent(){
   const ph=$('sent-ph');ph.innerHTML='';
   let enP,phP,ro,rule;
   if(tense==='present'){
-    const vw=s.is3?v.v3:v.w, vph=s.is3?v.ph3:v.ph;
-    enP=[{c:'ws',t:s.w},{c:'wv',t:vw},{c:'wo',t:o.w}];
-    phP=[{c:'ws',t:s.ph},{c:'wv',t:vph},{c:'wo',t:o.ph}];
-    ro=(s.ro+' '+v.rf[s.fi]+' '+o.ro+'.').toUpperCase();
-    rule='SUBIECT + VERB + OBIECT';
+    const negW=s.is3?"doesn't":"don't";
+    const vw=neg?v.w:(s.is3?v.v3:v.w);
+    const vph=neg?v.ph:(s.is3?v.ph3:v.ph);
+    enP=neg?[{c:'ws',t:s.w},{c:'wn',t:negW},{c:'wv',t:vw},{c:'wo',t:o.w}]:[{c:'ws',t:s.w},{c:'wv',t:vw},{c:'wo',t:o.w}];
+    phP=neg?[{c:'ws',t:s.ph},{c:'wn',t:s.is3?'DAZNT':'DONT'},{c:'wv',t:vph},{c:'wo',t:o.ph}]:[{c:'ws',t:s.ph},{c:'wv',t:vph},{c:'wo',t:o.ph}];
+    ro=neg?(s.ro+' nu '+v.rf[s.fi]+' '+o.ro+'.').toUpperCase():(s.ro+' '+v.rf[s.fi]+' '+o.ro+'.').toUpperCase();
+    rule=neg?'SUBIECT + DON\'T/DOESN\'T + VERB + OBIECT':'SUBIECT + VERB + OBIECT';
   } else if(tense==='past'){
-    enP=[{c:'ws',t:s.w},{c:'wv',t:v.past},{c:'wo',t:o.w}];
-    phP=[{c:'ws',t:s.ph},{c:'wv',t:v.ph_past},{c:'wo',t:o.ph}];
-    ro=(s.ro+' '+PAST_AUX[s.fi]+' '+v.past_part+' '+o.ro+'.').toUpperCase();
-    rule='SUBIECT + VERB TRECUT + OBIECT';
+    enP=neg?[{c:'ws',t:s.w},{c:'wn',t:"didn't"},{c:'wv',t:v.w},{c:'wo',t:o.w}]:[{c:'ws',t:s.w},{c:'wv',t:v.past},{c:'wo',t:o.w}];
+    phP=neg?[{c:'ws',t:s.ph},{c:'wn',t:'DIDNT'},{c:'wv',t:v.ph},{c:'wo',t:o.ph}]:[{c:'ws',t:s.ph},{c:'wv',t:v.ph_past},{c:'wo',t:o.ph}];
+    ro=neg?(s.ro+' nu '+PAST_AUX[s.fi]+' '+v.past_part+' '+o.ro+'.').toUpperCase():(s.ro+' '+PAST_AUX[s.fi]+' '+v.past_part+' '+o.ro+'.').toUpperCase();
+    rule=neg?'SUBIECT + DIDN\'T + VERB + OBIECT':'SUBIECT + VERB TRECUT + OBIECT';
   } else {
-    enP=[{c:'ws',t:s.w},{c:'wa',t:'will'},{c:'wv',t:v.w},{c:'wo',t:o.w}];
-    phP=[{c:'ws',t:s.ph},{c:'wa',t:'UIL'},{c:'wv',t:v.ph},{c:'wo',t:o.ph}];
-    ro=(s.ro+' '+FUT_AUX[s.fi]+' '+v.rof+' '+o.ro+'.').toUpperCase();
-    rule='SUBIECT + WILL + VERB + OBIECT';
+    enP=neg?[{c:'ws',t:s.w},{c:'wn',t:"won't"},{c:'wv',t:v.w},{c:'wo',t:o.w}]:[{c:'ws',t:s.w},{c:'wa',t:'will'},{c:'wv',t:v.w},{c:'wo',t:o.w}];
+    phP=neg?[{c:'ws',t:s.ph},{c:'wn',t:'UONT'},{c:'wv',t:v.ph},{c:'wo',t:o.ph}]:[{c:'ws',t:s.ph},{c:'wa',t:'UIL'},{c:'wv',t:v.ph},{c:'wo',t:o.ph}];
+    ro=neg?(s.ro+' nu '+FUT_AUX[s.fi]+' '+v.rof+' '+o.ro+'.').toUpperCase():(s.ro+' '+FUT_AUX[s.fi]+' '+v.rof+' '+o.ro+'.').toUpperCase();
+    rule=neg?'SUBIECT + WON\'T + VERB + OBIECT':'SUBIECT + WILL + VERB + OBIECT';
   }
   enP.forEach(p=>{const sp=document.createElement('span');sp.className=p.c;sp.textContent=p.t;en.appendChild(sp);});
   en.appendChild(Object.assign(document.createElement('span'),{className:'wd',textContent:'.'}));
@@ -279,8 +294,18 @@ function megaSpin(){
   btn.classList.add('go');btn.textContent='🌀 SPINNING... 🌀';
   if(navigator.vibrate)navigator.vibrate([80,40,80,40,120]);
   const ns=[Math.floor(Math.random()*SUBS.length),Math.floor(Math.random()*VERBS.length),Math.floor(Math.random()*OBJS.length)];
+  const nn=Math.random()<0.38;
   let done=0;
-  function onDone(){done++;if(done===3){idx=ns;busy=false;btn.classList.remove('go');btn.textContent='🎰 MEGA SPIN 🎰';render();flash();setTimeout(speak,350);}}
+  function onDone(){
+    done++;
+    if(done===3){
+      idx=ns;neg=nn;
+      $('negBtn').classList.toggle('on',neg);
+      $('negBtn').textContent=neg?'🚫 NEGATIV':'✅ POZITIV';
+      busy=false;btn.classList.remove('go');btn.textContent='🎰 MEGA SPIN 🎰';
+      render();flash();setTimeout(speak,350);
+    }
+  }
   const verbVals=tense==='past'?VERBS.map(v=>({e:v.e,w:v.past.toUpperCase()})):VERBS.map(v=>({e:v.e,w:v.w.toUpperCase()}));
   spinReel(0,SUBS.map(s=>({e:s.e,w:s.w.toUpperCase()})),1400,onDone);
   spinReel(1,verbVals,1900,onDone);
@@ -292,9 +317,9 @@ function flash(){const d=document.createElement('div');d.className='flash';docum
 function speak(){
   const s=SUBS[idx[0]],v=VERBS[idx[1]],o=OBJS[idx[2]];
   let words;
-  if(tense==='present') words=[s.w, s.is3?v.v3:v.w, o.w];
-  else if(tense==='past') words=[s.w, v.past, o.w];
-  else words=[s.w,'will',v.w,o.w];
+  if(tense==='present') words=neg?[s.w,s.is3?"doesn't":"don't",v.w,o.w]:[s.w,s.is3?v.v3:v.w,o.w];
+  else if(tense==='past') words=neg?[s.w,"didn't",v.w,o.w]:[s.w,v.past,o.w];
+  else words=neg?[s.w,"won't",v.w,o.w]:[s.w,'will',v.w,o.w];
   sw(words.join(' ')+'.');
 }
 
