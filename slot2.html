@@ -8,7 +8,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
-:root{--bg:#050818;--blue:#00b4ff;--green:#00e676;--purple:#8b5cf6;--gold:#ffc400;
+:root{--bg:#050818;--blue:#00b4ff;--red:#ff4060;--green:#00e676;--purple:#8b5cf6;--gold:#ffc400;
   --frost:rgba(255,255,255,.92);--frost2:rgba(255,255,255,.55);--frost3:rgba(255,255,255,.18);
   --glass:rgba(255,255,255,.06);--border:rgba(255,255,255,.09)}
 html,body{min-height:100%;background:var(--bg);color:var(--frost);font-family:'Inter',-apple-system,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
@@ -25,51 +25,56 @@ html,body{min-height:100%;background:var(--bg);color:var(--frost);font-family:'I
 .snav.active{background:rgba(0,180,255,.18);border-color:rgba(0,180,255,.5);color:var(--blue)}
 .snav:hover{background:rgba(139,92,246,.15);border-color:rgba(139,92,246,.4);color:var(--purple)}
 .app{position:relative;z-index:10;min-height:100dvh;padding:72px 8px 52px;display:flex;flex-direction:column;align-items:center;gap:14px}
-.pg-title{text-align:center;width:100%;max-width:480px;padding:6px 0 2px}
+.pg-title{text-align:center;width:100%;max-width:520px;padding:6px 0 2px}
 .pg-title h1{font-size:clamp(20px,5.5vw,30px);font-weight:900;letter-spacing:-.025em;background:linear-gradient(130deg,var(--blue),var(--green));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:5px}
 .pg-title p{font-size:11px;color:var(--frost2);text-transform:uppercase;letter-spacing:.16em}
-.tense-tabs{width:100%;max-width:480px;display:flex;gap:6px}
+.tense-tabs{width:100%;max-width:520px;display:flex;gap:6px}
 .ttab{flex:1;padding:10px 3px;border-radius:13px;border:1.5px solid var(--border);background:var(--glass);font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;transition:all .2s;color:var(--frost2);font-family:inherit;-webkit-tap-highlight-color:transparent;backdrop-filter:blur(12px);line-height:1.3;text-align:center}
 .ttab.active-present{background:rgba(0,180,255,.15);border-color:rgba(0,180,255,.5);color:var(--blue);box-shadow:0 0 18px rgba(0,180,255,.2)}
 .ttab.active-past{background:rgba(255,196,0,.15);border-color:rgba(255,196,0,.5);color:var(--gold);box-shadow:0 0 18px rgba(255,196,0,.2)}
 .ttab.active-future{background:rgba(139,92,246,.15);border-color:rgba(139,92,246,.5);color:var(--purple);box-shadow:0 0 18px rgba(139,92,246,.2)}
-.reels{width:100%;max-width:480px;display:flex;gap:12px}
-.reel{flex:1;min-height:180px;border-radius:20px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:16px 8px 22px;cursor:pointer;user-select:none;position:relative;overflow:hidden;-webkit-tap-highlight-color:transparent;transition:transform .13s;backdrop-filter:blur(18px)}
+.reels{width:100%;max-width:520px;display:flex;gap:8px}
+.reel{flex:1;min-height:172px;border-radius:20px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:14px 6px 22px;cursor:pointer;user-select:none;position:relative;overflow:hidden;-webkit-tap-highlight-color:transparent;transition:transform .13s,box-shadow .3s;backdrop-filter:blur(18px)}
 .reel::before{content:'';position:absolute;inset:0;background:linear-gradient(155deg,rgba(255,255,255,.09),transparent 52%);pointer-events:none;z-index:1}
 .reel:active{transform:scale(.93)}
-.reel-inner{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;gap:5px}
+.reel-inner{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;gap:4px}
 .reel.spin .reel-inner{animation:rtick .1s linear infinite}
 @keyframes rtick{0%{transform:translateY(0) scale(1);filter:blur(0)}44%{transform:translateY(-8px) scale(.95);filter:blur(3px)}56%{transform:translateY(8px) scale(.95);filter:blur(3px)}100%{transform:translateY(0) scale(1);filter:blur(0)}}
-.emo{font-size:clamp(30px,8vw,42px);line-height:1}
-.rword{font-size:clamp(11px,3.2vw,17px);font-weight:900;letter-spacing:.05em;text-transform:uppercase;text-align:center;line-height:1.15}
-.rro{font-size:clamp(9px,2.2vw,11px);font-weight:700;letter-spacing:.1em;text-transform:uppercase;opacity:.72;text-align:center}
+.emo{font-size:clamp(26px,7vw,34px);line-height:1}
+.rword{font-size:clamp(9px,2.5vw,13px);font-weight:900;letter-spacing:.05em;text-transform:uppercase;text-align:center;line-height:1.15}
+.rro{font-size:clamp(7px,1.8vw,9.5px);font-weight:700;letter-spacing:.1em;text-transform:uppercase;opacity:.72;text-align:center}
 .rlbl{position:absolute;bottom:5px;font-size:7px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;opacity:.42;z-index:2}
+/* Subject – blue */
 .r0{background:linear-gradient(155deg,rgba(0,180,255,.17),rgba(0,180,255,.05));border:1.5px solid rgba(0,180,255,.42);box-shadow:0 0 22px rgba(0,180,255,.16),inset 0 1px 0 rgba(0,180,255,.1)}
 .r0 .rword{color:var(--blue)}.r0 .rlbl{color:rgba(0,180,255,.7)}
+/* Neg reel – multi-state */
+.r1{background:linear-gradient(155deg,rgba(255,255,255,.07),rgba(255,255,255,.02));border:1.5px solid rgba(255,255,255,.14);box-shadow:0 0 12px rgba(255,255,255,.03)}
+.r1 .rword{color:var(--frost3)}.r1 .rlbl{color:var(--frost3)}
+.r1.on{background:linear-gradient(155deg,rgba(255,64,96,.22),rgba(255,64,96,.07));border-color:rgba(255,64,96,.58);box-shadow:0 0 28px rgba(255,64,96,.3),0 0 55px rgba(255,64,96,.09)}
+.r1.on .rword{color:var(--red);text-shadow:0 0 14px rgba(255,64,96,.9)}.r1.on .rlbl{color:rgba(255,64,96,.8)}
+/* Verb – green */
 .r2{background:linear-gradient(155deg,rgba(0,230,118,.17),rgba(0,230,118,.05));border:1.5px solid rgba(0,230,118,.42);box-shadow:0 0 22px rgba(0,230,118,.16),inset 0 1px 0 rgba(0,230,118,.1)}
 .r2 .rword{color:var(--green)}.r2 .rlbl{color:rgba(0,230,118,.7)}
-.hint{font-size:10px;color:var(--frost3);text-align:center;letter-spacing:.1em;text-transform:uppercase;width:100%;max-width:480px}
-.sent-card{width:100%;max-width:480px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:22px;padding:16px 18px;backdrop-filter:blur(22px);display:flex;flex-direction:column;gap:9px}
+.hint{font-size:10px;color:var(--frost3);text-align:center;letter-spacing:.1em;text-transform:uppercase;width:100%;max-width:520px}
+.sent-card{width:100%;max-width:520px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:22px;padding:16px 18px;backdrop-filter:blur(22px);display:flex;flex-direction:column;gap:9px}
 .sent-top{display:flex;align-items:center;gap:10px}
 .play-btn{width:38px;height:38px;border-radius:12px;border:1px solid var(--border);background:var(--glass);font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .2s;-webkit-tap-highlight-color:transparent}
 .play-btn:hover{background:rgba(0,180,255,.15);border-color:rgba(0,180,255,.4)}
-.sent-en{font-size:clamp(16px,4.5vw,24px);font-weight:900;display:flex;flex-wrap:wrap;gap:6px;align-items:baseline;line-height:1.3;flex:1}
-.ws{color:var(--blue)}.wa{color:var(--gold)}.wv{color:var(--green)}.wd{color:var(--frost3)}.wn{color:#ff4060;text-shadow:0 0 10px rgba(255,64,96,.5)}
+.sent-en{font-size:clamp(15px,4.2vw,22px);font-weight:900;display:flex;flex-wrap:wrap;gap:6px;align-items:baseline;line-height:1.3;flex:1}
+.ws{color:var(--blue)}.wn{color:var(--red);text-shadow:0 0 10px rgba(255,64,96,.5)}.wa{color:var(--gold)}.wv{color:var(--green)}.wd{color:var(--frost3)}
 .sent-ro{font-size:13px;font-weight:700;color:var(--frost2);text-transform:uppercase;letter-spacing:.06em;padding-left:48px}
 .sent-ph{font-size:12px;font-weight:700;letter-spacing:.07em;display:flex;flex-wrap:wrap;gap:5px;padding-left:48px;opacity:.9}
 .sent-rule{font-size:9.5px;color:var(--frost3);text-transform:uppercase;letter-spacing:.12em;padding-left:48px}
-.legend{width:100%;max-width:480px;display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.legend{width:100%;max-width:520px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px}
 .leg{border-radius:11px;padding:7px 4px;text-align:center;font-size:8.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;border:1px solid var(--border);background:var(--glass)}
-.lb{color:var(--blue);border-color:rgba(0,180,255,.22)}.lg{color:var(--green);border-color:rgba(0,230,118,.22)}
-.spin-btn{width:100%;max-width:480px;padding:19px;border:none;border-radius:22px;cursor:pointer;font-family:'Inter',-apple-system,sans-serif;font-size:clamp(15px,4vw,19px);font-weight:900;letter-spacing:.1em;text-transform:uppercase;color:#fff;background:linear-gradient(135deg,#00b4ff,#00e676 50%,#00b4ff);background-size:300% 300%;animation:ga 4s ease infinite;box-shadow:0 8px 32px rgba(0,180,255,.4),inset 0 1px 0 rgba(255,255,255,.22);position:relative;overflow:hidden;transition:transform .15s;-webkit-tap-highlight-color:transparent}
+.lb{color:var(--blue);border-color:rgba(0,180,255,.22)}.lr{color:var(--red);border-color:rgba(255,64,96,.22)}.lg{color:var(--green);border-color:rgba(0,230,118,.22)}
+.spin-btn{width:100%;max-width:520px;padding:19px;border:none;border-radius:22px;cursor:pointer;font-family:'Inter',-apple-system,sans-serif;font-size:clamp(15px,4vw,19px);font-weight:900;letter-spacing:.1em;text-transform:uppercase;color:#fff;background:linear-gradient(135deg,#00b4ff,#00e676 50%,#00b4ff);background-size:300% 300%;animation:ga 4s ease infinite;box-shadow:0 8px 32px rgba(0,180,255,.4),inset 0 1px 0 rgba(255,255,255,.22);position:relative;overflow:hidden;transition:transform .15s;-webkit-tap-highlight-color:transparent}
 .spin-btn::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,.22),transparent 55%);pointer-events:none}
 .spin-btn:active{transform:scale(.97)}
-.spin-btn.go{animation:ga .6s ease infinite;box-shadow:0 12px 48px rgba(0,180,255,.65)}
+.spin-btn.go{animation:ga .6s ease infinite}
 @keyframes ga{0%{background-position:0 50%}50%{background-position:100% 50%}100%{background-position:0 50%}}
-.neg-toggle{width:100%;max-width:480px;padding:12px 16px;border-radius:16px;border:1.5px solid var(--border);background:var(--glass);font-family:inherit;font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;color:var(--frost2);transition:all .25s;-webkit-tap-highlight-color:transparent;backdrop-filter:blur(12px)}
-.neg-toggle.on{background:rgba(255,64,96,.12);border-color:rgba(255,64,96,.5);color:#ff4060;box-shadow:0 0 22px rgba(255,64,96,.25)}
 .flash{position:fixed;inset:0;z-index:300;pointer-events:none;animation:wf .7s ease forwards}
-@keyframes wf{0%{background:rgba(0,180,255,0)}20%{background:rgba(0,180,255,.18)}50%{background:rgba(0,230,118,.1)}100%{background:rgba(0,0,0,0)}}
+@keyframes wf{0%{background:rgba(0,180,255,0)}20%{background:rgba(0,180,255,.18)}50%{background:rgba(255,64,96,.08)}100%{background:rgba(0,0,0,0)}}
 </style>
 </head>
 <body>
@@ -104,13 +109,15 @@ html,body{min-height:100%;background:var(--bg);color:var(--frost);font-family:'I
       <div class="reel-inner" id="ri0"><div class="emo" id="e0">🙋</div><div class="rword" id="w0">I</div><div class="rro" id="t0">EU</div></div>
       <div class="rlbl">SUBIECT</div>
     </div>
-    <div class="reel r2" id="r1" onclick="step(1)" ontouchstart="ts(event,1)" ontouchend="te(event,1)">
-      <div class="reel-inner" id="ri1"><div class="emo" id="e1">🍽️</div><div class="rword" id="w1">EAT</div><div class="rro" id="t1">A MÂNCA</div></div>
-      <div class="rlbl" id="lbl1">VERB</div>
+    <div class="reel r1" id="r1" onclick="toggleNeg()">
+      <div class="reel-inner" id="ri1"><div class="emo" id="e1">✅</div><div class="rword" id="w1">—</div><div class="rro" id="t1">POZITIV</div></div>
+      <div class="rlbl" id="lbl1">NEGAȚIE</div>
+    </div>
+    <div class="reel r2" id="r2" onclick="step(2)" ontouchstart="ts(event,2)" ontouchend="te(event,2)">
+      <div class="reel-inner" id="ri2"><div class="emo" id="e2">🍽️</div><div class="rword" id="w2">EAT</div><div class="rro" id="t2">A MÂNCA</div></div>
+      <div class="rlbl" id="lbl2">VERB</div>
     </div>
   </div>
-
-  <button class="neg-toggle" id="negBtn" onclick="toggleNeg()">✅ POZITIV</button>
 
   <div class="hint">▲ Swipe pe rele · Tap negație pentru on/off ▼</div>
 
@@ -128,6 +135,7 @@ html,body{min-height:100%;background:var(--bg);color:var(--frost);font-family:'I
 
   <div class="legend">
     <div class="leg lb">🔵 Subiect</div>
+    <div class="leg lr">🔴 Negație</div>
     <div class="leg lg">🟢 Verb</div>
   </div>
 
@@ -179,23 +187,30 @@ function setTense(t){
   render();
 }
 
-function toggleNeg(){
-  neg=!neg;
-  const btn=$('negBtn');
-  btn.classList.toggle('on',neg);
-  btn.textContent=neg?'🚫 NEGATIV':'✅ POZITIV';
-  render();
-}
+function toggleNeg(){if(busy)return;neg=!neg;render();}
 
 function render(){
   const s=SUBS[idx[0]],v=VERBS[idx[1]];
   $('e0').textContent=s.e; $('w0').textContent=s.w.toUpperCase(); $('t0').textContent=s.ro.toUpperCase();
-  $('e1').textContent=v.e; $('t1').textContent=v.ro.toUpperCase();
+
+  const r1=$('r1');
+  r1.classList.toggle('on',neg);
+  if(neg){
+    $('e1').textContent='🚫';
+    $('t1').textContent='NEGATIV';
+    if(tense==='present'){$('w1').textContent=s.is3?"DOESN'T":"DON'T";}
+    else if(tense==='past'){$('w1').textContent="DIDN'T";}
+    else{$('w1').textContent="WON'T";}
+  } else {
+    $('e1').textContent='✅'; $('w1').textContent='—'; $('t1').textContent='POZITIV';
+  }
+
+  $('e2').textContent=v.e; $('t2').textContent=v.ro.toUpperCase();
   let verbW,lbl;
   if(tense==='present'){verbW=neg?v.w:(s.is3?v.v3:v.w);lbl='VERB';}
   else if(tense==='past'){verbW=neg?v.w:v.past;lbl=neg?'VERB':'TRECUT';}
   else{verbW=v.w;lbl='VERB';}
-  $('w1').textContent=verbW.toUpperCase(); $('lbl1').textContent=lbl;
+  $('w2').textContent=verbW.toUpperCase(); $('lbl2').textContent=lbl;
   updateSent();
 }
 
@@ -211,7 +226,7 @@ function updateSent(){
     enP=neg?[{c:'ws',t:s.w},{c:'wn',t:negW},{c:'wv',t:vw}]:[{c:'ws',t:s.w},{c:'wv',t:vw}];
     phP=neg?[{c:'ws',t:s.ph},{c:'wn',t:s.is3?'DAZNT':'DONT'},{c:'wv',t:vph}]:[{c:'ws',t:s.ph},{c:'wv',t:vph}];
     ro=neg?(s.ro+' nu '+v.rf[s.fi]+'.').toUpperCase():(s.ro+' '+v.rf[s.fi]+'.').toUpperCase();
-    rule=neg?'SUBIECT + DON\'T/DOESN\'T + VERB':'SUBIECT + VERB';
+    rule=neg?'SUBIECT + DON\'T / DOESN\'T + VERB':'SUBIECT + VERB';
   } else if(tense==='past'){
     enP=neg?[{c:'ws',t:s.w},{c:'wn',t:"didn't"},{c:'wv',t:v.w}]:[{c:'ws',t:s.w},{c:'wv',t:v.past}];
     phP=neg?[{c:'ws',t:s.ph},{c:'wn',t:'DIDNT'},{c:'wv',t:v.ph}]:[{c:'ws',t:s.ph},{c:'wv',t:v.ph_past}];
@@ -234,7 +249,7 @@ function updateSent(){
 function step(r,d=1){
   if(busy)return;
   if(r===0)idx[0]=(idx[0]+d+SUBS.length)%SUBS.length;
-  else idx[1]=(idx[1]+d+VERBS.length)%VERBS.length;
+  else if(r===2)idx[1]=(idx[1]+d+VERBS.length)%VERBS.length;
   render();
   sw(r===0?SUBS[idx[0]].w:VERBS[idx[1]].w);
 }
@@ -272,19 +287,10 @@ function megaSpin(){
   const ns=[Math.floor(Math.random()*SUBS.length),Math.floor(Math.random()*VERBS.length)];
   const nn=Math.random()<0.38;
   let done=0;
-  function onDone(){
-    done++;
-    if(done===2){
-      idx=ns;neg=nn;
-      $('negBtn').classList.toggle('on',neg);
-      $('negBtn').textContent=neg?'🚫 NEGATIV':'✅ POZITIV';
-      busy=false;btn.classList.remove('go');btn.textContent='🎰 MEGA SPIN 🎰';
-      render();flash();setTimeout(speak,350);
-    }
-  }
+  function onDone(){done++;if(done===2){idx=ns;neg=nn;busy=false;btn.classList.remove('go');btn.textContent='🎰 MEGA SPIN 🎰';render();flash();setTimeout(speak,350);}}
   const verbVals=tense==='past'?VERBS.map(v=>({e:v.e,w:v.past.toUpperCase()})):VERBS.map(v=>({e:v.e,w:v.w.toUpperCase()}));
   spinReel(0,SUBS.map(s=>({e:s.e,w:s.w.toUpperCase()})),1400,onDone);
-  spinReel(1,verbVals,1900,onDone);
+  spinReel(2,verbVals,1900,onDone);
 }
 
 function flash(){const d=document.createElement('div');d.className='flash';document.body.appendChild(d);setTimeout(()=>d.remove(),800);}
@@ -315,7 +321,7 @@ let W,H,pts=[];
 function initP(){
   W=cvs.width=innerWidth;H=cvs.height=innerHeight;pts=[];
   for(let i=0;i<100;i++){
-    const c=['0,180,255','0,230,118','139,92,246'][Math.floor(Math.random()*3)];
+    const c=['0,180,255','255,64,96','0,230,118','139,92,246'][Math.floor(Math.random()*4)];
     pts.push({x:Math.random()*W,y:Math.random()*H,r:Math.random()*1.6+.3,vx:(Math.random()-.5)*.35,vy:(Math.random()-.5)*.35,c,a:Math.random()*.55+.1});
   }
 }

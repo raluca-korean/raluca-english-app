@@ -47,6 +47,12 @@ html,body{min-height:100%;background:var(--bg);color:var(--frost);font-family:'I
 .rlbl{position:absolute;bottom:5px;font-size:7px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;opacity:.42;z-index:2}
 .r0{background:linear-gradient(155deg,rgba(0,180,255,.17),rgba(0,180,255,.05));border:1.5px solid rgba(0,180,255,.42);box-shadow:0 0 22px rgba(0,180,255,.16),inset 0 1px 0 rgba(0,180,255,.1)}
 .r0 .rword{color:var(--blue)}.r0 .rlbl{color:rgba(0,180,255,.7)}
+.r1{background:linear-gradient(155deg,rgba(255,255,255,.07),rgba(255,255,255,.02));border:1.5px solid rgba(255,255,255,.14);box-shadow:0 0 18px rgba(255,255,255,.04),inset 0 1px 0 rgba(255,255,255,.05);transition:background .3s,border-color .3s,box-shadow .3s}
+.r1 .rword{color:var(--frost2)}
+.r1 .rlbl{color:rgba(255,255,255,.35)}
+.r1.on{background:linear-gradient(155deg,rgba(255,64,96,.22),rgba(255,64,96,.07));border-color:rgba(255,64,96,.58);box-shadow:0 0 22px rgba(255,64,96,.28),inset 0 1px 0 rgba(255,64,96,.12)}
+.r1.on .rword{color:var(--red);text-shadow:0 0 14px rgba(255,64,96,.9)}
+.r1.on .rlbl{color:rgba(255,64,96,.7)}
 .r2{background:linear-gradient(155deg,rgba(0,230,118,.17),rgba(0,230,118,.05));border:1.5px solid rgba(0,230,118,.42);box-shadow:0 0 22px rgba(0,230,118,.16),inset 0 1px 0 rgba(0,230,118,.1)}
 .r2 .rword{color:var(--green)}.r2 .rlbl{color:rgba(0,230,118,.7)}
 .r3{background:linear-gradient(155deg,rgba(139,92,246,.17),rgba(139,92,246,.05));border:1.5px solid rgba(139,92,246,.42);box-shadow:0 0 22px rgba(139,92,246,.16),inset 0 1px 0 rgba(139,92,246,.1)}
@@ -61,14 +67,12 @@ html,body{min-height:100%;background:var(--bg);color:var(--frost);font-family:'I
 .sent-ro{font-size:13px;font-weight:700;color:var(--frost2);text-transform:uppercase;letter-spacing:.06em;padding-left:48px}
 .sent-ph{font-size:12px;font-weight:700;letter-spacing:.07em;display:flex;flex-wrap:wrap;gap:5px;padding-left:48px;opacity:.9}
 .sent-rule{font-size:9.5px;color:var(--frost3);text-transform:uppercase;letter-spacing:.12em;padding-left:48px}
-.legend{width:100%;max-width:560px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px}
+.legend{width:100%;max-width:560px;display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:6px}
 .leg{border-radius:11px;padding:7px 4px;text-align:center;font-size:8.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;border:1px solid var(--border);background:var(--glass)}
-.lb{color:var(--blue);border-color:rgba(0,180,255,.22)}.lg{color:var(--green);border-color:rgba(0,230,118,.22)}.lp{color:var(--purple);border-color:rgba(139,92,246,.22)}
+.lb{color:var(--blue);border-color:rgba(0,180,255,.22)}.lr{color:var(--red);border-color:rgba(255,64,96,.22)}.lg{color:var(--green);border-color:rgba(0,230,118,.22)}.lp{color:var(--purple);border-color:rgba(139,92,246,.22)}
 .spin-btn{width:100%;max-width:560px;padding:19px;border:none;border-radius:22px;cursor:pointer;font-family:'Inter',-apple-system,sans-serif;font-size:clamp(15px,4vw,19px);font-weight:900;letter-spacing:.1em;text-transform:uppercase;color:#fff;background:linear-gradient(135deg,#00b4ff,#8b5cf6 50%,#00e676);background-size:300% 300%;animation:ga 4s ease infinite;box-shadow:0 8px 32px rgba(139,92,246,.4),inset 0 1px 0 rgba(255,255,255,.22);position:relative;overflow:hidden;transition:transform .15s;-webkit-tap-highlight-color:transparent}
 .spin-btn::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,.22),transparent 55%);pointer-events:none}
 .spin-btn:active{transform:scale(.97)}
-.neg-toggle{width:100%;max-width:560px;padding:12px 16px;border-radius:16px;border:1.5px solid var(--border);background:var(--glass);font-family:inherit;font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;color:var(--frost2);transition:all .25s;-webkit-tap-highlight-color:transparent;backdrop-filter:blur(12px)}
-.neg-toggle.on{background:rgba(255,64,96,.12);border-color:rgba(255,64,96,.5);color:#ff4060;box-shadow:0 0 22px rgba(255,64,96,.25)}
 .spin-btn.go{animation:ga .6s ease infinite}
 @keyframes ga{0%{background-position:0 50%}50%{background-position:100% 50%}100%{background-position:0 50%}}
 .flash{position:fixed;inset:0;z-index:300;pointer-events:none;animation:wf .7s ease forwards}
@@ -107,17 +111,19 @@ html,body{min-height:100%;background:var(--bg);color:var(--frost);font-family:'I
       <div class="reel-inner" id="ri0"><div class="emo" id="e0">🙋</div><div class="rword" id="w0">I</div><div class="rro" id="t0">EU</div></div>
       <div class="rlbl">SUBIECT</div>
     </div>
-    <div class="reel r2" id="r1" onclick="step(1)" ontouchstart="ts(event,1)" ontouchend="te(event,1)">
-      <div class="reel-inner" id="ri1"><div class="emo" id="e1">🍽️</div><div class="rword" id="w1">EAT</div><div class="rro" id="t1">A MÂNCA</div></div>
-      <div class="rlbl" id="lbl1">VERB</div>
+    <div class="reel r1" id="r1" onclick="toggleNeg()">
+      <div class="reel-inner" id="ri1"><div class="emo" id="e1">✅</div><div class="rword" id="w1">—</div><div class="rro" id="t1">POZITIV</div></div>
+      <div class="rlbl" id="lbl1">NEGAȚIE</div>
     </div>
-    <div class="reel r3" id="r2" onclick="step(2)" ontouchstart="ts(event,2)" ontouchend="te(event,2)">
-      <div class="reel-inner" id="ri2"><div class="emo" id="e2">🍎</div><div class="rword" id="w2">APPLES</div><div class="rro" id="t2">MERE</div></div>
+    <div class="reel r2" id="r2" onclick="step(2)" ontouchstart="ts(event,2)" ontouchend="te(event,2)">
+      <div class="reel-inner" id="ri2"><div class="emo" id="e2">🍽️</div><div class="rword" id="w2">EAT</div><div class="rro" id="t2">A MÂNCA</div></div>
+      <div class="rlbl" id="lbl2">VERB</div>
+    </div>
+    <div class="reel r3" id="r3" onclick="step(3)" ontouchstart="ts(event,3)" ontouchend="te(event,3)">
+      <div class="reel-inner" id="ri3"><div class="emo" id="e3">🍎</div><div class="rword" id="w3">APPLES</div><div class="rro" id="t3">MERE</div></div>
       <div class="rlbl">OBIECT</div>
     </div>
   </div>
-
-  <button class="neg-toggle" id="negBtn" onclick="toggleNeg()">✅ POZITIV</button>
 
   <div class="hint">▲ Swipe pe rele · Tap negație pentru on/off ▼</div>
 
@@ -135,6 +141,7 @@ html,body{min-height:100%;background:var(--bg);color:var(--frost);font-family:'I
 
   <div class="legend">
     <div class="leg lb">🔵 Subiect</div>
+    <div class="leg lr">🔴 Negație</div>
     <div class="leg lg">🟢 Verb</div>
     <div class="leg lp">🟣 Obiect</div>
   </div>
@@ -203,22 +210,29 @@ function setTense(t){
 
 function toggleNeg(){
   neg=!neg;
-  const btn=$('negBtn');
-  btn.classList.toggle('on',neg);
-  btn.textContent=neg?'🚫 NEGATIV':'✅ POZITIV';
   render();
 }
 
 function render(){
   const s=SUBS[idx[0]],v=VERBS[idx[1]],o=OBJS[idx[2]];
   $('e0').textContent=s.e; $('w0').textContent=s.w.toUpperCase(); $('t0').textContent=s.ro.toUpperCase();
-  $('e2').textContent=o.e; $('w2').textContent=o.w.toUpperCase(); $('t2').textContent=o.ro.toUpperCase();
-  $('e1').textContent=v.e; $('t1').textContent=v.ro.toUpperCase();
+  const r1=$('r1');
+  r1.classList.toggle('on',neg);
+  if(neg){
+    $('e1').textContent='🚫'; $('t1').textContent='NEGATIV';
+    if(tense==='present'){$('w1').textContent=s.is3?"DOESN'T":"DON'T";}
+    else if(tense==='past'){$('w1').textContent="DIDN'T";}
+    else{$('w1').textContent="WON'T";}
+  } else {
+    $('e1').textContent='✅'; $('w1').textContent='—'; $('t1').textContent='POZITIV';
+  }
+  $('e2').textContent=v.e; $('t2').textContent=v.ro.toUpperCase();
   let verbW,lbl;
   if(tense==='present'){verbW=neg?v.w:(s.is3?v.v3:v.w);lbl='VERB';}
   else if(tense==='past'){verbW=neg?v.w:v.past;lbl=neg?'VERB':'TRECUT';}
   else{verbW=v.w;lbl='VERB';}
-  $('w1').textContent=verbW.toUpperCase(); $('lbl1').textContent=lbl;
+  $('w2').textContent=verbW.toUpperCase(); $('lbl2').textContent=lbl;
+  $('e3').textContent=o.e; $('w3').textContent=o.w.toUpperCase(); $('t3').textContent=o.ro.toUpperCase();
   updateSent();
 }
 
@@ -257,10 +271,10 @@ function updateSent(){
 function step(r,d=1){
   if(busy)return;
   if(r===0)idx[0]=(idx[0]+d+SUBS.length)%SUBS.length;
-  else if(r===1)idx[1]=(idx[1]+d+VERBS.length)%VERBS.length;
-  else idx[2]=(idx[2]+d+OBJS.length)%OBJS.length;
+  else if(r===2)idx[1]=(idx[1]+d+VERBS.length)%VERBS.length;
+  else if(r===3)idx[2]=(idx[2]+d+OBJS.length)%OBJS.length;
   render();
-  sw(r===0?SUBS[idx[0]].w:r===1?VERBS[idx[1]].w:OBJS[idx[2]].w);
+  sw(r===0?SUBS[idx[0]].w:r===2?VERBS[idx[1]].w:OBJS[idx[2]].w);
 }
 
 function ts(e,r){tY[r]=e.touches[0].clientY;}
@@ -300,16 +314,14 @@ function megaSpin(){
     done++;
     if(done===3){
       idx=ns;neg=nn;
-      $('negBtn').classList.toggle('on',neg);
-      $('negBtn').textContent=neg?'🚫 NEGATIV':'✅ POZITIV';
       busy=false;btn.classList.remove('go');btn.textContent='🎰 MEGA SPIN 🎰';
       render();flash();setTimeout(speak,350);
     }
   }
   const verbVals=tense==='past'?VERBS.map(v=>({e:v.e,w:v.past.toUpperCase()})):VERBS.map(v=>({e:v.e,w:v.w.toUpperCase()}));
   spinReel(0,SUBS.map(s=>({e:s.e,w:s.w.toUpperCase()})),1400,onDone);
-  spinReel(1,verbVals,1900,onDone);
-  spinReel(2,OBJS.map(o=>({e:o.e,w:o.w.toUpperCase()})),2300,onDone);
+  spinReel(2,verbVals,1900,onDone);
+  spinReel(3,OBJS.map(o=>({e:o.e,w:o.w.toUpperCase()})),2300,onDone);
 }
 
 function flash(){const d=document.createElement('div');d.className='flash';document.body.appendChild(d);setTimeout(()=>d.remove(),800);}
