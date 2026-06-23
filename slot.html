@@ -288,7 +288,7 @@ function render(){
 
   if(tense==='present'){
     if(neg){r1.classList.add('on');$('e1').textContent='🚫';$('w1').textContent=s.is3?"DOESN'T":"DON'T";$('t1').textContent='NEGATIV';}
-    else{$('e1').textContent='✅';$('w1').textContent='—';$('t1').textContent='POZITIV';}
+    else{$('e1').textContent='✅';$('w1').textContent=s.is3?'DOES':'DO';$('t1').textContent='POZITIV';}
     $('lbl1').textContent='NEGAȚIE';
     $('w2').textContent=v.w.toUpperCase();
     $('lbl2').textContent='VERB';
@@ -310,7 +310,7 @@ function render(){
     $('lbl2').textContent='PARTICIPIU';
   } else if(tense==='past'){
     if(neg){r1.classList.add('on');$('e1').textContent='🚫';$('w1').textContent="DIDN'T";$('t1').textContent='NEGATIV';}
-    else{$('e1').textContent='✅';$('w1').textContent='—';$('t1').textContent='POZITIV';}
+    else{$('e1').textContent='✅';$('w1').textContent='DID';$('t1').textContent='POZITIV';}
     $('lbl1').textContent='NEGAȚIE';
     $('w2').textContent=v.past.toUpperCase();
     $('lbl2').textContent='VERB TRECUT';

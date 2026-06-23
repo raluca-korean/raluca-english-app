@@ -202,7 +202,10 @@ function render(){
     else if(tense==='past'){$('w1').textContent="DIDN'T";}
     else{$('w1').textContent="WON'T";}
   } else {
-    $('e1').textContent='✅'; $('w1').textContent='—'; $('t1').textContent='POZITIV';
+    $('e1').textContent='✅'; $('t1').textContent='POZITIV';
+    if(tense==='present'){$('w1').textContent=s.is3?'DOES':'DO';}
+    else if(tense==='past'){$('w1').textContent='DID';}
+    else{$('w1').textContent='WILL';}
   }
 
   $('e2').textContent=v.e; $('t2').textContent=v.ro.toUpperCase();
