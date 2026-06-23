@@ -3,66 +3,172 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Gramatică · English Zero→Hero</title>
+<title>Numere & Culori · English Zero→Hero</title>
 <meta name="theme-color" content="#050818">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
-:root{--bg:#050818;--green:#00e676;--blue:#00b4ff;--frost:rgba(255,255,255,.92);--frost2:rgba(255,255,255,.55);--frost3:rgba(255,255,255,.18);--glass:rgba(255,255,255,.06);--border:rgba(255,255,255,.09);}
+:root{--bg:#050818;--green:#00e676;--blue:#00b4ff;--red:#ff4060;--gold:#ffc400;--purple:#8b5cf6;--frost:rgba(255,255,255,.92);--frost2:rgba(255,255,255,.55);--frost3:rgba(255,255,255,.18);--glass:rgba(255,255,255,.06);--border:rgba(255,255,255,.09)}
 html,body{min-height:100%;background:var(--bg);color:var(--frost);font-family:'Inter',-apple-system,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
-.bg{position:fixed;inset:0;background:radial-gradient(ellipse 65% 50% at 20% 15%,rgba(0,230,118,.14),transparent 65%),radial-gradient(ellipse 55% 45% at 80% 80%,rgba(0,180,255,.12),transparent 60%),#050818}
-.hdr{position:fixed;top:0;left:0;right:0;z-index:100;padding:13px 20px;display:flex;align-items:center;gap:12px;background:rgba(5,8,24,.88);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
-.back{width:36px;height:36px;border-radius:11px;border:1px solid var(--border);background:var(--glass);display:flex;align-items:center;justify-content:center;font-size:16px;text-decoration:none;color:var(--frost);flex-shrink:0}
+.bg{position:fixed;inset:0;z-index:0;background:
+  radial-gradient(ellipse 70% 55% at 15% 10%,rgba(0,230,118,.18),transparent 60%),
+  radial-gradient(ellipse 60% 50% at 85% 85%,rgba(0,180,255,.15),transparent 60%),#050818}
+#cvs{position:fixed;inset:0;z-index:1;pointer-events:none;opacity:.45}
+.hdr{position:fixed;top:0;left:0;right:0;z-index:100;padding:13px 20px;display:flex;align-items:center;gap:12px;background:rgba(5,8,24,.9);backdrop-filter:blur(22px);border-bottom:1px solid var(--border)}
+.back{width:36px;height:36px;border-radius:11px;border:1px solid var(--border);background:var(--glass);display:flex;align-items:center;justify-content:center;font-size:16px;text-decoration:none;color:var(--frost);flex-shrink:0;transition:all .2s}
 .back:hover{border-color:rgba(0,230,118,.4);background:rgba(0,230,118,.1)}
 .hdr-t{font-size:14px;font-weight:700;flex:1}
-.main{padding:78px 20px 48px;position:relative;z-index:10;display:flex;flex-direction:column;align-items:center;gap:14px}
-.page-title{width:100%;max-width:480px;text-align:center;padding:24px 0 8px}
-.page-title h1{font-size:clamp(22px,6vw,34px);font-weight:900;letter-spacing:-.02em;background:linear-gradient(130deg,var(--green),var(--blue));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.gcard{width:100%;max-width:480px;background:var(--glass);border:1px solid var(--border);border-radius:24px;overflow:hidden;backdrop-filter:blur(20px);transition:border-color .25s}
-.gcard:hover{border-color:rgba(0,230,118,.2)}
-.gcard-head{padding:20px 22px 16px;display:flex;align-items:center;gap:14px;cursor:pointer;user-select:none}
-.g-badge{font-size:22px;min-width:52px;height:52px;border-radius:14px;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,rgba(0,230,118,.22),rgba(0,230,118,.06));border:1px solid rgba(0,230,118,.28);flex-shrink:0}
-.ginfo{flex:1}
-.gtitle{font-size:16px;font-weight:700;margin-bottom:3px;text-transform:uppercase}
-.gsub{font-size:12.5px;color:var(--frost2);text-transform:uppercase}
-.toggle{font-size:20px;transition:transform .3s;color:var(--frost3)}
-.gcard.open .toggle{transform:rotate(180deg)}
-.gbody{display:none;padding:0 22px 22px}
-.gcard.open .gbody{display:block}
-.sec-lbl{font-size:10px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--green);opacity:.75;margin-bottom:10px}
-.num-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:14px}
-.tens-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-bottom:14px}
-.ncell{background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:12px;padding:10px 6px;text-align:center;cursor:pointer;transition:all .2s}
-.ncell:hover{background:rgba(0,230,118,.08);border-color:rgba(0,230,118,.25)}
-.ncell-n{font-size:16px;font-weight:900;color:var(--green)}
-.ncell-w{font-size:11px;font-weight:700;text-transform:uppercase;margin-top:2px}
-.ncell-ph{font-size:9px;color:var(--frost2);text-transform:uppercase;margin-top:1px}
+.main{padding:78px 16px 52px;position:relative;z-index:10;display:flex;flex-direction:column;align-items:center;gap:18px}
+.page-title{width:100%;max-width:520px;text-align:center;padding:18px 0 2px}
+.page-title h1{font-size:clamp(24px,6.5vw,36px);font-weight:900;letter-spacing:-.025em;background:linear-gradient(130deg,var(--green),var(--blue));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:6px}
+.page-title p{font-size:11px;color:var(--frost2);text-transform:uppercase;letter-spacing:.16em}
+
+.section{width:100%;max-width:520px;background:var(--glass);border:1px solid var(--border);border-radius:24px;overflow:hidden;backdrop-filter:blur(20px)}
+.sec-top{padding:18px 18px 14px;display:flex;align-items:center;gap:13px}
+.sec-icon{font-size:24px;width:50px;height:50px;border-radius:14px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.ico-green{background:linear-gradient(135deg,rgba(0,230,118,.22),rgba(0,230,118,.05));border:1px solid rgba(0,230,118,.28)}
+.ico-rainbow{background:linear-gradient(135deg,rgba(139,92,246,.22),rgba(0,180,255,.1));border:1px solid rgba(139,92,246,.3)}
+.sec-info{flex:1}
+.sec-title{font-size:15px;font-weight:900;letter-spacing:.06em;text-transform:uppercase;margin-bottom:2px}
+.sec-sub{font-size:11px;color:var(--frost2);text-transform:uppercase;letter-spacing:.08em}
+.mode-pills{display:flex;background:rgba(0,0,0,.3);border-radius:10px;padding:3px;gap:2px;border:1px solid var(--border)}
+.mpill{padding:6px 11px;border-radius:7px;font-size:10px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;border:none;font-family:inherit;color:var(--frost2);background:transparent;transition:all .2s;-webkit-tap-highlight-color:transparent}
+.mpill.active{background:var(--green);color:#000;box-shadow:0 2px 10px rgba(0,230,118,.4)}
+.sec-body{padding:0 16px 20px}
+.sec-lbl{font-size:9px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--green);opacity:.7;margin-bottom:7px;margin-top:2px}
+
+/* Learn grids */
+.num-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin-bottom:10px}
+.tens-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:7px;margin-bottom:10px}
+.ncell{background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:13px;padding:11px 5px;text-align:center;cursor:pointer;transition:all .15s;-webkit-tap-highlight-color:transparent;user-select:none}
+.ncell:active{transform:scale(.88);background:rgba(0,230,118,.14);border-color:rgba(0,230,118,.5)}
+.ncell-n{font-size:20px;font-weight:900;color:var(--green);line-height:1}
+.ncell-w{font-size:9.5px;font-weight:800;text-transform:uppercase;margin-top:3px;letter-spacing:.02em}
+.ncell-ph{font-size:7.5px;color:var(--frost2);text-transform:uppercase;margin-top:1px;letter-spacing:.03em}
 .col-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
-.ccell{border-radius:14px;padding:14px 8px;text-align:center;cursor:pointer;transition:all .2s;border:1px solid rgba(255,255,255,.1)}
-.ccell:hover{transform:scale(1.05)}
-.cdot{width:34px;height:34px;border-radius:50%;margin:0 auto 8px}
-.ccell-en{font-size:13px;font-weight:700;text-transform:uppercase;margin-bottom:2px}
-.ccell-ph{font-size:9.5px;font-weight:700;color:var(--green);letter-spacing:.04em;text-transform:uppercase;margin-bottom:2px}
-.ccell-ro{font-size:11px;color:var(--frost2);text-transform:uppercase}
-.tip-box{background:rgba(0,230,118,.07);border:1px solid rgba(0,230,118,.18);border-radius:14px;padding:12px 14px;margin-top:4px;font-size:12px;color:rgba(160,255,200,.85);line-height:1.55;text-transform:uppercase}
+.ccell{border-radius:16px;padding:14px 6px;text-align:center;cursor:pointer;transition:all .15s;border:1px solid rgba(255,255,255,.12);-webkit-tap-highlight-color:transparent;user-select:none}
+.ccell:active{transform:scale(.88)}
+.cdot{width:36px;height:36px;border-radius:50%;margin:0 auto 8px}
+.ccell-en{font-size:11.5px;font-weight:900;text-transform:uppercase;margin-bottom:2px;letter-spacing:.04em}
+.ccell-ph{font-size:8.5px;font-weight:700;color:rgba(255,255,255,.6);letter-spacing:.05em;text-transform:uppercase;margin-bottom:1px}
+.ccell-ro{font-size:9px;color:var(--frost2);text-transform:uppercase}
+.tip-box{background:rgba(0,230,118,.06);border:1px solid rgba(0,230,118,.16);border-radius:12px;padding:10px 13px;margin-top:10px;font-size:10.5px;color:rgba(160,255,200,.85);line-height:1.6;text-transform:uppercase}
+
+/* Quiz */
+.quiz-wrap{display:none;flex-direction:column;align-items:center;gap:13px;padding-top:2px}
+.quiz-wrap.show{display:flex}
+.quiz-header{width:100%;display:flex;align-items:center;justify-content:space-between}
+.quiz-prog{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--frost2)}
+.score-badge{background:rgba(0,230,118,.15);border:1px solid rgba(0,230,118,.3);border-radius:9px;padding:4px 12px;font-size:13px;font-weight:900;color:var(--green)}
+.quiz-q{width:100%;border-radius:18px;padding:28px 16px;text-align:center;background:rgba(255,255,255,.04);border:1px solid var(--border);display:flex;flex-direction:column;align-items:center;gap:6px}
+.quiz-qlbl{font-size:9px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--frost3);margin-bottom:4px}
+.quiz-digit{font-size:clamp(58px,18vw,90px);font-weight:900;color:var(--green);letter-spacing:-.02em;line-height:1;transition:transform .15s}
+.quiz-swatch{width:88px;height:88px;border-radius:50%;border:3px solid rgba(255,255,255,.2);box-shadow:0 4px 24px rgba(0,0,0,.5);transition:transform .15s}
+.quiz-opts{width:100%;display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.qopt{width:100%;padding:15px 6px;border-radius:13px;border:1.5px solid var(--border);background:rgba(255,255,255,.04);font-family:inherit;font-size:12px;font-weight:900;text-transform:uppercase;letter-spacing:.04em;color:var(--frost);cursor:pointer;transition:all .15s;-webkit-tap-highlight-color:transparent;line-height:1.3}
+.qopt:active:not(:disabled){transform:scale(.94)}
+.qopt.correct{background:rgba(0,230,118,.2);border-color:rgba(0,230,118,.7);color:var(--green);box-shadow:0 0 18px rgba(0,230,118,.28)}
+.qopt.wrong{background:rgba(255,64,96,.12);border-color:rgba(255,64,96,.45);color:var(--red)}
+/* Result */
+.quiz-result{width:100%;text-align:center;border-radius:20px;padding:32px 20px;background:rgba(255,255,255,.05);border:1px solid var(--border);display:flex;flex-direction:column;align-items:center;gap:12px}
+.qr-emo{font-size:58px;line-height:1}
+.qr-score{font-size:clamp(38px,11vw,58px);font-weight:900;color:var(--green);letter-spacing:-.02em}
+.qr-out{font-size:14px;font-weight:700;color:var(--frost2);text-transform:uppercase;letter-spacing:.1em}
+.qr-msg{font-size:14px;font-weight:900;text-transform:uppercase;letter-spacing:.08em}
+.retry-btn{margin-top:6px;padding:14px 36px;border:none;border-radius:14px;background:linear-gradient(135deg,var(--green),var(--blue));color:#000;font-family:inherit;font-size:13px;font-weight:900;text-transform:uppercase;letter-spacing:.12em;cursor:pointer;transition:transform .15s;-webkit-tap-highlight-color:transparent;box-shadow:0 6px 22px rgba(0,230,118,.35)}
+.retry-btn:active{transform:scale(.95)}
+.bounce{animation:bnc .22s ease}
+@keyframes bnc{0%{transform:scale(1)}50%{transform:scale(1.18)}100%{transform:scale(1)}}
 </style>
 </head>
 <body>
 <div class="bg"></div>
+<canvas id="cvs"></canvas>
 <header class="hdr">
   <a class="back" href="index.html">←</a>
-  <div class="hdr-t">Gramatică de Bază</div>
+  <div class="hdr-t">🔢 Numere & Culori 🎨</div>
 </header>
 <main class="main">
-  <div class="page-title"><h1>Gramatică de Bază</h1></div>
-  <div id="cards-wrap"></div>
+  <div class="page-title">
+    <h1>🔢 Numere & Culori 🎨</h1>
+    <p>Tap pentru a auzi · Quiz pentru a testa</p>
+  </div>
+
+  <!-- NUMBERS -->
+  <div class="section">
+    <div class="sec-top">
+      <div class="sec-icon ico-green">🔢</div>
+      <div class="sec-info">
+        <div class="sec-title">Numere</div>
+        <div class="sec-sub">1 – 100</div>
+      </div>
+      <div class="mode-pills">
+        <button class="mpill active" id="np-learn" onclick="setMode('n','learn')">ÎNVAȚĂ</button>
+        <button class="mpill" id="np-quiz" onclick="setMode('n','quiz')">QUIZ</button>
+      </div>
+    </div>
+    <div class="sec-body">
+      <div id="n-learn">
+        <div class="sec-lbl">1 — 20</div>
+        <div class="num-grid" id="ng20"></div>
+        <div class="sec-lbl">Zecile</div>
+        <div class="tens-grid" id="ngtens"></div>
+        <div class="tip-box">💡 Combini zecile cu 1–9: TWENTY-ONE (21) · THIRTY-FIVE (35) · NINETY-NINE (99)</div>
+      </div>
+      <div class="quiz-wrap" id="n-quiz">
+        <div id="n-active" style="width:100%;display:flex;flex-direction:column;align-items:center;gap:13px">
+          <div class="quiz-header">
+            <div class="quiz-prog" id="n-prog">Întrebarea 1 / 10</div>
+            <div class="score-badge" id="n-score">0 ✓</div>
+          </div>
+          <div class="quiz-q">
+            <div class="quiz-qlbl">Ce număr este?</div>
+            <div class="quiz-digit" id="n-digit">?</div>
+          </div>
+          <div class="quiz-opts" id="n-opts"></div>
+        </div>
+        <div id="n-result" style="display:none;width:100%"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- COLORS -->
+  <div class="section">
+    <div class="sec-top">
+      <div class="sec-icon ico-rainbow">🎨</div>
+      <div class="sec-info">
+        <div class="sec-title">Culori</div>
+        <div class="sec-sub">Red · Blue · Green...</div>
+      </div>
+      <div class="mode-pills">
+        <button class="mpill active" id="cp-learn" onclick="setMode('c','learn')">ÎNVAȚĂ</button>
+        <button class="mpill" id="cp-quiz" onclick="setMode('c','quiz')">QUIZ</button>
+      </div>
+    </div>
+    <div class="sec-body">
+      <div id="c-learn">
+        <div class="sec-lbl">Tap pentru a auzi</div>
+        <div class="col-grid" id="cgrid"></div>
+        <div class="tip-box">💡 My favorite color is Red! = Culoarea mea preferată este roșu!</div>
+      </div>
+      <div class="quiz-wrap" id="c-quiz">
+        <div id="c-active" style="width:100%;display:flex;flex-direction:column;align-items:center;gap:13px">
+          <div class="quiz-header">
+            <div class="quiz-prog" id="c-prog">Întrebarea 1 / 10</div>
+            <div class="score-badge" id="c-score">0 ✓</div>
+          </div>
+          <div class="quiz-q">
+            <div class="quiz-qlbl">Ce culoare este?</div>
+            <div class="quiz-swatch" id="c-swatch"></div>
+          </div>
+          <div class="quiz-opts" id="c-opts"></div>
+        </div>
+        <div id="c-result" style="display:none;width:100%"></div>
+      </div>
+    </div>
+  </div>
 </main>
 <script>
-const SECTIONS=[
-  {badge:'🔢',title:'Numere',sub:'1 – 100',build:buildNumbers},
-  {badge:'🎨',title:'Culori',sub:'Red · Blue · Green...',build:buildColors},
-];
-
 const NUMS=[
   {n:1,w:'One',ph:'UAN'},{n:2,w:'Two',ph:'TUU'},{n:3,w:'Three',ph:'ΘRII'},{n:4,w:'Four',ph:'FOR'},
   {n:5,w:'Five',ph:'FAIV'},{n:6,w:'Six',ph:'SIKS'},{n:7,w:'Seven',ph:'SEVN'},{n:8,w:'Eight',ph:'EIT'},
@@ -76,6 +182,8 @@ const TENS=[
   {n:70,w:'Seventy',ph:'SEVNTI'},{n:80,w:'Eighty',ph:'EITI'},
   {n:90,w:'Ninety',ph:'NAINTI'},{n:100,w:'One hundred',ph:'UAN HANDRED'},
 ];
+const ALL_NUMS=[...NUMS,...TENS];
+
 const COLORS=[
   {en:'Red',ph:'RED',ro:'Roșu',hex:'#e53935'},
   {en:'Blue',ph:'BLUU',ro:'Albastru',hex:'#1e88e5'},
@@ -84,84 +192,180 @@ const COLORS=[
   {en:'Orange',ph:'ORINJ',ro:'Portocaliu',hex:'#fb8c00'},
   {en:'Purple',ph:'PERPL',ro:'Mov',hex:'#8e24aa'},
   {en:'Pink',ph:'PINK',ro:'Roz',hex:'#e91e8c'},
-  {en:'Black',ph:'BLAK',ro:'Negru',hex:'#1a1a1a',border:'1px solid rgba(255,255,255,.25)'},
-  {en:'White',ph:'UAIT',ro:'Alb',hex:'#eeeeee',border:'1px solid rgba(255,255,255,.25)'},
+  {en:'Black',ph:'BLAK',ro:'Negru',hex:'#212121',border:'1px solid rgba(255,255,255,.3)'},
+  {en:'White',ph:'UAIT',ro:'Alb',hex:'#eeeeee',border:'1px solid rgba(255,255,255,.3)'},
   {en:'Brown',ph:'BRAUN',ro:'Maro',hex:'#6d4c41'},
   {en:'Grey',ph:'GREI',ro:'Gri',hex:'#757575'},
   {en:'Gold',ph:'GOLD',ro:'Auriu',hex:'#ffc107'},
 ];
 
-function buildNumbers(){
-  return `
-    <div class="sec-lbl">1 — 20</div>
-    <div class="num-grid">
-      ${NUMS.map(n=>`<div class="ncell" onclick="swD(this)" data-w="${n.w}">
-        <div class="ncell-n">${n.n}</div>
-        <div class="ncell-w">${n.w}</div>
-        <div class="ncell-ph">${n.ph}</div>
-      </div>`).join('')}
-    </div>
-    <div class="sec-lbl">Zecile</div>
-    <div class="tens-grid">
-      ${TENS.map(n=>`<div class="ncell" onclick="swD(this)" data-w="${n.w}">
-        <div class="ncell-n">${n.n}</div>
-        <div class="ncell-w">${n.w}</div>
-        <div class="ncell-ph">${n.ph}</div>
-      </div>`).join('')}
-    </div>
-    <div class="tip-box">💡 Combini zecile cu 1-9: TWENTY-ONE (21), THIRTY-FIVE (35), NINETY-NINE (99)</div>`;
-}
+const QUIZ_LEN=10;
+const Q={n:{score:0,total:0,answered:false},c:{score:0,total:0,answered:false}};
 
-function buildColors(){
-  return `
-    <div class="sec-lbl">Apasă pe culoare pentru a auzi</div>
-    <div class="col-grid">
-      ${COLORS.map(c=>`<div class="ccell" onclick="swD(this)" data-w="${c.en}" style="background:${c.hex}22;border-color:${c.hex}55">
-        <div class="cdot" style="background:${c.hex};${c.border?'border:'+c.border:''}"></div>
-        <div class="ccell-en">${c.en}</div>
-        <div class="ccell-ph">${c.ph}</div>
-        <div class="ccell-ro">${c.ro}</div>
-      </div>`).join('')}
-    </div>
-    <div class="tip-box">💡 My favorite color is... = Culoarea mea preferată este...</div>`;
-}
+function $(id){return document.getElementById(id);}
+function shuffle(a){return[...a].sort(()=>Math.random()-.5);}
 
-function build(){
-  const wrap=document.getElementById('cards-wrap');
-  wrap.style.cssText='width:100%;max-width:480px;display:flex;flex-direction:column;gap:14px';
-  SECTIONS.forEach((s,i)=>{
-    const card=document.createElement('div');
-    card.className='gcard';
-    card.id='gc-'+i;
-    card.innerHTML=`
-      <div class="gcard-head" onclick="toggle(${i})">
-        <div class="g-badge">${s.badge}</div>
-        <div class="ginfo">
-          <div class="gtitle">${s.title}</div>
-          <div class="gsub">${s.sub}</div>
-        </div>
-        <div class="toggle">▾</div>
-      </div>
-      <div class="gbody">${s.build()}</div>`;
-    wrap.appendChild(card);
+// Build learn grids
+(function buildLearn(){
+  const ng=$('ng20');
+  NUMS.forEach(n=>{
+    const d=document.createElement('div');
+    d.className='ncell';
+    d.onclick=()=>sw(n.w);
+    d.innerHTML=`<div class="ncell-n">${n.n}</div><div class="ncell-w">${n.w}</div><div class="ncell-ph">${n.ph}</div>`;
+    ng.appendChild(d);
   });
+  const tg=$('ngtens');
+  TENS.forEach(n=>{
+    const d=document.createElement('div');
+    d.className='ncell';
+    d.onclick=()=>sw(n.w);
+    d.innerHTML=`<div class="ncell-n">${n.n}</div><div class="ncell-w">${n.w}</div><div class="ncell-ph">${n.ph}</div>`;
+    tg.appendChild(d);
+  });
+  const cg=$('cgrid');
+  COLORS.forEach(c=>{
+    const d=document.createElement('div');
+    d.className='ccell';
+    d.onclick=()=>sw(c.en);
+    d.style.cssText=`background:${c.hex}22;border-color:${c.hex}55`;
+    d.innerHTML=`<div class="cdot" style="background:${c.hex};${c.border?'border:'+c.border:''}"></div><div class="ccell-en">${c.en}</div><div class="ccell-ph">${c.ph}</div><div class="ccell-ro">${c.ro}</div>`;
+    cg.appendChild(d);
+  });
+})();
+
+function setMode(type,mode){
+  const isQ=mode==='quiz';
+  $(`${type}-learn`).style.display=isQ?'none':'block';
+  $(`${type}-quiz`).classList.toggle('show',isQ);
+  $(`${type}p-learn`).classList.toggle('active',!isQ);
+  $(`${type}p-quiz`).classList.toggle('active',isQ);
+  if(isQ)startQuiz(type);
 }
 
-window.toggle=function(i){document.getElementById('gc-'+i).classList.toggle('open');};
-window.swD=function(el){sw(el.dataset.w);};
+function startQuiz(type){
+  Q[type].score=0;Q[type].total=0;Q[type].answered=false;
+  $(`${type}-active`).style.display='flex';
+  $(`${type}-result`).style.display='none';
+  renderQ(type);
+}
 
+function renderQ(type){
+  const q=Q[type];
+  if(q.total>=QUIZ_LEN){showResult(type);return;}
+  q.answered=false;
+  $(`${type}-prog`).textContent=`Întrebarea ${q.total+1} / ${QUIZ_LEN}`;
+  $(`${type}-score`).textContent=`${q.score} ✓`;
+  const opts=$(`${type}-opts`);
+  opts.innerHTML='';
+
+  if(type==='n'){
+    const pool=shuffle(ALL_NUMS);
+    const correct=pool[0];
+    const options=shuffle([correct,...pool.slice(1,4)]);
+    $('n-digit').textContent=correct.n;
+    options.forEach(o=>{
+      const btn=document.createElement('button');
+      btn.className='qopt';
+      const isRight=o.w===correct.w;
+      if(isRight)btn.dataset.correct='1';
+      btn.innerHTML=`${o.w}<br><span style="font-size:8px;opacity:.6;letter-spacing:.05em">${o.ph}</span>`;
+      btn.onclick=()=>answer(type,isRight,btn,opts,correct.w);
+      opts.appendChild(btn);
+    });
+  } else {
+    const pool=shuffle(COLORS);
+    const correct=pool[0];
+    const options=shuffle([correct,...pool.slice(1,4)]);
+    const sw_el=$('c-swatch');
+    sw_el.style.background=correct.hex;
+    sw_el.style.border=correct.border||'3px solid rgba(255,255,255,.2)';
+    sw_el.style.boxShadow=`0 4px 28px ${correct.hex}66`;
+    options.forEach(o=>{
+      const btn=document.createElement('button');
+      btn.className='qopt';
+      const isRight=o.en===correct.en;
+      if(isRight)btn.dataset.correct='1';
+      btn.innerHTML=`${o.en}<br><span style="font-size:8px;opacity:.6">${o.ro}</span>`;
+      btn.onclick=()=>answer(type,isRight,btn,opts,correct.en);
+      opts.appendChild(btn);
+    });
+  }
+}
+
+function answer(type,isRight,btn,opts,correctWord){
+  if(Q[type].answered)return;
+  Q[type].answered=true;
+  Q[type].total++;
+  opts.querySelectorAll('.qopt').forEach(b=>{b.disabled=true;});
+  if(isRight){
+    btn.classList.add('correct');
+    Q[type].score++;
+    sw(correctWord);
+    bounce(type==='n'?'n-digit':'c-swatch');
+    if(navigator.vibrate)navigator.vibrate(55);
+  } else {
+    btn.classList.add('wrong');
+    opts.querySelector('[data-correct]').classList.add('correct');
+    if(navigator.vibrate)navigator.vibrate([70,35,70]);
+  }
+  setTimeout(()=>renderQ(type),1300);
+}
+
+function bounce(id){
+  const el=$(id);
+  el.classList.remove('bounce');
+  void el.offsetWidth;
+  el.classList.add('bounce');
+}
+
+function showResult(type){
+  $(`${type}-active`).style.display='none';
+  const res=$(`${type}-result`);
+  res.style.display='block';
+  const score=Q[type].score;
+  const emo=score===QUIZ_LEN?'🏆':score>=8?'🎉':score>=6?'👍':score>=4?'😅':'💪';
+  const msg=score===QUIZ_LEN?'PERFECT!':score>=8?'EXCELENT!':score>=6?'BINE!':score>=4?'APROAPE!':'MAI ÎNCEARCĂ!';
+  const col=score>=8?'var(--green)':score>=5?'var(--gold)':'var(--red)';
+  res.innerHTML=`<div class="quiz-result">
+    <div class="qr-emo">${emo}</div>
+    <div class="qr-score" style="color:${col}">${score}</div>
+    <div class="qr-out">din ${QUIZ_LEN} corecte</div>
+    <div class="qr-msg">${msg}</div>
+    <button class="retry-btn" onclick="startQuiz('${type}')">🔄 DIN NOU</button>
+  </div>`;
+}
+
+// Speech
 let _v=null;
 function _gv(){
   if(_v)return _v;
   const vv=speechSynthesis.getVoices();
-  const pref=['Google US English','Microsoft Aria Online (Natural) - English (United States)','Microsoft Zira - English (United States)','Samantha','Karen'];
+  const pref=['Google US English','Microsoft Aria Online (Natural) - English (United States)','Samantha','Karen'];
   for(const n of pref){const v=vv.find(x=>x.name===n);if(v){_v=v;return v;}}
   _v=vv.find(x=>x.lang==='en-US')||vv.find(x=>x.lang.startsWith('en'))||null;
   return _v;
 }
 speechSynthesis.onvoiceschanged=()=>{_v=null;};
 function sw(w){const u=new SpeechSynthesisUtterance(w);u.lang='en-US';u.rate=.68;u.pitch=1;const v=_gv();if(v)u.voice=v;speechSynthesis.cancel();speechSynthesis.speak(u);}
-build();
+
+// Particles
+const cvs=document.getElementById('cvs'),ctx=cvs.getContext('2d');
+let W,H,pts=[];
+function initP(){
+  W=cvs.width=innerWidth;H=cvs.height=innerHeight;pts=[];
+  for(let i=0;i<90;i++){
+    const c=['0,230,118','0,180,255','139,92,246','255,196,0'][Math.floor(Math.random()*4)];
+    pts.push({x:Math.random()*W,y:Math.random()*H,r:Math.random()*1.5+.3,vx:(Math.random()-.5)*.3,vy:(Math.random()-.5)*.3,c,a:Math.random()*.5+.1});
+  }
+}
+function drawP(){
+  ctx.clearRect(0,0,W,H);
+  pts.forEach(p=>{p.x+=p.vx;p.y+=p.vy;if(p.x<0)p.x=W;if(p.x>W)p.x=0;if(p.y<0)p.y=H;if(p.y>H)p.y=0;ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fillStyle=`rgba(${p.c},${p.a})`;ctx.fill();});
+  requestAnimationFrame(drawP);
+}
+window.addEventListener('resize',initP);
+initP();drawP();
 </script>
 </body>
 </html>
