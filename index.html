@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>English Zero → Hero</title>
 <meta name="theme-color" content="#050818">
+<script>document.documentElement.setAttribute("data-theme",localStorage.getItem("EZH_THEME")||"dark")</script>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
@@ -66,6 +67,15 @@ html,body{width:100%;min-height:100%;background:var(--bg);color:var(--frost);fon
 .streak-txt b{color:var(--frost);font-weight:700}
 .streak-val{font-size:24px;font-weight:900;background:linear-gradient(135deg,#ff6b35,#ffbb00);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 @media(max-width:380px){.h1{font-size:28px}.card{padding:16px 16px}}
+/* light mode */
+[data-theme=light]{--bg:#f0f5ff;--frost:rgba(8,12,42,.88);--frost2:rgba(8,12,42,.52);--frost3:rgba(8,12,42,.22);--glass:rgba(255,255,255,.78);--border:rgba(8,12,42,.10)}
+[data-theme=light] body{background:var(--bg)}
+[data-theme=light] .bg{background:radial-gradient(ellipse 70% 55% at 15% 8%,rgba(139,92,246,.13),transparent 65%),radial-gradient(ellipse 55% 45% at 85% 85%,rgba(0,180,255,.11),transparent 60%),radial-gradient(ellipse 45% 35% at 65% 25%,rgba(0,229,204,.09),transparent 55%),var(--bg)}
+[data-theme=light] .hdr{background:rgba(240,245,255,.95);border-color:rgba(8,12,42,.08)}
+.theme-btn{width:34px;height:34px;border-radius:11px;border:1px solid var(--border);background:var(--glass);display:flex;align-items:center;justify-content:center;font-size:17px;cursor:pointer;transition:all .2s;flex-shrink:0;line-height:1}
+.theme-btn:hover{border-color:rgba(255,196,0,.45);background:rgba(255,196,0,.1)}
+[data-theme=light] .prog-track{background:rgba(8,12,42,.08)}
+[data-theme=light] .streak{background:rgba(255,255,255,.55)}
 </style>
 </head>
 <body>
@@ -74,7 +84,8 @@ html,body{width:100%;min-height:100%;background:var(--bg);color:var(--frost);fon
 <div class="app">
   <header class="hdr">
     <div class="logo">English <em>Zero→Hero</em></div>
-  </header>
+  <button class="theme-btn" id="theme-btn" onclick="toggleTheme()">☀️</button>
+</header>
   <section class="hero">
     <p class="eyebrow" id="t-ey">Începe de la zero absolut</p>
     <h1 class="h1"><span class="gb">English</span><br><span class="gp">Zero → Hero</span></h1>
@@ -153,5 +164,6 @@ html,body{width:100%;min-height:100%;background:var(--bg);color:var(--frost);fon
 function loadStats(){let s;try{s=JSON.parse(localStorage.getItem('EZH_STATS')||'null');}catch(e){}if(!s)return;const pct=Math.min(100,Math.round((s.done||0)/100*100));document.getElementById('pf').style.width=pct+'%';document.getElementById('pct').textContent=pct+'%';document.getElementById('sn').textContent=s.streak||0;document.getElementById('sv').textContent=s.streak||0;}
 loadStats();
 </script>
+<script src="theme.js"></script>
 </body>
 </html>

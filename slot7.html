@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Slot 7 Rele · English Zero→Hero</title>
 <meta name="theme-color" content="#050818">
+<script>document.documentElement.setAttribute("data-theme",localStorage.getItem("EZH_THEME")||"dark")</script>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
@@ -96,6 +97,15 @@ html,body{min-height:100%;background:var(--bg);color:var(--frost);font-family:'I
 @keyframes ga{0%{background-position:0 50%}50%{background-position:100% 50%}100%{background-position:0 50%}}
 .flash{position:fixed;inset:0;z-index:300;pointer-events:none;animation:wf .7s ease forwards}
 @keyframes wf{0%{background:rgba(184,255,87,0)}20%{background:rgba(184,255,87,.12)}50%{background:rgba(139,92,246,.08)}100%{background:rgba(0,0,0,0)}}
+/* light mode */
+[data-theme=light]{--bg:#f0f5ff;--frost:rgba(8,12,42,.88);--frost2:rgba(8,12,42,.52);--frost3:rgba(8,12,42,.22);--glass:rgba(255,255,255,.78);--border:rgba(8,12,42,.10)}
+[data-theme=light] body{background:var(--bg)}
+[data-theme=light] .bg{background:radial-gradient(ellipse 70% 55% at 15% 8%,rgba(139,92,246,.13),transparent 65%),radial-gradient(ellipse 55% 45% at 85% 85%,rgba(0,180,255,.11),transparent 60%),radial-gradient(ellipse 45% 35% at 65% 25%,rgba(0,229,204,.09),transparent 55%),var(--bg)}
+[data-theme=light] .hdr{background:rgba(240,245,255,.95);border-color:rgba(8,12,42,.08)}
+.theme-btn{width:34px;height:34px;border-radius:11px;border:1px solid var(--border);background:var(--glass);display:flex;align-items:center;justify-content:center;font-size:17px;cursor:pointer;transition:all .2s;flex-shrink:0;line-height:1}
+.theme-btn:hover{border-color:rgba(255,196,0,.45);background:rgba(255,196,0,.1)}
+[data-theme=light] .r1{background:linear-gradient(155deg,rgba(0,0,0,.05),rgba(0,0,0,.02));border-color:rgba(0,0,0,.18)}
+[data-theme=light] .sent-card{background:rgba(255,255,255,.72);border-color:rgba(8,12,42,.10)}
 </style>
 </head>
 <body>
@@ -112,6 +122,7 @@ html,body{min-height:100%;background:var(--bg);color:var(--frost);font-family:'I
     <a class="snav" href="slot6.html">6</a>
     <a class="snav active" href="slot7.html">7</a>
   </nav>
+<button class="theme-btn" id="theme-btn" onclick="toggleTheme()">☀️</button>
 </header>
 <main class="app">
   <div class="pg-title">
@@ -455,5 +466,6 @@ function drawP(){ctx.clearRect(0,0,W,H);pts.forEach(p=>{p.x+=p.vx;p.y+=p.vy;if(p
 window.addEventListener('resize',initP);initP();drawP();
 render();
 </script>
+<script src="theme.js"></script>
 </body>
 </html>
